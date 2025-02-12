@@ -1,7 +1,12 @@
+import { Button, Container } from "@mui/material";
+
 function App() {
   return (
     <>
-      <h2>Phương mập</h2>
+      <Container maxWidth="2xl">
+        <Button color="primary">Primary</Button>
+        <Button color="secondary">Secondary</Button>
+      </Container>
     </>
   );
 }
