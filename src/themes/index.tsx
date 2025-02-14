@@ -149,6 +149,37 @@ theme = createTheme(theme, {
             },
           },
         },
+        popper: {
+          "&.MuiAutocomplete-popper": {
+            ".MuiPaper-root.MuiAutocomplete-paper": {
+              boxShadow: "0 6px 30px rgba(0, 0, 0, 0.08)",
+              border: `1px solid ${theme.palette.secondary.main}`,
+              marginTop: "4px",
+              borderRadius: "8px",
+              ".MuiAutocomplete-listbox": {
+                padding: "8px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "4px",
+                color: theme.palette.text.primary,
+                maxHeight: "35vh",
+                ".MuiAutocomplete-option": {
+                  color: "inherit",
+                  minHeight: "36px",
+                  padding: "6px 10px",
+                  borderRadius: "8px",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    //#endregion
+    //#region Popper
+    MuiPopper: {
+      styleOverrides: {
+        root: {},
       },
     },
     //#endregion

@@ -5,4 +5,7 @@ import {
 
 export interface ICInputRef extends IFormInputComponentRef {}
 
-export interface ICInputProps extends IFormInputComponentProps {}
+export interface ICInputProps extends IFormInputComponentProps {
+  rows?: number;
+  onEnter?: () => void;
+}
