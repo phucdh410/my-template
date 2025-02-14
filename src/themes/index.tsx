@@ -111,6 +111,12 @@ theme = createTheme(theme, {
                 padding: INPUT_PADDING,
                 lineHeight: INPUT_LINE_HEIGHT,
               },
+              "&.MuiInputBase-multiline": {
+                padding: INPUT_PADDING,
+                ".MuiOutlinedInput-input": {
+                  padding: 0,
+                },
+              },
               legend: {
                 fontSize: INPUT_LEGEND_FONT_SIZE,
               },

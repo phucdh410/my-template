@@ -40,7 +40,7 @@ function App() {
       <Container maxWidth="sm">
         <Paper>
           <Stack gap={3} m={5} p={3}>
-            <CInput label="Tên phiếu" placeholder="Nhập tên phiếu" />
+            <CInput label="Tên phiếu" placeholder="Nhập tên phiếu" rows={4} />
             <CAutocomplete
               label="Phim"
               placeholder="Chọn phim"
