@@ -20,7 +20,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "baseUrl": "./",
+    "paths": {
+      "@/components/*": ["src/common/components/*"],
+      "@/apis": ["src/apis/index.ts"],
+      "@/axios": ["src/utils/axios/index.ts"],
+      "@/validations": ["src/utils/validations/index.ts"]
+    }
   },
   "include": ["src"]
 }

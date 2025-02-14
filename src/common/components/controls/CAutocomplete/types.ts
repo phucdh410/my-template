@@ -1,4 +1,9 @@
 import {
+  AutocompleteChangeDetails,
+  AutocompleteChangeReason,
+} from "@mui/material";
+
+import {
   IFormInputComponentProps,
   IFormInputComponentRef,
 } from "../../../../types/form";
@@ -13,4 +18,20 @@ export interface IAutocompleteOption {
 
 export interface ICAutocompleteProps extends IFormInputComponentProps {
   options: IAutocompleteOption[];
+  disableClearable?: boolean;
+  get?: string;
+  display?: string;
+  onChange?: (
+    value: any,
+    event?: React.SyntheticEvent,
+    selectedOption?: IAutocompleteOption | IAutocompleteOption[] | null,
+    reason?: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<IAutocompleteOption> | undefined
+  ) => void;
+  optionAll?: boolean;
+  noOptionsText?: React.ReactNode;
+  getOptionDisabled?: (option: IAutocompleteOption) => boolean;
+  loading?: boolean;
+  loadingText?: string;
+  virtual?: boolean;
 }

@@ -1,4 +1,5 @@
 import react from "@vitejs/plugin-react";
+import path from "path";
 import { defineConfig } from "vite";
 
 const ReactCompilerConfig = {
@@ -27,6 +28,17 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      "@/components": path.resolve(__dirname, "src/common/components"),
+      "@/apis": path.resolve(__dirname, "src/apis/index.ts"),
+      "@/axios": path.resolve(__dirname, "src/utils/axios/index.ts"),
+      "@/validations": path.resolve(
+        __dirname,
+        "src/utils/validations/index.ts"
+      ),
+    },
+  },
   build: {
     rollupOptions: {
       output: {

@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -41,12 +40,10 @@ dayjs.updateLocale("vi", {
 });
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </LocalizationProvider>
-  </StrictMode>
+  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </LocalizationProvider>
 );

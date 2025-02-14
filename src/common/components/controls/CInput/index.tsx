@@ -26,9 +26,6 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
     },
     ref
   ) => {
-    //#region Data
-    //#endregion
-
     //#region Event
     const onPresKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
       onKeyDown?.(event);
@@ -44,6 +41,7 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
       <CFormControl error={error} errorText={errorText}>
         <TextField
           className={classNames("c-input", className)}
+          inputRef={ref}
           label={label}
           value={value}
           onChange={onChange}
