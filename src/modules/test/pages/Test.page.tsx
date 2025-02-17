@@ -4,13 +4,14 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Save } from "@mui/icons-material";
 import { Container, Paper, Stack } from "@mui/material";
-import { object, string } from "yup";
+import { number, object, string } from "yup";
 
 import {
   CAutocomplete,
   CButton,
   CDatePicker,
   CInput,
+  CNumberInput,
 } from "@/components/controls";
 import { dateSchema } from "@/validations";
 
@@ -34,10 +35,11 @@ const TestPage = () => {
 
   const { control, handleSubmit, getValues } = useForm({
     mode: "all",
-    defaultValues: { name: "", movie: "", date: new Date() },
+    defaultValues: { name: "", movie: "", age: 10, date: new Date() },
     resolver: yupResolver(
       object({
         name: string().trim().required("Vui lòng nhập tên phiếu!"),
+        age: number().required("Vui lòng nhập số tuổi!"),
         movie: string().trim().required("Vui lòng chọn phim!"),
         date: dateSchema,
       })
@@ -54,7 +56,7 @@ const TestPage = () => {
       <Container maxWidth="sm">
         <Paper>
           <button onClick={() => console.log(getValues())}>Log values</button>
-          <Stack gap={3} m={5} p={3}>
+          <Stack gap={2.5} m={5} p={3}>
             <Controller
               control={control}
               name="name"
@@ -62,6 +64,19 @@ const TestPage = () => {
                 <CInput
                   label="Tên phiếu"
                   placeholder="Nhập tên phiếu"
+                  error={!!error}
+                  errorText={error?.message}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="age"
+              render={({ field, fieldState: { error } }) => (
+                <CNumberInput
+                  label="Tuổi"
+                  // suffix="VNĐ"
                   error={!!error}
                   errorText={error?.message}
                   {...field}
@@ -95,7 +110,6 @@ const TestPage = () => {
                 />
               )}
             />
-
             <Stack display="block">
               <CButton
                 variant="contained"
