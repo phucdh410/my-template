@@ -72,38 +72,29 @@ const TestPage = () => {
               control={control}
               name="movie"
               render={({ field, fieldState: { error } }) => (
-                <Stack gap={3}>
-                  <CAutocomplete
-                    label="Label"
-                    placeholder="Chọn phim"
-                    options={list}
-                    error={!!error}
-                    errorText={error?.message}
-                    {...field}
-                  />
-                  <CAutocomplete
-                    label="Code"
-                    display="code"
-                    placeholder="Chọn phim"
-                    options={list}
-                    error={!!error}
-                    errorText={error?.message}
-                    {...field}
-                  />
-                  <CAutocomplete
-                    label="Sale"
-                    display="sale"
-                    placeholder="Chọn phim"
-                    options={list}
-                    error={!!error}
-                    errorText={error?.message}
-                    {...field}
-                  />
-                </Stack>
+                <CAutocomplete
+                  label="Label"
+                  get="code"
+                  placeholder="Chọn phim"
+                  options={list}
+                  error={!!error}
+                  errorText={error?.message}
+                  {...field}
+                />
               )}
             />
-
-            <CDatePicker label="Ngày bắt đầu" />
+            <Controller
+              control={control}
+              name="date"
+              render={({ field, fieldState: { error } }) => (
+                <CDatePicker
+                  label="Ngày bắt đầu"
+                  error={!!error}
+                  errorText={error?.message}
+                  {...field}
+                />
+              )}
+            />
 
             <Stack display="block">
               <CButton

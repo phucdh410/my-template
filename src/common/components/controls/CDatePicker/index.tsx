@@ -31,8 +31,8 @@ export const CDatePicker = forwardRef<ICDatePickerRef, ICDatePickerProps>(
       hidePickerIcon = false,
       fullWidth = true,
       showDaysOutsideCurrentMonth = false,
-      minDate = dayjs().subtract(10, "year").startOf("year"),
-      maxDate = dayjs().add(10, "year").endOf("year"),
+      minDate = dayjs().subtract(8, "year").startOf("year"),
+      maxDate = dayjs().add(8, "year").endOf("year"),
       ...props
     },
     ref
