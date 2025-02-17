@@ -33,5 +33,6 @@ export interface ICAutocompleteProps extends IFormInputComponentProps {
   getOptionDisabled?: (option: IAutocompleteOption) => boolean;
   loading?: boolean;
   loadingText?: string;
+  blurOnSelect?: "touch" | "mouse" | true | false;
   virtual?: boolean;
 }

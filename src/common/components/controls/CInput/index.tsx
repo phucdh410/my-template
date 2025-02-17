@@ -41,16 +41,16 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
       <CFormControl error={error} errorText={errorText}>
         <TextField
           className={classNames("c-input", className)}
+          error={error}
+          fullWidth={fullWidth}
           inputRef={ref}
           label={label}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          fullWidth={fullWidth}
-          error={error}
           multiline={!!rows}
-          rows={rows}
+          onChange={onChange}
           onKeyDown={onPresKeyDown}
+          placeholder={placeholder}
+          rows={rows}
+          value={value}
           {...props}
         />
       </CFormControl>

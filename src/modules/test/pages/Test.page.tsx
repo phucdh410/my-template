@@ -22,17 +22,23 @@ import { USERS } from "./data";
 
 const TestPage = () => {
   const list = useMemo(
-    () => USERS.map((e) => ({ id: e.id, label: e.name })),
+    () =>
+      USERS.map((e) => ({
+        id: e.id,
+        label: e.name,
+        code: e?.code,
+        sale: e?.sale,
+      })),
     []
   );
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, getValues } = useForm({
     mode: "all",
-    defaultValues: { name: "", movie_code: "", date: new Date() },
+    defaultValues: { name: "", movie: "", date: new Date() },
     resolver: yupResolver(
       object({
         name: string().trim().required("Vui lòng nhập tên phiếu!"),
-        movie_code: string().trim().required("Vui lòng chọn phim!"),
+        movie: string().trim().required("Vui lòng chọn phim!"),
         date: dateSchema,
       })
     ),
@@ -47,6 +53,7 @@ const TestPage = () => {
     <>
       <Container maxWidth="sm">
         <Paper>
+          <button onClick={() => console.log(getValues())}>Log values</button>
           <Stack gap={3} m={5} p={3}>
             <Controller
               control={control}
@@ -61,10 +68,39 @@ const TestPage = () => {
                 />
               )}
             />
-            <CAutocomplete
-              label="Phim"
-              placeholder="Chọn phim"
-              options={list}
+            <Controller
+              control={control}
+              name="movie"
+              render={({ field, fieldState: { error } }) => (
+                <Stack gap={3}>
+                  <CAutocomplete
+                    label="Label"
+                    placeholder="Chọn phim"
+                    options={list}
+                    error={!!error}
+                    errorText={error?.message}
+                    {...field}
+                  />
+                  <CAutocomplete
+                    label="Code"
+                    display="code"
+                    placeholder="Chọn phim"
+                    options={list}
+                    error={!!error}
+                    errorText={error?.message}
+                    {...field}
+                  />
+                  <CAutocomplete
+                    label="Sale"
+                    display="sale"
+                    placeholder="Chọn phim"
+                    options={list}
+                    error={!!error}
+                    errorText={error?.message}
+                    {...field}
+                  />
+                </Stack>
+              )}
             />
 
             <CDatePicker label="Ngày bắt đầu" />
