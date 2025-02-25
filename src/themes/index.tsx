@@ -272,6 +272,13 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region Dialog
+    MuiDialog: {
+      styleOverrides: {
+        root: {},
+      },
+    },
+    //#endregion
   } as Components<Omit<Theme, "components">>,
 });
 //#endregion

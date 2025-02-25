@@ -33,6 +33,7 @@ export default defineConfig({
       "@/components": path.resolve(__dirname, "src/common/components"),
       "@/apis": path.resolve(__dirname, "src/apis/index.ts"),
       "@/axios": path.resolve(__dirname, "src/utils/axios/index.ts"),
+      "@/funcs": path.resolve(__dirname, "src/utils/funcs/index.ts"),
       "@/validations": path.resolve(
         __dirname,
         "src/utils/validations/index.ts"

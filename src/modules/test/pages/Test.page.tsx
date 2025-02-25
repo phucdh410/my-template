@@ -13,6 +13,7 @@ import {
   CInput,
   CNumberInput,
 } from "@/components/controls";
+import { confirm } from "@/funcs";
 import { dateSchema } from "@/validations";
 
 import { USERS } from "./data";
@@ -45,10 +46,23 @@ const TestPage = () => {
       })
     ),
   });
+
   const onSubmit = () => {
     handleSubmit(async (values) => {
       console.log("🤣 values at line 33 🤣:", values);
     })();
+  };
+
+  const handleConfirm = async () => {
+    if (
+      await confirm({
+        confirmation: "Are you sure?",
+      })
+    ) {
+      console.log("Yes");
+    } else {
+      console.log("No");
+    }
   };
 
   return (
@@ -117,6 +131,11 @@ const TestPage = () => {
                 onClick={onSubmit}
               >
                 Lưu
+              </CButton>
+            </Stack>
+            <Stack display="block">
+              <CButton variant="contained" onClick={handleConfirm}>
+                Confirm
               </CButton>
             </Stack>
           </Stack>

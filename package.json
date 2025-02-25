@@ -23,6 +23,7 @@
     "dayjs": "^1.11.13",
     "path": "^0.12.7",
     "react": "^19.0.0",
+    "react-confirm": "^0.3.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "yup": "^1.6.1"
