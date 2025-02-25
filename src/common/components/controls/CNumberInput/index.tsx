@@ -42,11 +42,25 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
     ) => {
       const changedValue = event.target.value;
       const getDigit = changedValue.replace(/\D/g, "");
+      const newValue = Number(getDigit);
+
+      if (typeof min !== "undefined" && newValue < min) return onChange?.(min);
+      if (typeof max !== "undefined" && newValue > max) return onChange?.(max);
 
       onChange?.(Number(getDigit));
     };
 
     const onPresKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+        const step = event.key === "ArrowUp" ? 1 : -1;
+        const newValue = Number(value) + step;
+        if (typeof min !== "undefined" && newValue < min) return;
+        if (typeof max !== "undefined" && newValue > max) return;
+        onChange?.(newValue);
+        return;
+      }
+
       onKeyDown?.(event);
 
       if (event.key === "Enter") {
