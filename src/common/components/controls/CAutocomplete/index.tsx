@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import classNames from "classnames";
 
+import { generateKey } from "@/funcs";
+
 import { CFormControl } from "../CFormControl";
 
 import {
@@ -84,7 +86,7 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
 
     const getOptionKey = useCallback(
       (option: IAutocompleteOption): string | number => {
-        return option[get] + new Date() + Math.random() * 99999;
+        return generateKey(option[get]);
       },
       [get]
     );

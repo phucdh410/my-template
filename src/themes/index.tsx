@@ -25,7 +25,7 @@ let theme = createTheme({
       secondary: "#424874",
       disabled: "#c5c5c5",
     },
-    divider: "#868D9C",
+    divider: "rgba(0, 0, 0, 0.12)",
     action: {
       focus: "#522111",
       active: "#424874",
@@ -37,7 +37,7 @@ let theme = createTheme({
     },
     background: {
       default: "#FFFFFFFF",
-      paper: "#F8F8F8FF",
+      paper: "#FFFFFFFF",
     },
     custom: {
       main: "#333333",
@@ -276,6 +276,27 @@ theme = createTheme(theme, {
     MuiDialog: {
       styleOverrides: {
         root: {},
+      },
+    },
+    //#endregion
+    //#region Table
+    MuiTable: {
+      defaultProps: {
+        stickyHeader: true,
+      },
+    },
+    //#endregion
+    //#region TableHead
+    MuiTableHead: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          "&.c-table-head": {
+            ".c-table-head--cell": {
+              whiteSpace: "nowrap",
+            },
+          },
+        },
       },
     },
     //#endregion
