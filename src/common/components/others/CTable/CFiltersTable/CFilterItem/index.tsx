@@ -28,7 +28,7 @@ const displayLabel = <T extends object>(
 export const CFilterItem = <T extends object>({
   filter,
   filterValue,
-  onFilterFieldChange,
+  handleFilterItemChange,
 }: ICFilterItemProps<T>) => {
   //#region Data
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -53,7 +53,7 @@ export const CFilterItem = <T extends object>({
 
   const onClear = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.stopPropagation();
-    onFilterFieldChange?.(filter.key, "");
+    handleFilterItemChange?.(filter.key, "");
   };
 
   const onChange = (value: any) => {
@@ -65,7 +65,7 @@ export const CFilterItem = <T extends object>({
   };
 
   const onSubmit = () => {
-    onFilterFieldChange?.(filter.key, value);
+    handleFilterItemChange?.(filter.key, value);
     setAnchorEl(null);
   };
   //#endregion
@@ -106,16 +106,10 @@ export const CFilterItem = <T extends object>({
         onClose={onClose}
         anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
         transformOrigin={{ horizontal: "left", vertical: "top" }}
+        className="c-filter-table--popover"
         slotProps={{
           paper: {
-            sx: {
-              width: 320,
-              mt: 0.5,
-              borderRadius: "12px",
-              border: "1px solid black",
-              borderColor: (theme) => theme.palette.divider,
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-            },
+            sx: {},
           },
         }}
       >

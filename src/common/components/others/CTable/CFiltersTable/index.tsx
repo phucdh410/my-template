@@ -16,11 +16,11 @@ export const CFiltersTable = <T extends object>({
     filters.onFiltersChange?.(filters.initialValues);
   }, [filters.initialValues, filters.onFiltersChange]);
 
-  const onFilterFieldChange = useCallback(
+  const handleFilterItemChange = useCallback(
     (key: keyof T, value: any) => {
       filters.onFiltersChange({ ...filters.values, [key]: value });
     },
-    [filters]
+    [filters.values, filters.onFiltersChange]
   );
   //#endregion
 
@@ -33,7 +33,7 @@ export const CFiltersTable = <T extends object>({
             key={generateKey(e.key as keyof T)}
             filter={e}
             filterValue={filters.values[e.key]}
-            onFilterFieldChange={onFilterFieldChange}
+            handleFilterItemChange={handleFilterItemChange}
           />
         ))}
         {filters.values !== filters.initialValues && (

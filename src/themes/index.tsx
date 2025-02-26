@@ -215,6 +215,24 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region Popover
+    MuiPopover: {
+      styleOverrides: {
+        root: {
+          "&.c-filter-table--popover": {
+            ".MuiPaper-root": {
+              width: 320,
+              marginTop: "4px",
+              borderRadius: "12px",
+              border: "1px solid black",
+              borderColor: theme.palette.divider,
+              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region DatePicker
     MuiDatePicker: {
       defaultProps: {
