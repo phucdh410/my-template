@@ -10,3 +10,5 @@ export const INPUT_LEGEND_FONT_SIZE = "0.8rem";
 
 export const INPUT_TRANSFORM_INITIAL = "translate(14px, 10px) scale(1)";
 export const INPUT_TRANSFORM_SHRINK = "translate(14px, -10px) scale(0.8)";
+
+export const TABLE_CELL_PADDING = "14px";

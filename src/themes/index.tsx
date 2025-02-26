@@ -9,6 +9,7 @@ import {
   INPUT_PADDING,
   INPUT_TRANSFORM_INITIAL,
   INPUT_TRANSFORM_SHRINK,
+  TABLE_CELL_PADDING,
 } from "./common";
 
 //#region Breakpoints & Palette & Typography
@@ -29,7 +30,7 @@ let theme = createTheme({
     action: {
       focus: "#522111",
       active: "#424874",
-      hover: "#F4EEFF",
+      hover: "rgb(248 248 248)",
       selected: "#ee3311",
     },
     error: {
@@ -38,6 +39,15 @@ let theme = createTheme({
     background: {
       default: "#FFFFFFFF",
       paper: "#FFFFFFFF",
+    },
+    border: {
+      main: "#dde7ee",
+    },
+    black: {
+      main: "#32383e",
+    },
+    white: {
+      main: "#ffffff",
     },
     custom: {
       main: "#333333",
@@ -84,6 +94,14 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           textTransform: "none",
+          "&.c-table-filter--button": {
+            padding: "5px 15px",
+            borderRadius: "8px",
+            color: theme.palette.black.main,
+            borderWidth: "1px",
+            borderColor: theme.palette.border.main,
+            boxShadow: "rgba(0, 0, 0, 0.08) 0px 1px 2px 0px",
+          },
         },
       },
     },
@@ -292,8 +310,28 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           "&.c-table-head": {
-            ".c-table-head--cell": {
-              whiteSpace: "nowrap",
+            ".c-table-head--row": {
+              ".c-table-head--cell": {
+                whiteSpace: "nowrap",
+                padding: TABLE_CELL_PADDING,
+                backgroundColor: "#f9fafb",
+                color: "#868D9CFF",
+              },
+            },
+          },
+        },
+      },
+    },
+    //#endregion
+    //#region TableBody
+    MuiTableBody: {
+      styleOverrides: {
+        root: {
+          "&.c-table-body": {
+            ".c-table-body--row": {
+              ".c-table-body--cell": {
+                padding: TABLE_CELL_PADDING,
+              },
             },
           },
         },
@@ -321,22 +359,34 @@ declare module "@mui/material/styles" {
 
 declare module "@mui/material/styles" {
   interface Palette {
+    black: Palette["primary"];
+    white: Palette["primary"];
+    border: Palette["primary"];
     custom: Palette["primary"];
   }
 
   interface PaletteOptions {
+    black?: PaletteOptions["primary"];
+    white?: PaletteOptions["primary"];
+    border?: PaletteOptions["primary"];
     custom?: PaletteOptions["primary"];
   }
 }
 
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
+    black: true;
+    white: true;
+    border: true;
     custom: true;
   }
 }
 
 declare module "@mui/material/IconButton" {
   interface IconButtonPropsColorOverrides {
+    black: true;
+    white: true;
+    border: true;
     custom: true;
   }
 }
