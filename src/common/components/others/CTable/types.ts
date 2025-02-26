@@ -1,7 +1,6 @@
 import { ReactElement } from "react";
 
-import { IAutocompleteOption } from "@/components/controls/CAutocomplete/types";
-import { ICDatePickerProps } from "@/components/controls/CDatePicker/types";
+import { ICFiltersTable } from "./CFiltersTable/types";
 
 export type TColumnTypes = "number" | "date" | "datetime";
 
@@ -72,70 +71,7 @@ export interface ICTableHeaderProps<T> {
 
 export type TCHeadersTable<T> = ICTableHeaderProps<T>[];
 
-type BaseFilter = {
-  /**
-   * The label to display for the filter.
-   * Example: "Select a category".
-   */
-  label: string;
-
-  /**
-   * A unique key to identify the filter.
-   * This is used as an identifier for logic and callbacks.
-   */
-  key: string;
-
-  /**
-   * The type of filter, determining its behavior and UI component.
-   * - "input": A text input field.
-   * - "selection": A dropdown or similar selection field.
-   * - "datepicker": A date selection field.
-   */
-  type: "input" | "selection" | "datepicker";
-
-  /**
-   * The current value of the filter.
-   * Should match the type of data expected for the filter.
-   */
-  value?: any;
-
-  /**
-   * A callback function triggered when the filter value changes.
-   * @param key - The unique key of the filter.
-   * @param newFilterValue - The new value of the filter.
-   */
-  onFilter?: (key: string, newFilterValue: any) => void;
-};
-
-type InputFilter = BaseFilter & {
-  type: "input";
-};
-
-type DatepickerFilter = BaseFilter &
-  Pick<ICDatePickerProps, "views" | "format"> & {
-    type: "datepicker";
-  };
-
-type SelectionFilter = BaseFilter & {
-  type: "selection";
-  /**
-   * A list of selectable options for the filter.
-   * This field is required when `type` is "selection".
-   */
-  options: IAutocompleteOption[];
-};
-
-/**
- * A union type representing a filter that can be of various types:
- * - "input": A text input filter.
- * - "selection": A dropdown filter, requires `options`.
- * - "datepicker": A date selection filter.
- */
-export type TFilterProps = InputFilter | DatepickerFilter | SelectionFilter;
-
-export type TCFiltersTable = TFilterProps[];
-
-export interface ICTableProps<T> {
+export interface ICTableProps<T, F> {
   /**
    * List of column headers, defining how each column should be rendered.
    */
@@ -192,5 +128,5 @@ export interface ICTableProps<T> {
    */
   hover?: boolean;
 
-  filters?: TFilterProps[];
+  filters?: ICFiltersTable<F>;
 }

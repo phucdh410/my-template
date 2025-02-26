@@ -91,6 +91,9 @@ theme = createTheme(theme, {
     //#endregion
     //#region Button
     MuiButton: {
+      defaultProps: {
+        variant: "contained",
+      },
       styleOverrides: {
         root: {
           textTransform: "none",
@@ -101,6 +104,11 @@ theme = createTheme(theme, {
             borderWidth: "1px",
             borderColor: theme.palette.border.main,
             boxShadow: "rgba(0, 0, 0, 0.08) 0px 1px 2px 0px",
+          },
+          "&.c-button": {
+            "&.MuiButton-contained": {
+              boxShadow: `rgba(0, 0, 0, 0.08) 0px 1px 2px 0px, ${theme.palette.primary.main} 0px 0px 0px 1px inset, rgba(255, 255, 255, 0.16) 0px 2px 0px 0px inset`,
+            },
           },
         },
       },

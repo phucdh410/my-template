@@ -1,10 +1,10 @@
+import { useState } from "react";
+
 import { Container, Paper, Stack } from "@mui/material";
 
 import { CTable } from "@/components/others";
-import {
-  TCFiltersTable,
-  TCHeadersTable,
-} from "@/components/others/CTable/types";
+import { TFiltersTable } from "@/components/others/CTable/CFiltersTable/types";
+import { TCHeadersTable } from "@/components/others/CTable/types";
 
 import { DATA } from "./data";
 
@@ -46,7 +46,23 @@ interface IData {
   total: number;
 }
 
+interface IParams {
+  code: string;
+  store_code: string;
+  date: Date | string | null;
+  month: string;
+}
+
+const defaultParams: IParams = {
+  code: "",
+  store_code: "",
+  date: "",
+  month: "",
+};
+
 const TestPage = () => {
+  const [params, setParams] = useState<IParams>(defaultParams);
+
   const headers: TCHeadersTable<IData> = [
     { key: "code", label: "Mã tài sản" },
     { key: "name", label: "Tên tài sản", align: "left", width: 800 },
@@ -74,7 +90,7 @@ const TestPage = () => {
       valueFormatter: (value, row) => value?.name,
     },
   ];
-  const filters: TCFiltersTable = [
+  const filters: TFiltersTable<IParams> = [
     {
       key: "code",
       label: "Mã tài sản",
@@ -118,7 +134,12 @@ const TestPage = () => {
               data={DATA}
               headerTransform="capitalize"
               height={500}
-              filters={filters}
+              filters={{
+                values: params,
+                onFiltersChange: setParams,
+                initialValues: defaultParams,
+                templates: filters,
+              }}
             />
           </Stack>
         </Paper>

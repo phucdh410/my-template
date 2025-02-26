@@ -1,10 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback } from "react";
 
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
 import {
-  Button,
   Divider,
-  Popover,
   Stack,
   Table,
   TableBody,
@@ -12,16 +9,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import classNames from "classnames";
 import dayjs from "dayjs";
 
 import { generateKey } from "@/funcs";
 
-import { ICTableProps, TColumnTypes, TFilterProps } from "./types";
+import { CFiltersTable } from "./CFiltersTable";
+import { ICTableProps, TColumnTypes } from "./types";
 
-export const CTable = <T extends object>({
+export const CTable = <T extends object, F extends object>({
   headers = [],
   data = [],
   loading = false,
@@ -30,8 +27,8 @@ export const CTable = <T extends object>({
   stickyHeader,
   height,
   hover = true,
-  filters = [],
-}: ICTableProps<T>) => {
+  filters,
+}: ICTableProps<T, F>) => {
   //#region Data
   //#endregion
 
@@ -64,16 +61,7 @@ export const CTable = <T extends object>({
     >
       <Stack width="100%" height={40}></Stack>
       <Divider />
-      {filters.length > 0 && (
-        <>
-          <Stack width="100%" p={2} gap={2} flexWrap="wrap" direction="row">
-            {filters.map((e) => (
-              <CFilterItem key={e.key} filter={e} />
-            ))}
-          </Stack>
-          <Divider />
-        </>
-      )}
+      {filters && <CFiltersTable filters={filters} />}
       <TableContainer className="c-table-container" sx={{ height }}>
         <Table className="c-table" stickyHeader={stickyHeader}>
           <TableHead className="c-table-head">
@@ -139,108 +127,4 @@ export const CTable = <T extends object>({
     </Stack>
   );
   //#endregion
-};
-
-interface ICFilterItemProps {
-  filter: TFilterProps;
-}
-export const CFilterItem = ({ filter }: ICFilterItemProps) => {
-  //#region Data
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-
-  const isExistValue = useMemo(
-    () => filter.value || filter.value === 0,
-    [filter]
-  );
-  //#endregion
-
-  //#region Event
-  const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-    setAnchorEl(event.currentTarget);
-
-  const onClose = () => setAnchorEl(null);
-
-  const onClear = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    event.stopPropagation();
-    filter.onFilter?.(filter.key, "");
-  };
-  //#endregion
-
-  //#region Render
-  return (
-    <>
-      <Button
-        variant="outlined"
-        className="c-table-filter--button"
-        startIcon={
-          isExistValue ? (
-            <RemoveCircleOutline onClick={onClear} />
-          ) : (
-            <AddCircleOutline />
-          )
-        }
-        onClick={onClick}
-      >
-        {filter.label}
-        {isExistValue && (
-          <>
-            :&nbsp;
-            <Typography
-              color="primary"
-              component="span"
-              fontWeight={500}
-              fontSize={15}
-            >
-              {displayLabel(filter)}
-            </Typography>
-          </>
-        )}
-      </Button>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={onClose}
-        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-        transformOrigin={{ horizontal: "left", vertical: "top" }}
-        slotProps={{
-          paper: {
-            sx: {
-              minWidth: 280,
-              mt: 0.5,
-              borderRadius: "12px",
-              border: "1px solid black",
-              borderColor: (theme) => theme.palette.divider,
-              boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-            },
-          },
-        }}
-      >
-        <Stack p={2} gap={2}>
-          <Typography
-            color="black"
-            fontSize={14}
-            fontWeight={500}
-          >{`Lọc theo ${filter.label.toLowerCase()}`}</Typography>
-          {/* {filter.type === "input" && (
-            <CInputFilter filter={filter} onClose={onClose} />
-          )}
-          {filter.type === "selection" && (
-            <CSelectionFilter filter={filter} onClose={onClose} />
-          )}
-          {filter.type === "datepicker" && (
-            <CDatepickerFilter filter={filter} onClose={onClose} />
-          )} */}
-        </Stack>
-      </Popover>
-    </>
-  );
-  //#endregion
-};
-
-const displayLabel = (filter: TFilterProps): string => {
-  if (filter.type === "input") return filter.value;
-  else if (filter.type === "selection")
-    return filter.options?.find((e) => e.id === filter.value)?.label ?? "";
-  else return dayjs(filter.value).format("DD/MM/YYYY");
 };
