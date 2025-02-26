@@ -1,0 +1,36 @@
+import { memo, PropsWithChildren } from "react";
+
+import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
+import { Button } from "@mui/material";
+
+interface ICFilterButtonProps extends PropsWithChildren {
+  isExistValue: boolean;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClear: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+}
+
+const UnHOCComponent: React.FC<ICFilterButtonProps> = ({
+  children,
+  isExistValue,
+  onClick,
+  onClear,
+}) => {
+  return (
+    <Button
+      variant="outlined"
+      className="c-table-filter--button"
+      startIcon={
+        isExistValue ? (
+          <RemoveCircleOutline onClick={onClear} />
+        ) : (
+          <AddCircleOutline />
+        )
+      }
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+};
+
+export const CFilterButton = memo(UnHOCComponent);

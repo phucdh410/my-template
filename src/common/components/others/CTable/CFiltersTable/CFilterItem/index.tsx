@@ -1,18 +1,16 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
-import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
-import { Button, Popover, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import dayjs from "dayjs";
 
-import {
-  CAutocomplete,
-  CButton,
-  CDatePicker,
-  CInput,
-} from "@/components/controls";
+import { CButton } from "@/components/controls";
 
-import { TFilterProps } from "../types";
+import { DatepickerFilter, SelectionFilter, TFilterProps } from "../types";
 
+import { CFilterButton } from "./CFilterButton";
+import { CFilterComponent, ICFilterComponentRef } from "./CFilterComponent";
+import { CFilterPopover } from "./CFilterPopover";
+import { CFilterValueLabel } from "./CFilterValueLabel";
 import { ICFilterItemProps } from "./types";
 
 const displayLabel = <T extends object>(
@@ -32,13 +30,13 @@ export const CFilterItem = <T extends object>({
 }: ICFilterItemProps<T>) => {
   //#region Data
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   const isExistValue = useMemo(
-    () => filterValue || filterValue === 0,
+    () => !!filterValue || filterValue === 0,
     [filterValue]
   );
-  const [value, setValue] = useState(filterValue ?? "");
+
+  const filterComponentRef = useRef<ICFilterComponentRef>(null);
   //#endregion
 
   //#region Event
@@ -48,7 +46,6 @@ export const CFilterItem = <T extends object>({
 
   const onClose = () => {
     setAnchorEl(null);
-    setValue(filterValue ?? "");
   };
 
   const onClear = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
@@ -56,16 +53,9 @@ export const CFilterItem = <T extends object>({
     handleFilterItemChange?.(filter.key, "");
   };
 
-  const onChange = (value: any) => {
-    setValue(value);
-  };
-
-  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-
   const onSubmit = () => {
-    handleFilterItemChange?.(filter.key, value);
+    const changedValue = filterComponentRef.current?.takeValue();
+    handleFilterItemChange?.(filter.key, changedValue);
     setAnchorEl(null);
   };
   //#endregion
@@ -73,79 +63,36 @@ export const CFilterItem = <T extends object>({
   //#region Render
   return (
     <>
-      <Button
-        variant="outlined"
-        className="c-table-filter--button"
-        startIcon={
-          isExistValue ? (
-            <RemoveCircleOutline onClick={onClear} />
-          ) : (
-            <AddCircleOutline />
-          )
-        }
+      <CFilterButton
+        isExistValue={isExistValue}
         onClick={onClick}
+        onClear={onClear}
       >
         {filter.label}
         {isExistValue && (
-          <>
-            :&nbsp;
-            <Typography
-              color="primary"
-              component="span"
-              fontWeight={500}
-              fontSize={15}
-            >
-              {displayLabel(filter, filterValue)}
-            </Typography>
-          </>
+          <CFilterValueLabel label={displayLabel(filter, filterValue)} />
         )}
-      </Button>
-      <Popover
-        open={open}
-        anchorEl={anchorEl}
-        onClose={onClose}
-        anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-        transformOrigin={{ horizontal: "left", vertical: "top" }}
-        className="c-filter-table--popover"
-        slotProps={{
-          paper: {
-            sx: {},
-          },
-        }}
-      >
+      </CFilterButton>
+      <CFilterPopover anchorEl={anchorEl} onClose={onClose}>
         <Stack p={2} spacing={1.5}>
           <Typography
             color="black"
             fontSize={14}
             fontWeight={500}
           >{`Lọc theo ${filter.label.toLowerCase()}`}</Typography>
-          {filter.type === "input" && (
-            <CInput
-              value={value}
-              onChange={onInputChange}
-              placeholder={`Nhập ${filter.label.toLowerCase()}`}
-              onEnter={onSubmit}
-            />
-          )}
-          {filter.type === "selection" && (
-            <CAutocomplete
-              value={value}
-              onChange={onChange}
-              placeholder={`Chọn ${filter.label.toLowerCase()}`}
-              options={filter.options ?? []}
-            />
-          )}
-          {filter.type === "datepicker" && (
-            <CDatePicker
-              value={(value as unknown as Date) || null}
-              onChange={onChange}
-              views={filter.views}
-              format={filter.format}
-            />
-          )}
+          <CFilterComponent
+            ref={filterComponentRef}
+            type={filter.type}
+            label={filter.label.toLocaleLowerCase()}
+            options={(filter as SelectionFilter<T>)?.options}
+            views={(filter as DatepickerFilter<T>)?.views}
+            format={(filter as DatepickerFilter<T>)?.format}
+            onSubmit={onSubmit}
+            initialValue={filterValue}
+          />
           <CButton onClick={onSubmit}>Áp dụng</CButton>
         </Stack>
-      </Popover>
+      </CFilterPopover>
     </>
   );
   //#endregion

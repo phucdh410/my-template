@@ -34,12 +34,12 @@ type InputFilter<T> = BaseFilter<T> & {
   type: "input";
 };
 
-type DatepickerFilter<T> = BaseFilter<T> &
+export type DatepickerFilter<T> = BaseFilter<T> &
   Pick<ICDatePickerProps, "views" | "format"> & {
     type: "datepicker";
   };
 
-type SelectionFilter<T> = BaseFilter<T> & {
+export type SelectionFilter<T> = BaseFilter<T> & {
   type: "selection";
   /**
    * A list of selectable options for the filter.
