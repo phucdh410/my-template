@@ -328,6 +328,57 @@ theme = createTheme(theme, {
       defaultProps: {
         stickyHeader: true,
       },
+      styleOverrides: {
+        root: {
+          "&.c-table": {
+            ".c-table-head--row,.c-table-body--row": {
+              ".c-table-head--cell,.c-table-body--cell": {
+                "&.pin-left.pin-left-last,&.pin-right.pin-right-first": {
+                  "&:after": {
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    width: "30px",
+                    transition: "box-shadow 0.3s",
+                    content: "''",
+                    pointerEvents: "none",
+                  },
+                },
+                "&.pin-left.pin-left-last": {
+                  "&:after": {
+                    right: 0,
+                    transform: "translateX(100%)",
+                  },
+                },
+                "&.pin-right.pin-right-first": {
+                  "&:after": {
+                    left: 0,
+                    transform: "translateX(-100%)",
+                  },
+                },
+              },
+            },
+            "&.left-pin-shadow": {
+              ".c-table-head--row,.c-table-body--row": {
+                ".c-table-head--cell,.c-table-body--cell": {
+                  "&.pin-left-last::after": {
+                    boxShadow: "inset 10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+                  },
+                },
+              },
+            },
+            "&.right-pin-shadow": {
+              ".c-table-head--row,.c-table-body--row": {
+                ".c-table-head--cell,.c-table-body--cell": {
+                  "&.pin-right-first::after": {
+                    boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
     //#endregion
     //#region TableHead

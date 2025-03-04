@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { generateKey } from "@/funcs";
 
 import { CFiltersTable } from "./CFiltersTable";
+import { useTableScrollShadow } from "./hooks";
 import { ICTableProps, TColumnTypes } from "./types";
 
 export const CTable = <T extends object, F extends object>({
@@ -30,27 +31,34 @@ export const CTable = <T extends object, F extends object>({
   filters,
 }: ICTableProps<T, F>) => {
   //#region Data
+  const tableContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
+
+  useTableScrollShadow(tableContainerRef, tableRef);
 
   const pinPositions = useMemo(() => {
     if (!headers.some((header) => header.pin)) return null;
     let leftOffset = 0;
     const left: Record<string, string> = {};
+    let leftLastKey = "";
 
     let rightOffset = 0;
     const right: Record<string, string> = {};
+    let rightFirstKey = "";
 
     headers.forEach((header, index) => {
       if (header.pin === "left") {
         left[header.key] = `${leftOffset}px`;
         leftOffset += header.width;
+        leftLastKey = header.key;
       } else if (header.pin === "right") {
+        if (!rightFirstKey) rightFirstKey = header.key;
         right[header.key] = `${rightOffset}px`;
         rightOffset += header.width;
       }
     });
 
-    return { left, right };
+    return { left, right, leftLastKey, rightFirstKey };
   }, [headers]);
   //#endregion
 
@@ -84,7 +92,11 @@ export const CTable = <T extends object, F extends object>({
       <Stack width="100%" height={40}></Stack>
       <Divider />
       {filters && <CFiltersTable filters={filters} />}
-      <TableContainer className="c-table-container" sx={{ height }}>
+      <TableContainer
+        ref={tableContainerRef}
+        className="c-table-container"
+        sx={{ height }}
+      >
         <Table ref={tableRef} className="c-table" stickyHeader={stickyHeader}>
           <TableHead className="c-table-head">
             <TableRow className="c-table-head--row">
@@ -95,8 +107,16 @@ export const CTable = <T extends object, F extends object>({
                   className={classNames(
                     "c-table-head--cell",
                     header.className,
-                    header.pin &&
-                      (header.pin === "left" ? "pin-left" : "pin-right")
+                    {
+                      "pin-left": header.pin === "left",
+                      "pin-right": header.pin === "right",
+                      "pin-left-last":
+                        header.pin === "left" &&
+                        header.key === pinPositions?.leftLastKey,
+                      "pin-right-first":
+                        header.pin === "right" &&
+                        header.key === pinPositions?.rightFirstKey,
+                    }
                   )}
                   style={{
                     textTransform: headerTransform ? headerTransform : "none",
@@ -125,11 +145,16 @@ export const CTable = <T extends object, F extends object>({
                   <TableCell
                     key={generateKey(header.key)}
                     align={header.align ?? "center"}
-                    className={classNames(
-                      "c-table-body--cell",
-                      header.pin &&
-                        (header.pin === "left" ? "pin-left" : "pin-right")
-                    )}
+                    className={classNames("c-table-body--cell", {
+                      "pin-left": header.pin === "left",
+                      "pin-right": header.pin === "right",
+                      "pin-left-last":
+                        header.pin === "left" &&
+                        header.key === pinPositions?.leftLastKey,
+                      "pin-right-first":
+                        header.pin === "right" &&
+                        header.key === pinPositions?.rightFirstKey,
+                    })}
                     style={{
                       width: header.width ? header.width : "auto",
                       minWidth: header.width ? header.width : "auto",
