@@ -357,6 +357,7 @@ theme = createTheme(theme, {
             ".c-table-body--row": {
               ".c-table-body--cell": {
                 padding: TABLE_CELL_PADDING,
+                backgroundColor: theme.palette.white.main,
               },
             },
           },

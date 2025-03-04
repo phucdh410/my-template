@@ -4,7 +4,7 @@ import { ICFiltersTable } from "./CFiltersTable/types";
 
 export type TColumnTypes = "number" | "date" | "datetime";
 
-export interface ICTableHeaderProps<T> {
+export interface ICTableHeaderBase<T> {
   /**
    * Unique key to identify the column.
    */
@@ -42,8 +42,6 @@ export interface ICTableHeaderProps<T> {
    */
   className?: string;
 
-  width?: number | string;
-
   /**
    * Function to format the displayed value in the cell.
    * Use this when you only need to transform the displayed value
@@ -68,6 +66,20 @@ export interface ICTableHeaderProps<T> {
    */
   renderCell?: (value: any, row: T, index: number) => ReactElement;
 }
+
+export type ICTableHeaderProps<T> =
+  | ({
+      /**
+       * Determines whether this column should be pinned to the left or right.
+       * - `"left"`: Pins this column to the left.
+       * - `"right"`: Pins this column to the right.
+       * - `undefined`: This column is not pinned.
+       */
+      pin: "left" | "right";
+
+      width: number;
+    } & ICTableHeaderBase<T>)
+  | ({ pin?: undefined; width?: number | string } & ICTableHeaderBase<T>);
 
 export type TCHeadersTable<T> = ICTableHeaderProps<T>[];
 

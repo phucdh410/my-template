@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo, useRef } from "react";
 
 import {
   Divider,
@@ -30,6 +30,28 @@ export const CTable = <T extends object, F extends object>({
   filters,
 }: ICTableProps<T, F>) => {
   //#region Data
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  const pinPositions = useMemo(() => {
+    if (!headers.some((header) => header.pin)) return null;
+    let leftOffset = 0;
+    const left: Record<string, string> = {};
+
+    let rightOffset = 0;
+    const right: Record<string, string> = {};
+
+    headers.forEach((header, index) => {
+      if (header.pin === "left") {
+        left[header.key] = `${leftOffset}px`;
+        leftOffset += header.width;
+      } else if (header.pin === "right") {
+        right[header.key] = `${rightOffset}px`;
+        rightOffset += header.width;
+      }
+    });
+
+    return { left, right };
+  }, [headers]);
   //#endregion
 
   //#region Event
@@ -63,18 +85,28 @@ export const CTable = <T extends object, F extends object>({
       <Divider />
       {filters && <CFiltersTable filters={filters} />}
       <TableContainer className="c-table-container" sx={{ height }}>
-        <Table className="c-table" stickyHeader={stickyHeader}>
+        <Table ref={tableRef} className="c-table" stickyHeader={stickyHeader}>
           <TableHead className="c-table-head">
             <TableRow className="c-table-head--row">
-              {headers.map((header) => (
+              {headers.map((header, headerIndex) => (
                 <TableCell
                   key={generateKey(header.key)}
                   align={header.align ?? "center"}
-                  className={classNames("c-table-head--cell", header.className)}
+                  className={classNames(
+                    "c-table-head--cell",
+                    header.className,
+                    header.pin &&
+                      (header.pin === "left" ? "pin-left" : "pin-right")
+                  )}
                   style={{
                     textTransform: headerTransform ? headerTransform : "none",
                     width: header.width ? header.width : "auto",
                     minWidth: header.width ? header.width : "auto",
+                    position: header.pin ? "sticky" : undefined,
+                    zIndex: header.pin ? 3 : 1,
+                    ...(header.pin && header.pin === "left"
+                      ? { left: pinPositions?.left[header.key] }
+                      : { right: pinPositions?.right[header.key] }),
                   }}
                 >
                   {header.label}
@@ -93,10 +125,19 @@ export const CTable = <T extends object, F extends object>({
                   <TableCell
                     key={generateKey(header.key)}
                     align={header.align ?? "center"}
-                    className="c-table-body--cell"
+                    className={classNames(
+                      "c-table-body--cell",
+                      header.pin &&
+                        (header.pin === "left" ? "pin-left" : "pin-right")
+                    )}
                     style={{
                       width: header.width ? header.width : "auto",
                       minWidth: header.width ? header.width : "auto",
+                      position: header.pin ? "sticky" : undefined,
+                      zIndex: header.pin ? 2 : 1,
+                      ...(header.pin && header.pin === "left"
+                        ? { left: pinPositions?.left[header.key] }
+                        : { right: pinPositions?.right[header.key] }),
                     }}
                   >
                     {header.renderCell

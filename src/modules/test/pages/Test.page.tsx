@@ -64,8 +64,14 @@ const TestPage = () => {
   const [params, setParams] = useState<IParams>(defaultParams);
 
   const headers: TCHeadersTable<IData> = [
-    { key: "code", label: "Mã tài sản" },
-    { key: "name", label: "Tên tài sản", align: "left", width: 800 },
+    { key: "code", label: "Mã tài sản", pin: "left", width: 200 },
+    {
+      key: "name",
+      label: "Tên tài sản",
+      align: "left",
+      width: 500,
+      pin: "left",
+    },
     {
       key: "category",
       label: "Loại CCDC",
@@ -74,7 +80,7 @@ const TestPage = () => {
       valueFormatter: (value) => value?.name,
     },
     { key: "unit", label: "Đơn vị tính" },
-    { key: "date", label: "Ngày ghi tăng", columnType: "date" },
+    { key: "date", label: "Ngày ghi tăng", columnType: "date", width: 350 },
     {
       key: "amount",
       label: "Giá trị tài sản",
@@ -88,6 +94,7 @@ const TestPage = () => {
       align: "left",
       width: 200,
       valueFormatter: (value, row) => value?.name,
+      pin: "right",
     },
   ];
   const filters: TFiltersTable<IParams> = [
