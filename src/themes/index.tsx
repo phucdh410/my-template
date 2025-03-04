@@ -389,10 +389,11 @@ theme = createTheme(theme, {
           "&.c-table-head": {
             ".c-table-head--row": {
               ".c-table-head--cell": {
+                fontWeight: 600,
                 whiteSpace: "nowrap",
                 padding: TABLE_CELL_PADDING,
                 backgroundColor: "#f9fafb",
-                color: "#868D9CFF",
+                color: "#667085",
               },
             },
           },
