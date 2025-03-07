@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { generateKey } from "@/funcs";
 
 import { CFiltersTable } from "./CFiltersTable";
+import { CPaginationTable } from "./CPaginationTable";
 import { useTableScrollShadow } from "./hooks";
 import { ICTableProps, TColumnTypes } from "./types";
 
@@ -29,6 +30,7 @@ export const CTable = <T extends object, F extends object>({
   height,
   hover = true,
   filters,
+  pagination,
 }: ICTableProps<T, F>) => {
   //#region Data
   const tableContainerRef = useRef<HTMLDivElement>(null);
@@ -190,6 +192,12 @@ export const CTable = <T extends object, F extends object>({
           </TableBody>
         </Table>
       </TableContainer>
+      {true && (
+        <>
+          <Divider />
+          <CPaginationTable />
+        </>
+      )}
     </Stack>
   );
   //#endregion

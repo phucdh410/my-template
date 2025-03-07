@@ -208,6 +208,24 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region Select
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "&.c-table-limit-select": {
+            fontFamily: "'Inter', san serif",
+            fontSize: "0.875rem",
+            lineHeight: "unset",
+            borderRadius: "8px",
+            height: 30,
+            ".MuiOutlinedInput-input": {
+              paddingBlock: 0,
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region Popper
     MuiPopper: {
       styleOverrides: {

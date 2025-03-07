@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 
 import { ICFiltersTable } from "./CFiltersTable/types";
+import { ICPaginationTableProps } from "./CPaginationTable/types";
 
 export type TColumnTypes = "number" | "date" | "datetime";
 
@@ -77,6 +78,10 @@ export type ICTableHeaderProps<T> =
        */
       pin: "left" | "right";
 
+      /**
+       * Defines the width of the column.
+       * For pinned columns, a specific width is optimized for better UI consistency.
+       */
       width: number;
     } & ICTableHeaderBase<T>)
   | ({ pin?: undefined; width?: number | string } & ICTableHeaderBase<T>);
@@ -141,4 +146,6 @@ export interface ICTableProps<T, F> {
   hover?: boolean;
 
   filters?: ICFiltersTable<F>;
+
+  pagination?: ICPaginationTableProps;
 }
