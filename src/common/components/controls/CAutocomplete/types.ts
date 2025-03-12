@@ -3,10 +3,7 @@ import {
   AutocompleteChangeReason,
 } from "@mui/material";
 
-import {
-  IFormInputComponentProps,
-  IFormInputComponentRef,
-} from "../../../../types/form";
+import { IFormInputComponentProps, IFormInputComponentRef } from "@/types/form";
 
 export interface ICAutocompleteRef extends IFormInputComponentRef {}
 

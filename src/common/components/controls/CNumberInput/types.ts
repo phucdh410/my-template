@@ -1,7 +1,5 @@
-import {
-  IFormInputComponentProps,
-  IFormInputComponentRef,
-} from "../../../../types/form";
+import { IFormInputComponentProps, IFormInputComponentRef } from "@/types/form";
+
 import { ICInputProps } from "../CInput/types";
 
 export interface ICNumberInputRef extends IFormInputComponentRef {}

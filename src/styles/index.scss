@@ -8,6 +8,8 @@
   scroll-behavior: smooth;
   font-family: "Plus Jakarta Sans", serif;
   // font-family: "Inter", sans-serif;
+
+  scrollbar-color: rgba(145 158 171 / 0.4) rgba(145 158 171 / 0.08);
 }
 
 ul,
@@ -31,16 +33,16 @@ input::-ms-clear {
   display: none;
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 12px;
-}
+// ::-webkit-scrollbar {
+//   width: 10px;
+//   height: 12px;
+// }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.105);
-  border-radius: 4px;
-}
+// ::-webkit-scrollbar-thumb {
+//   background: rgba(0, 0, 0, 0.105);
+//   border-radius: 4px;
+// }
 
-::-webkit-scrollbar-track {
-  background: rgba(242, 242, 242, 0.5);
-}
+// ::-webkit-scrollbar-track {
+//   background: rgba(242, 242, 242, 0.5);
+// }

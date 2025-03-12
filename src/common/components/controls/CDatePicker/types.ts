@@ -1,10 +1,7 @@
 import { DateView } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 
-import {
-  IFormInputComponentProps,
-  IFormInputComponentRef,
-} from "../../../../types/form";
+import { IFormInputComponentProps, IFormInputComponentRef } from "@/types/form";
 
 export interface ICDatePickerRef extends IFormInputComponentRef {}
 
