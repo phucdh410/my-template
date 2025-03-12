@@ -378,6 +378,17 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region TableContainer
+    // MuiTableContainer: {
+    //   styleOverrides: {
+    //     root: {
+    //       "&.c-table-container": {
+    //         scrollbarWidth: "none",
+    //       },
+    //     },
+    //   },
+    // },
+    //#endregion
     //#region Table
     MuiTable: {
       defaultProps: {
@@ -465,6 +476,11 @@ theme = createTheme(theme, {
               ".c-table-body--cell": {
                 padding: TABLE_CELL_PADDING,
                 backgroundColor: theme.palette.white.main,
+              },
+              "&:last-of-type": {
+                ".c-table-body--cell": {
+                  borderBottom: "none",
+                },
               },
             },
           },
