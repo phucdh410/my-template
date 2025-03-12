@@ -29,7 +29,8 @@
       "@/axios": ["src/utils/axios/index.ts"],
       "@/funcs": ["src/utils/funcs/index.ts"],
       "@/validations": ["src/utils/validations/index.ts"],
-      "@/modules/*": ["src/modules/*"]
+      "@/modules/*": ["src/modules/*"],
+      "@/types/*": ["src/types/*"]
     }
   },
   "include": ["src"]

@@ -39,6 +39,7 @@ export default defineConfig({
         "src/utils/validations/index.ts"
       ),
       "@/modules": path.resolve(__dirname, "src/modules"),
+      "@/types": path.resolve(__dirname, "src/types"),
     },
   },
   build: {

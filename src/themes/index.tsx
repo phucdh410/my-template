@@ -226,6 +226,22 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region Checkbox
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          "&.c-checkbox": {
+            padding: 0,
+            borderRadius: "8px",
+            color: theme.palette.text.primary,
+            "&.MuiCheckbox-indeterminate,&.Mui-checked": {
+              color: theme.palette.primary.main,
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region Popper
     MuiPopper: {
       styleOverrides: {
