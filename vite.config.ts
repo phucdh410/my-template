@@ -38,6 +38,7 @@ export default defineConfig({
         __dirname,
         "src/utils/validations/index.ts"
       ),
+      "@/modules": path.resolve(__dirname, "src/modules"),
     },
   },
   build: {

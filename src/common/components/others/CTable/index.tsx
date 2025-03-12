@@ -192,10 +192,10 @@ export const CTable = <T extends object, F extends object>({
           </TableBody>
         </Table>
       </TableContainer>
-      {true && (
+      {pagination && (
         <>
           <Divider />
-          <CPaginationTable />
+          <CPaginationTable {...pagination} />
         </>
       )}
     </Stack>

@@ -147,6 +147,11 @@ const TestPage = () => {
                 initialValues: defaultParams,
                 templates: filters,
               }}
+              pagination={{
+                page: 1,
+                pages: 5,
+                limit: 10,
+              }}
             />
           </Stack>
         </Paper>

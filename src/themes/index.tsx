@@ -58,7 +58,7 @@ let theme = createTheme({
   },
   typography: {
     fontFamily: `"Plus Jakarta Sans", serif`,
-    fontSize: 14,
+    fontSize: 14, //note: 1rem: 14px | 0.875rem: 14px | 0.9375rem: 15px
     htmlFontSize: 16,
   },
   breakpoints: {
@@ -245,6 +245,27 @@ theme = createTheme(theme, {
               border: "1px solid black",
               borderColor: theme.palette.divider,
               boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
+            },
+          },
+          "&.c-table-limit-select--menu": {
+            ".MuiPaper-root": {
+              borderRadius: "8px",
+              border: "1px solid black",
+              borderColor: theme.palette.divider,
+              boxShadow: "0px 6px 30px rgba(0, 0, 0, 0.08)",
+              ".MuiList-root": {
+                gap: "4px",
+                padding: "8px",
+                display: "flex",
+                flexDirection: "column",
+                ".MuiMenuItem-root": {
+                  fontWeight: 500,
+                  borderRadius: "8px",
+                  paddingInline: "8px",
+                  paddingBlock: "4px",
+                  justifyContent: "end",
+                },
+              },
             },
           },
         },
