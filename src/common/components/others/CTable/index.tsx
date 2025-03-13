@@ -125,7 +125,7 @@ export const CTable = <T extends object, F extends object>({
                     width: header.width ? header.width : "auto",
                     minWidth: header.width ? header.width : "auto",
                     position: header.pin ? "sticky" : undefined,
-                    zIndex: header.pin ? 3 : 1,
+                    zIndex: header.pin ? 4 : 3,
                     ...(header.pin && header.pin === "left"
                       ? { left: pinPositions?.left[header.key] }
                       : { right: pinPositions?.right[header.key] }),
