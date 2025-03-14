@@ -104,6 +104,8 @@ theme = createTheme(theme, {
             borderWidth: "1px",
             borderColor: theme.palette.border.main,
             boxShadow: "rgba(0, 0, 0, 0.08) 0px 1px 2px 0px",
+            height: "37px",
+            display: "inline-flex",
           },
           "&.c-button": {
             "&.MuiButton-contained": {

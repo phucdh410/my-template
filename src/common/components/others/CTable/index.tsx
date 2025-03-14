@@ -90,9 +90,9 @@ export const CTable = <T extends object, F extends object>({
       borderRadius="20px"
       boxShadow="rgba(0, 0, 0, 0.04) 0px 5px 22px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px"
       overflow="hidden"
+      divider={<Divider />}
     >
       <Stack width="100%" height={40}></Stack>
-      <Divider />
       {filters && <CFiltersTable filters={filters} />}
       <TableContainer
         ref={tableContainerRef}
@@ -192,12 +192,7 @@ export const CTable = <T extends object, F extends object>({
           </TableBody>
         </Table>
       </TableContainer>
-      {pagination && (
-        <>
-          <Divider />
-          <CPaginationTable {...pagination} />
-        </>
-      )}
+      {pagination && <CPaginationTable {...pagination} />}
     </Stack>
   );
   //#endregion

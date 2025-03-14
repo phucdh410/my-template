@@ -70,7 +70,6 @@ const TestPage = () => {
       label: "Tên tài sản",
       align: "left",
       width: 500,
-      pin: "left",
     },
     {
       key: "category",
