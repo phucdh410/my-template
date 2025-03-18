@@ -77,7 +77,6 @@ let theme = createTheme({
 
 //#region Components
 theme = createTheme(theme, {
-  cssVariables: true,
   components: {
     //#region FormHelperText
     MuiFormHelperText: {
