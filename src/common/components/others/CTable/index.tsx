@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
+  Box,
   Divider,
   Stack,
   Table,
@@ -17,7 +18,11 @@ import { generateKey } from "@/funcs";
 
 import { CFiltersTable } from "./CFiltersTable";
 import { CPaginationTable } from "./CPaginationTable";
-import { useTableScrollShadow } from "./hooks";
+import {
+  useCalculatePinPositions,
+  useDetectScrollbar,
+  useTableScrollShadow,
+} from "./hooks";
 import { ICTableProps, TColumnTypes } from "./types";
 
 export const CTable = <T extends object, F extends object>({
@@ -33,36 +38,46 @@ export const CTable = <T extends object, F extends object>({
   pagination,
 }: ICTableProps<T, F>) => {
   //#region Data
-  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const bodyContainerRef = useRef<HTMLDivElement>(null);
+  const headerContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
-  useTableScrollShadow(tableContainerRef, tableRef);
+  useTableScrollShadow(bodyContainerRef, tableRef);
+  const { hasVertical } = useDetectScrollbar(bodyContainerRef);
 
-  const pinPositions = useMemo(() => {
-    if (!headers.some((header) => header.pin)) return null;
-    let leftOffset = 0;
-    const left: Record<string, string> = {};
-    let leftLastKey = "";
+  const { pinPositions } = useCalculatePinPositions(headers);
 
-    let rightOffset = 0;
-    const right: Record<string, string> = {};
-    let rightFirstKey = "";
+  const [widthCols, setWidthCols] = useState<number[]>([]);
+  //#endregion
 
-    headers.forEach((header, index) => {
-      if (header.pin === "left") {
-        left[header.key] = `${leftOffset}px`;
-        leftOffset += header.width;
-        leftLastKey = header.key;
-      } else if (header.pin === "right") {
-        if (!rightFirstKey) rightFirstKey = header.key;
-        right[header.key] = `${rightOffset}px`;
-        rightOffset += header.width;
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      if (!tableRef.current || !headerContainerRef.current) return;
+      const headerContainer = headerContainerRef.current;
+      const table = tableRef.current;
+
+      const headerRow = headerContainer.querySelector("table thead tr");
+      const firstRow = table.querySelector("tbody tr");
+      if (firstRow && headerRow) {
+        const newWidths: number[] = [];
+        const headerColumns = headerRow.querySelectorAll("th");
+        const bodyColumns = firstRow.querySelectorAll("td");
+        for (let i = 0; i < bodyColumns.length; i++) {
+          const headerCellWidth =
+            headerColumns[i].getBoundingClientRect().width;
+          const bodyCellWidth = bodyColumns[i].getBoundingClientRect().width;
+          newWidths.push(Math.max(headerCellWidth, bodyCellWidth));
+        }
+        setWidthCols(newWidths);
       }
     });
 
-    return { left, right, leftLastKey, rightFirstKey };
-  }, [headers]);
-  //#endregion
+    if (tableRef.current) {
+      observer.observe(tableRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   //#region Event
   const renderValueByColumnType = useCallback(
@@ -94,104 +109,146 @@ export const CTable = <T extends object, F extends object>({
     >
       <Stack width="100%" height={40}></Stack>
       {filters && <CFiltersTable filters={filters} />}
-      <TableContainer
-        ref={tableContainerRef}
-        className="c-table-container"
-        sx={{ height }}
-      >
-        <Table ref={tableRef} className="c-table" stickyHeader={stickyHeader}>
-          <TableHead className="c-table-head">
-            <TableRow className="c-table-head--row">
-              {headers.map((header, headerIndex) => (
-                <TableCell
-                  key={generateKey(header.key)}
-                  align={header.align ?? "center"}
-                  className={classNames(
-                    "c-table-head--cell",
-                    header.className,
-                    {
-                      "pin-left": header.pin === "left",
-                      "pin-right": header.pin === "right",
-                      "pin-left-last":
-                        header.pin === "left" &&
-                        header.key === pinPositions?.leftLastKey,
-                      "pin-right-first":
-                        header.pin === "right" &&
-                        header.key === pinPositions?.rightFirstKey,
+      <Stack>
+        <Box
+          ref={headerContainerRef}
+          className="table-header-container"
+          overflow="auto"
+          sx={{ scrollbarWidth: "none" }}
+        >
+          <Table sx={{ tableLayout: "fixed", width: "max-content" }}>
+            <colgroup>
+              {headers.map((headerCol, headerColIndex) => {
+                const isLastCol = headerColIndex === headers.length - 1;
+                const baseWidth = headerCol.width ?? widthCols[headerColIndex];
+                return (
+                  <col
+                    key={generateKey(headerCol.key)}
+                    width={
+                      hasVertical && isLastCol ? baseWidth + 15 : baseWidth
                     }
-                  )}
-                  style={{
-                    textTransform: headerTransform ? headerTransform : "none",
-                    width: header.width ? header.width : "auto",
-                    minWidth: header.width ? header.width : "auto",
-                    position: header.pin ? "sticky" : undefined,
-                    zIndex: header.pin ? 4 : 3,
-                    ...(header.pin && header.pin === "left"
-                      ? { left: pinPositions?.left[header.key] }
-                      : { right: pinPositions?.right[header.key] }),
-                  }}
-                >
-                  {header.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody className="c-table-body">
-            {data.map((row, rowIndex) => (
-              <TableRow
-                key={generateKey(row[rowKey as keyof T])}
-                hover={hover}
-                className="c-table-body--row"
-              >
-                {headers.map((header, columnIndex) => (
+                  />
+                );
+              })}
+            </colgroup>
+            <TableHead className="c-table-head">
+              <TableRow className="c-table-head--row">
+                {headers.map((header, headerIndex) => (
                   <TableCell
                     key={generateKey(header.key)}
                     align={header.align ?? "center"}
-                    className={classNames("c-table-body--cell", {
-                      "pin-left": header.pin === "left",
-                      "pin-right": header.pin === "right",
-                      "pin-left-last":
-                        header.pin === "left" &&
-                        header.key === pinPositions?.leftLastKey,
-                      "pin-right-first":
-                        header.pin === "right" &&
-                        header.key === pinPositions?.rightFirstKey,
-                    })}
+                    className={classNames(
+                      "c-table-head--cell",
+                      header.className,
+                      {
+                        "pin-left": header.pin === "left",
+                        "pin-right": header.pin === "right",
+                        "pin-left-last":
+                          header.pin === "left" &&
+                          header.key === pinPositions?.leftLastKey,
+                        "pin-right-first":
+                          header.pin === "right" &&
+                          header.key === pinPositions?.rightFirstKey,
+                      }
+                    )}
                     style={{
-                      width: header.width ? header.width : "auto",
-                      minWidth: header.width ? header.width : "auto",
+                      textTransform: headerTransform ? headerTransform : "none",
                       position: header.pin ? "sticky" : undefined,
-                      zIndex: header.pin ? 2 : 1,
+                      zIndex: header.pin ? 4 : 3,
                       ...(header.pin && header.pin === "left"
                         ? { left: pinPositions?.left[header.key] }
                         : { right: pinPositions?.right[header.key] }),
                     }}
                   >
-                    {header.renderCell
-                      ? header.renderCell(
-                          row[header.key as keyof T],
-                          row,
-                          rowIndex
-                        )
-                      : header.valueFormatter
-                      ? header.valueFormatter(
-                          row[header.key as keyof T],
-                          row,
-                          rowIndex
-                        )
-                      : header.columnType
-                      ? renderValueByColumnType(
-                          row[header.key as keyof T],
-                          header.columnType
-                        )
-                      : row[header.key as keyof T]}
+                    {header.label}
                   </TableCell>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+          </Table>
+        </Box>
+        <TableContainer
+          ref={bodyContainerRef}
+          className="c-table-container table-body-container"
+          sx={{ height }}
+          onScroll={() => {
+            const headerEl = headerContainerRef.current;
+            const bodyEl = bodyContainerRef.current;
+            if (headerEl && bodyEl) {
+              headerEl.scrollLeft = bodyEl.scrollLeft;
+            }
+          }}
+        >
+          <Table
+            ref={tableRef}
+            className="c-table"
+            stickyHeader={stickyHeader}
+            sx={{ tableLayout: "auto", width: "max-content", minWidth: "100%" }}
+          >
+            <colgroup>
+              {headers.map((headerCol, headerColIndex) => (
+                <col
+                  key={generateKey(headerCol.key)}
+                  width={headerCol.width ?? widthCols[headerColIndex]}
+                />
+              ))}
+            </colgroup>
+            <TableBody className="c-table-body">
+              {data.map((row, rowIndex) => (
+                <TableRow
+                  key={generateKey(row[rowKey as keyof T])}
+                  hover={hover}
+                  className="c-table-body--row"
+                >
+                  {headers.map((header, columnIndex) => (
+                    <TableCell
+                      key={generateKey(header.key)}
+                      align={header.align ?? "center"}
+                      className={classNames("c-table-body--cell", {
+                        "pin-left": header.pin === "left",
+                        "pin-right": header.pin === "right",
+                        "pin-left-last":
+                          header.pin === "left" &&
+                          header.key === pinPositions?.leftLastKey,
+                        "pin-right-first":
+                          header.pin === "right" &&
+                          header.key === pinPositions?.rightFirstKey,
+                      })}
+                      style={{
+                        position: header.pin ? "sticky" : undefined,
+                        zIndex: header.pin ? 2 : 1,
+                        ...(header.pin && header.pin === "left"
+                          ? { left: pinPositions?.left[header.key] }
+                          : { right: pinPositions?.right[header.key] }),
+                      }}
+                    >
+                      {header.renderCell
+                        ? header.renderCell(
+                            row[header.key as keyof T],
+                            row,
+                            rowIndex
+                          )
+                        : header.valueFormatter
+                        ? header.valueFormatter(
+                            row[header.key as keyof T],
+                            row,
+                            rowIndex
+                          )
+                        : header.columnType
+                        ? renderValueByColumnType(
+                            row[header.key as keyof T],
+                            header.columnType
+                          )
+                        : row[header.key as keyof T]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Stack>
+
       {pagination && <CPaginationTable {...pagination} />}
     </Stack>
   );

@@ -84,7 +84,7 @@ export type ICTableHeaderProps<T> =
        */
       width: number;
     } & ICTableHeaderBase<T>)
-  | ({ pin?: undefined; width?: number | string } & ICTableHeaderBase<T>);
+  | ({ pin?: undefined; width?: number } & ICTableHeaderBase<T>);
 
 export type TCHeadersTable<T> = ICTableHeaderProps<T>[];
 
