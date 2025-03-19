@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 
 import {
   Box,
@@ -21,6 +21,7 @@ import { CPaginationTable } from "./CPaginationTable";
 import {
   useCalculatePinPositions,
   useDetectScrollbar,
+  useTableColumnsWidth,
   useTableScrollShadow,
 } from "./hooks";
 import { ICTableProps, TColumnTypes } from "./types";
@@ -38,46 +39,16 @@ export const CTable = <T extends object, F extends object>({
   pagination,
 }: ICTableProps<T, F>) => {
   //#region Data
-  const bodyContainerRef = useRef<HTMLDivElement>(null);
+  const tableWrapperRef = useRef<HTMLDivElement>(null);
   const headerContainerRef = useRef<HTMLDivElement>(null);
+  const bodyContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
-  useTableScrollShadow(bodyContainerRef, tableRef);
+  useTableScrollShadow(tableWrapperRef, bodyContainerRef);
   const { hasVertical } = useDetectScrollbar(bodyContainerRef);
-
   const { pinPositions } = useCalculatePinPositions(headers);
-
-  const [widthCols, setWidthCols] = useState<number[]>([]);
+  const { widthCols } = useTableColumnsWidth(headerContainerRef, tableRef);
   //#endregion
-
-  useEffect(() => {
-    const observer = new ResizeObserver(() => {
-      if (!tableRef.current || !headerContainerRef.current) return;
-      const headerContainer = headerContainerRef.current;
-      const table = tableRef.current;
-
-      const headerRow = headerContainer.querySelector("table thead tr");
-      const firstRow = table.querySelector("tbody tr");
-      if (firstRow && headerRow) {
-        const newWidths: number[] = [];
-        const headerColumns = headerRow.querySelectorAll("th");
-        const bodyColumns = firstRow.querySelectorAll("td");
-        for (let i = 0; i < bodyColumns.length; i++) {
-          const headerCellWidth =
-            headerColumns[i].getBoundingClientRect().width;
-          const bodyCellWidth = bodyColumns[i].getBoundingClientRect().width;
-          newWidths.push(Math.max(headerCellWidth, bodyCellWidth));
-        }
-        setWidthCols(newWidths);
-      }
-    });
-
-    if (tableRef.current) {
-      observer.observe(tableRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   //#region Event
   const renderValueByColumnType = useCallback(
@@ -95,6 +66,14 @@ export const CTable = <T extends object, F extends object>({
     },
     []
   );
+
+  const onTableSroll = useCallback(() => {
+    const headerEl = headerContainerRef.current;
+    const bodyEl = bodyContainerRef.current;
+    if (headerEl && bodyEl) {
+      headerEl.scrollLeft = bodyEl.scrollLeft;
+    }
+  }, []);
   //#endregion
 
   //#region Render
@@ -109,14 +88,16 @@ export const CTable = <T extends object, F extends object>({
     >
       <Stack width="100%" height={40}></Stack>
       {filters && <CFiltersTable filters={filters} />}
-      <Stack>
+      <Stack className="c-table-wrapper" ref={tableWrapperRef}>
         <Box
           ref={headerContainerRef}
           className="table-header-container"
-          overflow="auto"
-          sx={{ scrollbarWidth: "none" }}
+          overflow="hidden"
         >
-          <Table sx={{ tableLayout: "fixed", width: "max-content" }}>
+          <Table
+            className="c-table"
+            sx={{ tableLayout: "fixed", width: "max-content" }}
+          >
             <colgroup>
               {headers.map((headerCol, headerColIndex) => {
                 const isLastCol = headerColIndex === headers.length - 1;
@@ -169,15 +150,9 @@ export const CTable = <T extends object, F extends object>({
         </Box>
         <TableContainer
           ref={bodyContainerRef}
-          className="c-table-container table-body-container"
+          className="table-body-container"
           sx={{ height }}
-          onScroll={() => {
-            const headerEl = headerContainerRef.current;
-            const bodyEl = bodyContainerRef.current;
-            if (headerEl && bodyEl) {
-              headerEl.scrollLeft = bodyEl.scrollLeft;
-            }
-          }}
+          onScroll={onTableSroll}
         >
           <Table
             ref={tableRef}

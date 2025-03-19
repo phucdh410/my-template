@@ -379,13 +379,42 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region Stack
+    MuiStack: {
+      styleOverrides: {
+        root: {
+          "&.c-table-wrapper": {
+            "&.left-pin-shadow": {
+              ".c-table": {
+                ".c-table-head--row,.c-table-body--row": {
+                  ".c-table-head--cell,.c-table-body--cell": {
+                    "&.pin-left-last::after": {
+                      boxShadow: "inset 10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+                    },
+                  },
+                },
+              },
+            },
+            "&.right-pin-shadow": {
+              ".c-table": {
+                ".c-table-head--row,.c-table-body--row": {
+                  ".c-table-head--cell,.c-table-body--cell": {
+                    "&.pin-right-first::after": {
+                      boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region TableContainer
     // MuiTableContainer: {
     //   styleOverrides: {
     //     root: {
-    //       "&.c-table-container": {
-    //         scrollbarWidth: "none",
-    //       },
     //     },
     //   },
     // },
@@ -421,24 +450,6 @@ theme = createTheme(theme, {
                   "&:after": {
                     left: 0,
                     transform: "translateX(-100%)",
-                  },
-                },
-              },
-            },
-            "&.left-pin-shadow": {
-              ".c-table-head--row,.c-table-body--row": {
-                ".c-table-head--cell,.c-table-body--cell": {
-                  "&.pin-left-last::after": {
-                    boxShadow: "inset 10px 0 8px -8px rgba(5, 5, 5, 0.06)",
-                  },
-                },
-              },
-            },
-            "&.right-pin-shadow": {
-              ".c-table-head--row,.c-table-body--row": {
-                ".c-table-head--cell,.c-table-body--cell": {
-                  "&.pin-right-first::after": {
-                    boxShadow: "inset -10px 0 8px -8px rgba(5, 5, 5, 0.06)",
                   },
                 },
               },
