@@ -1,9 +1,13 @@
-import TestPage from "./modules/test/pages/Test.page";
+import { createBrowserRouter, RouterProvider } from "react-router";
+
+import routes from "./routes";
+
+let router = createBrowserRouter(routes);
 
 function App() {
   return (
     <>
-      <TestPage />;
+      <RouterProvider router={router} />
     </>
   );
 }
