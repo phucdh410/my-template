@@ -6,7 +6,7 @@
   .marquee--content {
     gap: var(--gap);
     justify-content: space-around;
-    animation: marquee 60s linear infinite;
+    animation: marquee 80s linear infinite;
     &.reverse {
       animation-direction: reverse;
     }
