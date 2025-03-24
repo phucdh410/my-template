@@ -25,9 +25,11 @@
     "baseUrl": "./",
     "paths": {
       "@/components/*": ["src/common/components/*"],
-      "@/apis": ["src/apis/index.ts"],
+      "@/apis/*": ["src/apis/*"],
+      "@/store/*": ["src/store/*"],
       "@/axios": ["src/utils/axios/index.ts"],
       "@/funcs": ["src/utils/funcs/index.ts"],
+      "@/hooks": ["src/utils/hooks/index.ts"],
       "@/validations": ["src/utils/validations/index.ts"],
       "@/modules/*": ["src/modules/*"],
       "@/types/*": ["src/types/*"]

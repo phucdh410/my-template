@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import { CAuthProvider } from "@/components/layouts";
+
 import routes from "./routes";
 
 let router = createBrowserRouter(routes);
@@ -7,7 +9,9 @@ let router = createBrowserRouter(routes);
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <CAuthProvider>
+        <RouterProvider router={router} />
+      </CAuthProvider>
     </>
   );
 }

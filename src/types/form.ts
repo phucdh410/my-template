@@ -2,14 +2,14 @@ import { HTMLInputTypeAttribute } from "react";
 
 import { InputProps } from "@mui/material";
 
-//note: INTERFACE CHO FORM & INPUT
+//note: FORM & INPUT INTERFACES
 export interface IFormInputComponentRef {
   blur: () => void;
   focus: () => void;
 }
 
 export interface IFormInputComponentProps<T = any> {
-  id?: string; //note: Đây là id của input trên DOM nên là string
+  id?: string;
   name?: string;
   className?: string;
   value?: T | null;

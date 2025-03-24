@@ -1,7 +1,9 @@
 import { Controller, useForm } from "react-hook-form";
 
+import { authApi } from "@/apis/auth.api";
 import { CButton, CInput } from "@/components/controls";
-import { ILoginPayload } from "@/types/login";
+import { useAuth } from "@/store/auth";
+import { ILoginPayload } from "@/types/auth";
 
 import { loginDefaultValues, loginResolver } from "../../forms";
 
@@ -12,12 +14,21 @@ export const MLoginForm = () => {
     defaultValues: loginDefaultValues,
     resolver: loginResolver,
   });
+
+  const { setAccessToken, setRefreshToken } = useAuth();
   //#endregion
 
   //#region Event
   const onSubmit = () => {
     handleSubmit(async (values) => {
-      console.log(values);
+      try {
+        const res = await authApi.login(values);
+        const { access_token, refresh_token } = res.data.data;
+        setAccessToken(access_token);
+        setRefreshToken(refresh_token);
+      } catch (error: any) {
+        console.error(error);
+      }
     })();
   };
   //#endregion

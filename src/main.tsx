@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import timezone from "dayjs/plugin/timezone";
@@ -39,11 +40,23 @@ dayjs.updateLocale("vi", {
   ],
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      retryDelay: 0,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 createRoot(document.getElementById("root")!).render(
-  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </LocalizationProvider>
+  <QueryClientProvider client={queryClient}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="vi">
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </LocalizationProvider>
+  </QueryClientProvider>
 );
