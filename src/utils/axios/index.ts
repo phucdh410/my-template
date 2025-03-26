@@ -28,14 +28,16 @@ export const setAuthToken = (token?: string) => {
   else delete axiosInstance.defaults.headers.common["Authorization"];
 };
 
+// import dayjs, { isDayjs } from "dayjs";
+
 // const isValidDateValue = (value) => {
 //   const date = new Date(value);
 //   const isISOString = !isNaN(date.getTime()) && value === date.toISOString();
 
-//   const dayjsValue = dayjs(value);
-//   const isDateFormat = dayjsValue.format("YYYY-MM-DD");
-//   const isDatetimeFormat = dayjsValue.format("YYYY-MM-DD HH:mm:ss");
-//   const isMatchFormat = value === isDateFormat || value === isDatetimeFormat;
+//   const validFormats = ["YYYY-MM-DD", "YYYY-MM-DD HH:mm:ss"];
+//   const isMatchFormat = validFormats.some(
+//     (formatString) => dayjs(value).format(formatString) === value
+//   );
 
 //   return (
 //     value instanceof Date || isDayjs(value) || isISOString || isMatchFormat
