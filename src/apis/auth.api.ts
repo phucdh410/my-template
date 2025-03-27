@@ -7,4 +7,5 @@ export const authApi = {
     axiosInstance.post("/auth/login", body),
   getProfile: (): Promise<IApiResponse<IProfileResponse>> =>
     axiosInstance.get("/auth/profile"),
+  logout: () => axiosInstance.get("/auth/logout"),
 };

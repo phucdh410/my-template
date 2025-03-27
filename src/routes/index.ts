@@ -1,8 +1,10 @@
+import { lazy } from "react";
 import { RouteObject } from "react-router";
 
 import { CMainLayout } from "@/components/layouts";
 import { CPrivateRoute, CPublicRoute } from "@/components/layouts/CRoutes";
-import LoginPage from "@/modules/auth/pages/Login";
+
+const LoginPage = lazy(() => import("@/modules/auth/pages/Login"));
 
 export default [
   {

@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+import { logoutUser } from "@/funcs";
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
@@ -17,7 +19,10 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (errors) => {
+  (errors: AxiosError<any>) => {
+    if (errors?.response?.status === 401) {
+      logoutUser();
+    }
     return errors;
   }
 );
@@ -27,6 +32,8 @@ export const setAuthToken = (token?: string) => {
     axiosInstance.defaults.headers["Authorization"] = `Bearer ${token}`;
   else delete axiosInstance.defaults.headers.common["Authorization"];
 };
+
+export { axiosInstance };
 
 // import dayjs, { isDayjs } from "dayjs";
 
