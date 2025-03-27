@@ -1,5 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 
+import { toast } from "sonner";
+
 import { authApi } from "@/apis/auth.api";
 import { CButton, CInput } from "@/components/controls";
 import { useAuth } from "@/store/auth";
@@ -27,7 +29,7 @@ export const MLoginForm = () => {
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
       } catch (error: any) {
-        console.error(error);
+        toast.error(error?.message ?? "Login không thành công!");
       }
     })();
   };

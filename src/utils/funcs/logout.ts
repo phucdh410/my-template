@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+
 import { authApi } from "@/apis/auth.api";
 import { setAuthToken } from "@/axios";
 import { useAuth } from "@/store/auth";
@@ -12,6 +14,6 @@ export const logoutUser = async () => {
     setRefreshToken("");
     setAuthToken();
   } catch (error: any) {
-    console.error(error?.message);
+    toast.error(error?.message ?? "Logout không thành công!");
   }
 };

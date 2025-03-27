@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
+import { Toaster } from "sonner";
+
 import { CAuthProvider } from "@/components/layouts";
 
 import routes from "./routes";
@@ -12,6 +14,8 @@ function App() {
       <CAuthProvider>
         <RouterProvider router={router} />
       </CAuthProvider>
+
+      <Toaster position="top-right" visibleToasts={4} richColors />
     </>
   );
 }

@@ -43,6 +43,7 @@ dayjs.updateLocale("vi", {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      gcTime: 0, //note: disabled cache to got exact data from Api
       retry: 1,
       retryDelay: 0,
       refetchOnWindowFocus: false,
