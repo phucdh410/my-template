@@ -25,6 +25,7 @@
     "baseUrl": "./",
     "paths": {
       "@/components/*": ["src/common/components/*"],
+      "@/constants/*": ["src/common/constants/*"],
       "@/apis/*": ["src/apis/*"],
       "@/store/*": ["src/store/*"],
       "@/axios": ["src/utils/axios/index.ts"],

@@ -1,19 +1,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type IAuthState = {
+type TAuthState = {
   isLogined: boolean;
   accessToken: string;
   refreshToken: string;
 };
 
-type IAuthAction = {
+type TAuthAction = {
   setLogined: (newState: boolean) => void;
   setAccessToken: (token: string) => void;
   setRefreshToken: (token: string) => void;
 };
 
-export const useAuth = create<IAuthState & IAuthAction>()(
+export const useAuth = create<TAuthState & TAuthAction>()(
   persist(
     (set) => ({
       isLogined: false,

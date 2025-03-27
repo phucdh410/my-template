@@ -31,6 +31,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@/components": path.resolve(__dirname, "src/common/components"),
+      "@/constants": path.resolve(__dirname, "src/common/constants"),
       "@/apis": path.resolve(__dirname, "src/apis"),
       "@/store": path.resolve(__dirname, "src/store"),
       "@/axios": path.resolve(__dirname, "src/utils/axios/index.ts"),
