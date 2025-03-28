@@ -11,6 +11,7 @@ export const CMainLayout = () => {
       <CSidebar />
       <Stack flex={1}>
         <CHeader />
+
         <Outlet />
       </Stack>
     </Stack>

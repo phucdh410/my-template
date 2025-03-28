@@ -4,6 +4,8 @@ import { IconButton, Stack, styled } from "@mui/material";
 import { SIDEBAR_WIDTH } from "@/constants/enums";
 import { useSidebar } from "@/store/sidebar";
 
+import { CNavigations } from "./CNavigations";
+
 const BORDER_COLOR = "rgba(145, 158, 171, 0.12)";
 
 const StyledToggleButton = styled(IconButton)(() => ({
@@ -49,6 +51,7 @@ export const CSidebar = () => {
         )}
       </StyledToggleButton>
       <Stack height={80}>Logo</Stack>
+      <CNavigations />
     </Stack>
   );
   //#endregion

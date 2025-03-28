@@ -10,4 +10,8 @@ export interface INavigationItem {
   icon: ReactNode;
   name: string;
   path: string;
+  subs?: INavigationSubItem[];
 }
+
+export interface INavigationSubItem
+  extends Omit<INavigationItem, "icon" | "subs"> {}
