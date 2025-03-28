@@ -41,7 +41,6 @@ export const CSidebar = () => {
       width={open ? SIDEBAR_WIDTH.EXPAND : SIDEBAR_WIDTH.COLLAPSE}
       sx={{ transition: "all 200ms 50ms ease-out" }}
     >
-      sidebar
       <StyledToggleButton onClick={toggleSidebar}>
         {open ? (
           <ChevronLeft fontSize="inherit" />
@@ -49,6 +48,7 @@ export const CSidebar = () => {
           <ChevronRight fontSize="inherit" />
         )}
       </StyledToggleButton>
+      <Stack height={80}>Logo</Stack>
     </Stack>
   );
   //#endregion
