@@ -1,4 +1,13 @@
-import { AdminPanelSettingsTwoTone } from "@mui/icons-material";
+import {
+  AssignmentIndTwoTone,
+  CoffeeTwoTone,
+  LeaderboardTwoTone,
+  LocalMallTwoTone,
+  PublicTwoTone,
+  SavingsTwoTone,
+  ShoppingBagTwoTone,
+  SourceTwoTone,
+} from "@mui/icons-material";
 
 import { INavigationGroup } from "@/types/navigation";
 
@@ -9,32 +18,32 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "App",
         path: "app",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <CoffeeTwoTone />,
       },
       {
         name: "Ecommerce",
         path: "ecommerce",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <ShoppingBagTwoTone />,
       },
       {
         name: "Analytics",
         path: "analytics",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <LeaderboardTwoTone />,
       },
       {
         name: "Banking",
         path: "banking",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <SavingsTwoTone />,
       },
       {
         name: "Booking",
         path: "booking",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <PublicTwoTone />,
       },
       {
         name: "File",
         path: "file",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <SourceTwoTone />,
       },
     ],
   },
@@ -44,7 +53,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "User",
         path: "user",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <AssignmentIndTwoTone />,
         subs: [
           {
             name: "Profile",
@@ -70,7 +79,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       },
       {
         name: "Product",
-        icon: <AdminPanelSettingsTwoTone />,
+        icon: <LocalMallTwoTone />,
         path: "product",
         subs: [
           {
