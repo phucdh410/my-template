@@ -79,7 +79,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
           },
           {
             name: "Details",
-            path: "detail",
+            path: "details",
           },
           {
             name: "Create",
