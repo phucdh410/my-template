@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { ChevronRight, ExpandMore } from "@mui/icons-material";
+import { Collapse } from "@mui/material";
 import classNames from "classnames";
 
 import { INavigationItem } from "@/types/navigation";
@@ -54,6 +55,17 @@ const CListPathItem = ({
           <ChevronRight className="c-navigation--expand-icon" />
         )}
       </div>
+      <Collapse in={open} sx={{ paddingLeft: "24px" }}>
+        <ul className="c-navigation--sub-list">
+          {data.subs!.map((subItem, index) => (
+            <li key={index} className="c-navigation--sub-list-item">
+              <a href="" className={classNames(active && "active")}>
+                {subItem.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Collapse>
     </li>
   );
   //#endregion
