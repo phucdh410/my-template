@@ -43,7 +43,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
     list: [
       {
         name: "User",
-        path: "/user",
+        path: "user",
         icon: <AdminPanelSettingsTwoTone />,
         subs: [
           {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
@@ -21,10 +22,13 @@ const CPathItem = ({
 }) => {
   return (
     <li className="c-navigation--nav-li">
-      <a className={classNames("c-navigation--nav-item", active && "active")}>
+      <Link
+        to={`/${data.path}`}
+        className={classNames("c-navigation--nav-item", active && "active")}
+      >
         <span className="c-navigation--nav-icon">{data.icon}</span>
         <span className="c-navigation--nav-text">{data.name}</span>
-      </a>
+      </Link>
     </li>
   );
 };
@@ -59,9 +63,12 @@ const CListPathItem = ({
         <ul className="c-navigation--sub-list">
           {data.subs!.map((subItem, index) => (
             <li key={index} className="c-navigation--sub-list-item">
-              <a href="" className={classNames(active && "active")}>
+              <Link
+                to={`/${data.path}/${subItem.path}`}
+                className={classNames(active && "active")}
+              >
                 {subItem.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
