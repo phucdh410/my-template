@@ -36,6 +36,9 @@ $nav-sub-line-color: #edeff2;
       height: 24px;
       width: 24px;
       color: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-self: center;
     }
 
     .c-navigation--nav-text {
