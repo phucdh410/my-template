@@ -45,6 +45,25 @@ export default [
               { path: "edit", Component: DevelopmentPage },
             ],
           },
+          {
+            path: "/order",
+            children: [
+              { path: "list", Component: DevelopmentPage },
+              { path: "details", Component: DevelopmentPage },
+              { path: "create", Component: DevelopmentPage },
+              { path: "edit", Component: DevelopmentPage },
+            ],
+          },
+          {
+            path: "/blog",
+            children: [
+              { path: "list", Component: DevelopmentPage },
+              { path: "details", Component: DevelopmentPage },
+              { path: "create", Component: DevelopmentPage },
+              { path: "edit", Component: DevelopmentPage },
+            ],
+          },
+          { path: "/permission", Component: DevelopmentPage },
         ],
       },
     ],

@@ -1,8 +1,4 @@
-import {
-  AssignmentIndTwoTone,
-  CoffeeTwoTone,
-  LocalMallTwoTone,
-} from "@mui/icons-material";
+import { CoffeeTwoTone, LocalMallTwoTone } from "@mui/icons-material";
 
 import {
   AnalyticsIcon,
@@ -55,7 +51,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "User",
         path: "user",
-        icon: <AssignmentIndTwoTone />,
+        icon: <i className="fa-duotone fa-regular fa-square-user fa-xl"></i>,
         subs: [
           {
             name: "Profile",
@@ -101,6 +97,62 @@ export const NAVIGATIONS: INavigationGroup[] = [
             path: "edit",
           },
         ],
+      },
+      {
+        name: "Order",
+        path: "order",
+        icon: <i className="fa-duotone fa-regular fa-cart-shopping fa-lg"></i>,
+        subs: [
+          {
+            name: "List",
+            path: "list",
+          },
+          {
+            name: "Details",
+            path: "details",
+          },
+          {
+            name: "Create",
+            path: "create",
+          },
+          {
+            name: "Edit",
+            path: "edit",
+          },
+        ],
+      },
+      {
+        name: "Blog",
+        path: "blog",
+        icon: <i className="fa-duotone fa-regular fa-file-invoice fa-xl"></i>,
+        subs: [
+          {
+            name: "List",
+            path: "list",
+          },
+          {
+            name: "Details",
+            path: "details",
+          },
+          {
+            name: "Create",
+            path: "create",
+          },
+          {
+            name: "Edit",
+            path: "edit",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "Misc",
+    list: [
+      {
+        name: "Permission",
+        path: "permission",
+        icon: <i className="fa-duotone fa-regular fa-user-lock fa-lg"></i>,
       },
     ],
   },

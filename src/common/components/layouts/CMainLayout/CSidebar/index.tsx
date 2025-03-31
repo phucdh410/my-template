@@ -50,7 +50,9 @@ export const CSidebar = () => {
           <ChevronRight fontSize="inherit" />
         )}
       </StyledToggleButton>
-      <Stack height={80}>Logo</Stack>
+      <Stack height={80} flexShrink={0}>
+        Logo
+      </Stack>
       <CNavigations />
     </Stack>
   );
