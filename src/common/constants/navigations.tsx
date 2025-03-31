@@ -1,14 +1,16 @@
 import {
   AssignmentIndTwoTone,
   CoffeeTwoTone,
-  LeaderboardTwoTone,
   LocalMallTwoTone,
-  PublicTwoTone,
-  SavingsTwoTone,
-  ShoppingBagTwoTone,
-  SourceTwoTone,
 } from "@mui/icons-material";
 
+import {
+  AnalyticsIcon,
+  BankingIcon,
+  BookingIcon,
+  EcommerceIcon,
+  FileIcon,
+} from "@/components/others";
 import { INavigationGroup } from "@/types/navigation";
 
 export const NAVIGATIONS: INavigationGroup[] = [
@@ -23,27 +25,27 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "Ecommerce",
         path: "ecommerce",
-        icon: <ShoppingBagTwoTone />,
+        icon: <EcommerceIcon />,
       },
       {
         name: "Analytics",
         path: "analytics",
-        icon: <LeaderboardTwoTone />,
+        icon: <AnalyticsIcon />,
       },
       {
         name: "Banking",
         path: "banking",
-        icon: <SavingsTwoTone />,
+        icon: <BankingIcon />,
       },
       {
         name: "Booking",
         path: "booking",
-        icon: <PublicTwoTone />,
+        icon: <BookingIcon />,
       },
       {
         name: "File",
         path: "file",
-        icon: <SourceTwoTone />,
+        icon: <FileIcon />,
       },
     ],
   },

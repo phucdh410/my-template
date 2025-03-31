@@ -1,5 +1,5 @@
 .c-navigation--group {
-  * {
+  *:not(i) {
     font-family: Inter;
   }
   .c-navigation--sub-header {

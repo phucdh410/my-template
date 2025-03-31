@@ -1,6 +1,7 @@
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
+import svgr from "vite-plugin-svgr";
 
 const ReactCompilerConfig = {
   /* ... */
@@ -22,6 +23,7 @@ export default defineConfig({
   //   },
   // },
   plugins: [
+    svgr(),
     react({
       babel: {
         plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
@@ -32,6 +34,7 @@ export default defineConfig({
     alias: {
       "@/components": path.resolve(__dirname, "src/common/components"),
       "@/constants": path.resolve(__dirname, "src/common/constants"),
+      "@/assets": path.resolve(__dirname, "src/common/assets"),
       "@/apis": path.resolve(__dirname, "src/apis"),
       "@/store": path.resolve(__dirname, "src/store"),
       "@/axios": path.resolve(__dirname, "src/utils/axios/index.ts"),
