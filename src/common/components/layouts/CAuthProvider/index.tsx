@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { authApi } from "@/apis/auth.api";
 import { setAuthToken } from "@/axios";
+import { CLoading } from "@/components/others";
 import { useAuth } from "@/store/auth";
 
 export const CAuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
@@ -23,5 +24,5 @@ export const CAuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     if (isSuccess) setLogined(true);
   }, [isSuccess]);
 
-  return isFetching ? <div>Loading UI</div> : <>{children}</>;
+  return isFetching ? <CLoading /> : <>{children}</>;
 };
