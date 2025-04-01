@@ -1,4 +1,4 @@
-.c-navigation {
+.c-navigation--wrapper {
   .scrollbar-track {
     background-color: transparent;
   }
@@ -9,6 +9,16 @@
   &:hover {
     .scrollbar-track.scrollbar-track-y {
       opacity: 1;
+    }
+  }
+
+  .c-navigation--section {
+    padding-inline: 16px;
+    flex: 1;
+
+    .c-navigation--nav-ul {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

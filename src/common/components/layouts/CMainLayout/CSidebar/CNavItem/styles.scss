@@ -70,6 +70,8 @@ $nav-sub-line-color: #edeff2;
       }
 
       a {
+        font-weight: 500;
+        font-size: 0.875rem;
         padding: $nav-item-padding;
         min-height: $nav-sub-item-height;
         display: inline-flex;

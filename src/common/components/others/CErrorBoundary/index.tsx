@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 
-import imgSrc from "../../../assets/development.jpg";
+import imgSrc from "@/assets/images/development.jpg";
 
 export const CDevelopmentView = () => {
   return (

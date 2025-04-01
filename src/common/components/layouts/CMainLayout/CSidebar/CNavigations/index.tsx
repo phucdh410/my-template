@@ -5,6 +5,7 @@ import Scrollbar from "smooth-scrollbar";
 import { NAVIGATIONS } from "@/constants/navigations";
 
 import { CGroup } from "../CGroup";
+import { CSidebarProfile } from "../CSidebarProfile";
 
 import "./styles.scss";
 
@@ -25,16 +26,15 @@ export const CNavigations = () => {
   }, []);
 
   return (
-    <nav
-      className="c-navigation"
-      ref={scrollbarRef}
-      style={{ paddingInline: "16px", flex: 1 }}
-    >
-      <ul style={{ display: "flex", flexDirection: "column" }}>
-        {NAVIGATIONS.map((nav, index) => (
-          <CGroup key={index} group={nav} />
-        ))}
-      </ul>
-    </nav>
+    <div className="c-navigation--wrapper" ref={scrollbarRef}>
+      <nav className="c-navigation--section">
+        <ul className="c-navigation--nav-ul">
+          {NAVIGATIONS.map((nav, index) => (
+            <CGroup key={index} group={nav} />
+          ))}
+        </ul>
+      </nav>
+      <CSidebarProfile />
+    </div>
   );
 };

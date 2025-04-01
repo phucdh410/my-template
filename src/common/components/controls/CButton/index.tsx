@@ -14,7 +14,7 @@ export const CButton: React.FC<ICButtonProps> = ({
 }) => {
   return (
     <Button
-      className={classNames("c-button")}
+      className={classNames("c-button", className)}
       disabled={disabled}
       loading={loading}
       loadingPosition={startIcon ? "start" : endIcon ? "end" : "center"}

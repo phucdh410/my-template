@@ -1,0 +1,28 @@
+.c-sidebar-profile {
+  $font-size: 0.875rem;
+
+  .c-sidebar--avatar {
+    height: 48px;
+    width: 48px;
+  }
+
+  .c-sidebar--fullname {
+    font-size: $font-size;
+    font-weight: 600;
+    color: black;
+  }
+
+  .c-sidebar--email {
+    font-size: $font-size;
+    color: rgb(158, 158, 158);
+  }
+
+  .c-sidebar--button {
+    font-size: $font-size;
+    font-weight: 700;
+    border-radius: 8px;
+    color: white;
+    background: black;
+    box-shadow: none !important;
+  }
+}
