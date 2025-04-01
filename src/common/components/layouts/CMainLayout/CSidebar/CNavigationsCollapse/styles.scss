@@ -65,8 +65,9 @@
 }
 
 .c-mini-navigation--popover {
+  pointer-events: none;
   .MuiPaper-root {
-    margin-left: 6px;
+    padding-left: 6px;
     box-shadow: none;
     overflow: unset;
     backdrop-filter: none;
