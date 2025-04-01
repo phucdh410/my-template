@@ -5,6 +5,7 @@ import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import classNames from "classnames";
 
+import { generateKey } from "@/funcs";
 import { useRouteActive } from "@/hooks";
 import { INavigationItem, INavigationSubItem } from "@/types/navigation";
 
@@ -19,6 +20,7 @@ const CPathItem = ({ data }: { data: INavigationItem }) => {
   const isRouteActive = useRouteActive(data.path);
   //#endregion
 
+  //#region Render
   return (
     <li className="c-navigation--nav-li">
       <Link
@@ -33,6 +35,7 @@ const CPathItem = ({ data }: { data: INavigationItem }) => {
       </Link>
     </li>
   );
+  //#endregion
 };
 
 const CListPathItem = ({ data }: { data: INavigationItem }) => {
@@ -63,7 +66,11 @@ const CListPathItem = ({ data }: { data: INavigationItem }) => {
       <Collapse in={open} sx={{ paddingLeft: "24px" }}>
         <ul className="c-navigation--sub-list">
           {data.subs!.map((subItem, index) => (
-            <CSubPathItem key={index} data={subItem} parentPath={data.path} />
+            <CSubPathItem
+              key={generateKey(index + subItem.name)}
+              data={subItem}
+              parentPath={data.path}
+            />
           ))}
         </ul>
       </Collapse>

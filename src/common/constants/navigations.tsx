@@ -1,4 +1,11 @@
-import { CoffeeTwoTone, LocalMallTwoTone } from "@mui/icons-material";
+import {
+  AccountBoxTwoTone,
+  ChromeReaderModeTwoTone,
+  CoffeeTwoTone,
+  LocalMallTwoTone,
+  LockPersonTwoTone,
+  ShoppingCartTwoTone,
+} from "@mui/icons-material";
 
 import {
   AnalyticsIcon,
@@ -51,7 +58,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "User",
         path: "user",
-        icon: <i className="fa-duotone fa-regular fa-square-user fa-xl"></i>,
+        icon: <AccountBoxTwoTone />,
         subs: [
           {
             name: "Profile",
@@ -101,7 +108,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "Order",
         path: "order",
-        icon: <i className="fa-duotone fa-regular fa-cart-shopping fa-lg"></i>,
+        icon: <ShoppingCartTwoTone />,
         subs: [
           {
             name: "List",
@@ -124,7 +131,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "Blog",
         path: "blog",
-        icon: <i className="fa-duotone fa-regular fa-file-invoice fa-xl"></i>,
+        icon: <ChromeReaderModeTwoTone />,
         subs: [
           {
             name: "List",
@@ -152,7 +159,7 @@ export const NAVIGATIONS: INavigationGroup[] = [
       {
         name: "Permission",
         path: "permission",
-        icon: <i className="fa-duotone fa-regular fa-user-lock fa-lg"></i>,
+        icon: <LockPersonTwoTone />,
       },
     ],
   },

@@ -5,6 +5,7 @@ import { SIDEBAR_WIDTH } from "@/constants/enums";
 import { useSidebar } from "@/store/sidebar";
 
 import { CNavigations } from "./CNavigations";
+import { CNavigationsCollapse } from "./CNavigationsCollapse";
 
 const BORDER_COLOR = "rgba(145, 158, 171, 0.12)";
 
@@ -30,9 +31,6 @@ export const CSidebar = () => {
   const { open, toggleSidebar } = useSidebar();
   //#endregion
 
-  //#region Event
-  //#endregion
-
   //#region Render
   return (
     <Stack
@@ -53,7 +51,7 @@ export const CSidebar = () => {
       <Stack height={80} flexShrink={0}>
         Logo
       </Stack>
-      <CNavigations />
+      {open ? <CNavigations /> : <CNavigationsCollapse />}
     </Stack>
   );
   //#endregion

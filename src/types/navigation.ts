@@ -11,6 +11,9 @@ export interface INavigationItem {
   name: string;
   path: string;
   subs?: INavigationSubItem[];
+
+  //note: Name should be short (15 characters) or you shall provide acronym for better mini view
+  acronym?: string;
 }
 
 export interface INavigationSubItem

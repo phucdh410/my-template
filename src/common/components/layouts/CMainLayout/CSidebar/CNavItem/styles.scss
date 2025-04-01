@@ -63,6 +63,7 @@
       .c-navigation--nav-item.sub-item {
         min-height: var(--mui-sidebar-item-heightSub);
         position: relative;
+        font-size: 0.875rem;
         &.active {
           &::before {
             content: "";
