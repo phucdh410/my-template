@@ -85,10 +85,13 @@ const CSubPathItem = ({
 
   //#region Render
   return (
-    <li className="c-navigation--sub-list-item">
+    <li className="c-navigation--nav-li">
       <Link
         to={`/${parentPath}/${data.path}`}
-        className={classNames(isRouteActive && "active")}
+        className={classNames(
+          isRouteActive && "active",
+          "c-navigation--nav-item sub-item"
+        )}
       >
         {data.name}
       </Link>

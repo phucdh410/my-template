@@ -14,6 +14,25 @@ import {
 
 //#region Breakpoints & Palette & Typography
 let theme = createTheme({
+  sidebar: {
+    item: {
+      height: "44px",
+      heightSub: "36px",
+      borderRadius: "8px",
+      padding: "4px 8px 4px 12px",
+      colors: {
+        main: "#637381",
+        hoverBg: "#919eab14",
+        active: "#00a76f",
+        activeBg: "#00a76f14",
+        activeBgHover: "#00a76f29",
+      },
+    },
+    subList: {
+      linePadding: "12px",
+      lineColor: "#edeff2",
+    },
+  },
   palette: {
     primary: {
       main: "#8C56DEFF",
@@ -72,6 +91,7 @@ let theme = createTheme({
       "3xl": 1920,
     },
   },
+  cssVariables: true,
 });
 //#endregion
 
@@ -508,6 +528,49 @@ export { theme };
 
 //#region Declare
 declare module "@mui/material/styles" {
+  interface Theme {
+    sidebar: {
+      item: {
+        height: string;
+        heightSub: string;
+        borderRadius: string;
+        padding: string;
+        colors: {
+          main: string;
+          hoverBg: string;
+          active: string;
+          activeBg: string;
+          activeBgHover: string;
+        };
+      };
+      subList: {
+        linePadding: string;
+        lineColor: string;
+      };
+    };
+  }
+  interface ThemeOptions {
+    sidebar?: {
+      item?: {
+        height?: string;
+        heightSub?: string;
+        borderRadius?: string;
+        padding?: string;
+        colors?: {
+          main?: string;
+          hoverBg?: string;
+          active?: string;
+          activeBg?: string;
+          activeBgHover?: string;
+        };
+      };
+      subList?: {
+        linePadding?: string;
+        lineColor?: string;
+      };
+    };
+  }
+
   interface BreakpointOverrides {
     xs: true;
     sm: true;
