@@ -1,5 +1,5 @@
 import { CalendarMonthOutlined, ExpandMore } from "@mui/icons-material";
-import { Components, createTheme, Theme } from "@mui/material";
+import { alpha, Components, createTheme, Theme } from "@mui/material";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 import {
@@ -9,6 +9,7 @@ import {
   INPUT_PADDING,
   INPUT_TRANSFORM_INITIAL,
   INPUT_TRANSFORM_SHRINK,
+  SIDEBAR_ACTIVE_COLOR,
   TABLE_CELL_PADDING,
 } from "./common";
 
@@ -23,9 +24,9 @@ let theme = createTheme({
       colors: {
         main: "#637381",
         hoverBg: "#919eab14",
-        active: "#00a76f",
-        activeBg: "#00a76f14",
-        activeBgHover: "#00a76f29",
+        active: SIDEBAR_ACTIVE_COLOR,
+        activeBg: alpha(SIDEBAR_ACTIVE_COLOR, 0.08),
+        activeBgHover: alpha(SIDEBAR_ACTIVE_COLOR, 0.15),
       },
     },
     subList: {
