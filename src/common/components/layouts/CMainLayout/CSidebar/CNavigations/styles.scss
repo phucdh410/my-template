@@ -1,0 +1,14 @@
+.c-navigation {
+  .scrollbar-track {
+    background-color: transparent;
+  }
+  .scrollbar-thumb {
+    background-color: #919eab7a;
+  }
+
+  &:hover {
+    .scrollbar-track.scrollbar-track-y {
+      opacity: 1;
+    }
+  }
+}
