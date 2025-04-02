@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { IconButton, Stack, styled } from "@mui/material";
 
+import logoSrc from "@/assets/images/logo.png";
 import { SIDEBAR_WIDTH } from "@/constants/enums";
 import { useSidebar } from "@/store/sidebar";
 
@@ -48,8 +49,17 @@ export const CSidebar = () => {
           <ChevronRight fontSize="inherit" />
         )}
       </StyledToggleButton>
-      <Stack height={80} flexShrink={0}>
-        Logo
+      <Stack
+        height={80}
+        flexShrink={0}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <img
+          src={logoSrc}
+          alt="logo"
+          style={{ maxWidth: open ? "60px" : "50px" }}
+        />
       </Stack>
       {open ? <CNavigations /> : <CNavigationsCollapse />}
     </Stack>
