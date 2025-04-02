@@ -2,13 +2,16 @@ import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { IconButton, Stack, styled } from "@mui/material";
 
 import logoSrc from "@/assets/images/logo.png";
-import { SIDEBAR_WIDTH } from "@/constants/enums";
+import {
+  HEADER__HEIGHT,
+  SIDEBAR__BORDER_COLOR,
+  SIDEBAR__COLLAPSE_WIDTH,
+  SIDEBAR__EXPAND_WIDTH,
+} from "@/constants/variables";
 import { useSidebar } from "@/store/sidebar";
 
 import { CNavigations } from "./CNavigations";
 import { CNavigationsCollapse } from "./CNavigationsCollapse";
-
-const BORDER_COLOR = "rgba(145, 158, 171, 0.12)";
 
 const StyledToggleButton = styled(IconButton)(() => ({
   fontSize: "1.25rem",
@@ -16,11 +19,11 @@ const StyledToggleButton = styled(IconButton)(() => ({
   zIndex: 1,
   padding: "2px",
   border: "1px solid black",
-  borderColor: BORDER_COLOR,
+  borderColor: SIDEBAR__BORDER_COLOR,
   right: 0,
-  top: "3rem",
+  top: `calc(${HEADER__HEIGHT}px / 2)`,
   position: "absolute",
-  transform: "translateX(50%)",
+  transform: "translate(50%,-50%)",
   color: "#637381",
   "&:hover": {
     background: "white",
@@ -38,8 +41,8 @@ export const CSidebar = () => {
       flexShrink={0}
       position="relative"
       borderRight="1px solid black"
-      borderColor={BORDER_COLOR}
-      width={open ? SIDEBAR_WIDTH.EXPAND : SIDEBAR_WIDTH.COLLAPSE}
+      borderColor={SIDEBAR__BORDER_COLOR}
+      width={open ? SIDEBAR__EXPAND_WIDTH : SIDEBAR__COLLAPSE_WIDTH}
       sx={{ transition: "all 200ms 50ms ease-out" }}
     >
       <StyledToggleButton onClick={toggleSidebar}>
@@ -50,7 +53,7 @@ export const CSidebar = () => {
         )}
       </StyledToggleButton>
       <Stack
-        height={80}
+        height={HEADER__HEIGHT}
         flexShrink={0}
         alignItems="center"
         justifyContent="center"

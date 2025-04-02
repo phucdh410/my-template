@@ -3,15 +3,15 @@ import { alpha, Components, createTheme, Theme } from "@mui/material";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 import {
-  INPUT_BORDER_RADIUS,
-  INPUT_LEGEND_FONT_SIZE,
-  INPUT_LINE_HEIGHT,
-  INPUT_PADDING,
-  INPUT_TRANSFORM_INITIAL,
-  INPUT_TRANSFORM_SHRINK,
-  SIDEBAR_ACTIVE_COLOR,
-  TABLE_CELL_PADDING,
-} from "./common";
+  INPUT__BORDER_RADIUS,
+  INPUT__LEGEND_FONT_SIZE,
+  INPUT__LINE_HEIGHT,
+  INPUT__PADDING,
+  INPUT__TRANSFORM_INITIAL,
+  INPUT__TRANSFORM_SHRINK,
+  SIDEBAR__ACTIVE_COLOR,
+  TABLE__CELL_PADDING,
+} from "@/constants/variables";
 
 //#region Breakpoints & Palette & Typography
 let theme = createTheme({
@@ -24,9 +24,9 @@ let theme = createTheme({
       colors: {
         main: "#637381",
         hoverBg: "#919eab14",
-        active: SIDEBAR_ACTIVE_COLOR,
-        activeBg: alpha(SIDEBAR_ACTIVE_COLOR, 0.08),
-        activeBgHover: alpha(SIDEBAR_ACTIVE_COLOR, 0.15),
+        active: SIDEBAR__ACTIVE_COLOR,
+        activeBg: alpha(SIDEBAR__ACTIVE_COLOR, 0.08),
+        activeBgHover: alpha(SIDEBAR__ACTIVE_COLOR, 0.15),
       },
     },
     subList: {
@@ -147,26 +147,26 @@ theme = createTheme(theme, {
         root: {
           "&.c-input,&.c-date-picker": {
             ".MuiInputLabel-root": {
-              transform: INPUT_TRANSFORM_INITIAL,
+              transform: INPUT__TRANSFORM_INITIAL,
               "&.MuiInputLabel-shrink": {
-                transform: INPUT_TRANSFORM_SHRINK,
+                transform: INPUT__TRANSFORM_SHRINK,
               },
             },
             ".MuiOutlinedInput-root": {
-              borderRadius: INPUT_BORDER_RADIUS,
+              borderRadius: INPUT__BORDER_RADIUS,
               ".MuiOutlinedInput-input": {
                 height: "unset",
-                padding: INPUT_PADDING,
-                lineHeight: INPUT_LINE_HEIGHT,
+                padding: INPUT__PADDING,
+                lineHeight: INPUT__LINE_HEIGHT,
               },
               "&.MuiInputBase-multiline": {
-                padding: INPUT_PADDING,
+                padding: INPUT__PADDING,
                 ".MuiOutlinedInput-input": {
                   padding: 0,
                 },
               },
               legend: {
-                fontSize: INPUT_LEGEND_FONT_SIZE,
+                fontSize: INPUT__LEGEND_FONT_SIZE,
               },
             },
           },
@@ -183,22 +183,22 @@ theme = createTheme(theme, {
         root: {
           "&.c-autocomplete": {
             ".MuiInputLabel-root": {
-              transform: INPUT_TRANSFORM_INITIAL,
+              transform: INPUT__TRANSFORM_INITIAL,
               "&.MuiInputLabel-shrink": {
-                transform: INPUT_TRANSFORM_SHRINK,
+                transform: INPUT__TRANSFORM_SHRINK,
               },
             },
             ".MuiAutocomplete-inputRoot": {
               padding: 0,
               paddingRight: "39px",
-              borderRadius: INPUT_BORDER_RADIUS,
+              borderRadius: INPUT__BORDER_RADIUS,
               ".MuiAutocomplete-input": {
                 height: "unset",
-                padding: INPUT_PADDING,
-                lineHeight: INPUT_LINE_HEIGHT,
+                padding: INPUT__PADDING,
+                lineHeight: INPUT__LINE_HEIGHT,
               },
               legend: {
-                fontSize: INPUT_LEGEND_FONT_SIZE,
+                fontSize: INPUT__LEGEND_FONT_SIZE,
               },
             },
           },
@@ -490,7 +490,7 @@ theme = createTheme(theme, {
               ".c-table-head--cell": {
                 fontWeight: 600,
                 whiteSpace: "nowrap",
-                padding: TABLE_CELL_PADDING,
+                padding: TABLE__CELL_PADDING,
                 backgroundColor: "#f9fafb",
                 color: "#667085",
               },
@@ -507,7 +507,7 @@ theme = createTheme(theme, {
           "&.c-table-body": {
             ".c-table-body--row": {
               ".c-table-body--cell": {
-                padding: TABLE_CELL_PADDING,
+                padding: TABLE__CELL_PADDING,
                 backgroundColor: theme.palette.white.main,
               },
               "&:last-of-type": {
