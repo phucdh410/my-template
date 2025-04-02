@@ -66,11 +66,12 @@
 
 .c-mini-navigation--popover {
   pointer-events: none;
-  .MuiPaper-root {
+  .c-mini-navigation--paper {
     padding-left: 6px;
     box-shadow: none;
     overflow: unset;
     backdrop-filter: none;
+    pointer-events: auto;
 
     .c-mini-navigation--dropdown {
       border-radius: 10px;

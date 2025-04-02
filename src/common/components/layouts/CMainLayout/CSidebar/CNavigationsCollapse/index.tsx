@@ -72,12 +72,27 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const onMouseLeave = (event: React.MouseEvent<HTMLElement>) => {
+  const handleNavItemLeave = (event: React.MouseEvent<HTMLElement>) => {
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
+    const dropdownContainer = document.getElementById(
+      "Mini-navigation-presentation"
+    );
     if (
-      !event.relatedTarget ||
-      !event.currentTarget.contains(event.relatedTarget as Node)
+      relatedTarget &&
+      dropdownContainer &&
+      dropdownContainer.contains(relatedTarget)
     ) {
-      console.log("Thực sự rời khỏi component");
+      return;
+    } else {
+      setAnchorEl(null);
+    }
+  };
+
+  const handleDropdownLeave = (event: React.MouseEvent<HTMLElement>) => {
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
+    if (relatedTarget && relatedTarget.contains(anchorEl)) {
+      return;
+    } else {
       setAnchorEl(null);
     }
   };
@@ -95,7 +110,7 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
           isRouteActive && "active"
         )}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        onMouseLeave={handleNavItemLeave}
       >
         <span className="c-mini-navigation--item-icon">{data.icon}</span>
         <span className="c-mini-navigation--item-text">{data.name}</span>
@@ -115,6 +130,14 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
         onClose={onClose}
         className="c-mini-navigation--popover"
         disableRestoreFocus
+        aria-hidden={false}
+        id="Mini-navigation-presentation"
+        slotProps={{
+          paper: {
+            className: "c-mini-navigation--paper",
+            onMouseLeave: handleDropdownLeave,
+          },
+        }}
       >
         <div className="c-mini-navigation--dropdown">
           <ul className="c-mini-navigation--ul">
@@ -156,6 +179,7 @@ const CNavigationDropdownItem = ({
           isRouteActive && "active",
           "c-mini-navigation--li-item"
         )}
+        onClick={onClose}
       >
         {data.name}
       </Link>

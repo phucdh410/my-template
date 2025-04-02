@@ -4,6 +4,7 @@ import { logoutUser } from "@/funcs";
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
+  timeout: 5000,
 });
 
 axiosInstance.interceptors.request.use(
