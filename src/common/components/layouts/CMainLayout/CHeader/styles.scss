@@ -3,6 +3,7 @@
   background-color: transparent;
   box-shadow: none;
   color: black;
+  transition: all 200ms ease-in;
 
   &.scroll-out-top {
     backdrop-filter: blur(6px);
