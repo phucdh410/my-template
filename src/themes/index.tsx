@@ -3,6 +3,7 @@ import { alpha, Components, createTheme, Theme } from "@mui/material";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 import {
+  HEADER__HEIGHT,
   INPUT__BORDER_RADIUS,
   INPUT__LEGEND_FONT_SIZE,
   INPUT__LINE_HEIGHT,
@@ -15,6 +16,9 @@ import {
 
 //#region Breakpoints & Palette & Typography
 let theme = createTheme({
+  header: {
+    height: `${HEADER__HEIGHT}px`,
+  },
   sidebar: {
     item: {
       height: "44px",
@@ -530,6 +534,9 @@ export { theme };
 //#region Declare
 declare module "@mui/material/styles" {
   interface Theme {
+    header: {
+      height: string;
+    };
     sidebar: {
       item: {
         height: string;
@@ -551,6 +558,9 @@ declare module "@mui/material/styles" {
     };
   }
   interface ThemeOptions {
+    header?: {
+      height?: string;
+    };
     sidebar?: {
       item?: {
         height?: string;

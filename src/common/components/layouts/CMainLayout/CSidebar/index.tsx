@@ -13,10 +13,10 @@ import { useSidebar } from "@/store/sidebar";
 import { CNavigations } from "./CNavigations";
 import { CNavigationsCollapse } from "./CNavigationsCollapse";
 
-const StyledToggleButton = styled(IconButton)(() => ({
+const StyledToggleButton = styled(IconButton)(({ theme }) => ({
   fontSize: "1.25rem",
   background: "white",
-  zIndex: 1,
+  zIndex: theme.zIndex.appBar + 1,
   padding: "2px",
   border: "1px solid black",
   borderColor: SIDEBAR__BORDER_COLOR,
