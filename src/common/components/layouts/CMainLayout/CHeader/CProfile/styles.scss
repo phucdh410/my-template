@@ -6,6 +6,12 @@
   overflow: hidden;
   border-radius: 100%;
   padding: 1px;
+
+  .MuiAvatar-root {
+    height: 35px;
+    width: 35px;
+  }
+
   .c-header--profile-background {
     animation: rotateBackground 5s linear infinite;
     background: linear-gradient(
