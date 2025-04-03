@@ -5,6 +5,8 @@ import classNames from "classnames";
 
 import { CONTAINER_PADDING_X } from "@/constants/variables";
 
+import { CProfile } from "./CProfile";
+
 import "./styles.scss";
 
 export const CHeader = () => {
@@ -44,7 +46,7 @@ export const CHeader = () => {
       >
         <div style={{ color: "black" }}>Logo</div>
         <div style={{ flex: 1 }}></div>
-        <div style={{ color: "black" }}>Config user</div>
+        <CProfile />
       </Stack>
     </AppBar>
   );
