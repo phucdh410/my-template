@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { AppBar, Stack } from "@mui/material";
 import classNames from "classnames";
 
+import { CONTAINER_PADDING_X } from "@/constants/variables";
+
 import "./styles.scss";
 
 export const CHeader = () => {
@@ -38,7 +40,7 @@ export const CHeader = () => {
         direction="row"
         height="100%"
         alignItems="center"
-        px={{ xs: 2, lg: 3, "2xl": 6 }}
+        px={CONTAINER_PADDING_X}
       >
         <div style={{ color: "black" }}>Logo</div>
         <div style={{ flex: 1 }}></div>

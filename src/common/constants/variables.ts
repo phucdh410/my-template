@@ -6,6 +6,8 @@ export const SIDEBAR__ACTIVE_COLOR = "#00a76f";
 
 export const HEADER__HEIGHT = 72;
 
+export const CONTAINER_PADDING_X = { xs: 2, md: 4, lg: 5, "2xl": 6 };
+
 export const INPUT__BORDER_RADIUS = "6px";
 export const INPUT__PADDING = "10px 14px";
 export const INPUT__LINE_HEIGHT = 1.5;
