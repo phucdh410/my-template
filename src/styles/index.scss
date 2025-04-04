@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,6 +9,8 @@
   margin: 0;
   font-family: "Plus Jakarta Sans", serif;
   // font-family: "Inter", sans-serif;
+  // font-family: "Rubik Iso", system-ui;
+  // font-family: "Cherry Bomb One", system-ui;
 
   scrollbar-color: rgba(145 158 171 / 0.4) rgba(145 158 171 / 0.08);
 }

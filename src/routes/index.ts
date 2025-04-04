@@ -10,6 +10,11 @@ const DevelopmentPage = lazy(() =>
     default: CDevelopmentView,
   }))
 );
+const CNotFoundView = lazy(() =>
+  import("@/components/others/").then(({ CNotFoundView }) => ({
+    default: CNotFoundView,
+  }))
+);
 
 export default [
   {
@@ -72,5 +77,9 @@ export default [
     path: "/login",
     Component: CPrivateRoute,
     children: [{ path: "", Component: LoginPage }],
+  },
+  {
+    path: "*",
+    Component: CNotFoundView,
   },
 ] as RouteObject[];
