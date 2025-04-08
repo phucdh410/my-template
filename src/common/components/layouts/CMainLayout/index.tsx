@@ -2,7 +2,10 @@ import { Outlet } from "react-router";
 
 import { Box, Stack } from "@mui/material";
 
-import { CONTAINER_PADDING_X } from "@/constants/variables";
+import {
+  CONTAINER_PADDING_X,
+  CONTAINER_PADDING_Y,
+} from "@/constants/variables";
 
 import { CHeader } from "./CHeader";
 import { CSidebar } from "./CSidebar";
@@ -15,7 +18,7 @@ export const CMainLayout = () => {
         <CHeader />
 
         <main style={{ flex: 1 }}>
-          <Box height="100%" px={CONTAINER_PADDING_X}>
+          <Box height="100%" px={CONTAINER_PADDING_X} py={CONTAINER_PADDING_Y}>
             <Outlet />
           </Box>
         </main>

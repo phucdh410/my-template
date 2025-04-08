@@ -19,12 +19,14 @@ $border-radius: 6px;
       font-weight: 500;
       z-index: 2;
       cursor: pointer;
+      user-select: none;
     }
 
     .c-tabs--indicator {
       z-index: 1;
       background-color: white;
       border-radius: $border-radius;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 3px 0px;
       top: 0;
       bottom: 0;
       position: absolute;
