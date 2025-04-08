@@ -3,3 +3,4 @@ export * from "./CErrorBoundary";
 export * from "./CIcons";
 export * from "./CLoading";
 export * from "./CTable";
+export * from "./CTabs";

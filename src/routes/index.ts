@@ -5,6 +5,7 @@ import { CMainLayout } from "@/components/layouts";
 import { CPrivateRoute, CPublicRoute } from "@/components/layouts/CRoutes";
 
 const LoginPage = lazy(() => import("@/modules/auth/pages/Login"));
+const TestPage = lazy(() => import("@/modules/test/pages/Test"));
 const DevelopmentPage = lazy(() =>
   import("@/components/others/").then(({ CDevelopmentView }) => ({
     default: CDevelopmentView,
@@ -25,6 +26,7 @@ export default [
         path: "",
         Component: CMainLayout,
         children: [
+          { path: "/test", Component: TestPage },
           { path: "/app", Component: DevelopmentPage },
           { path: "/ecommerce", Component: DevelopmentPage },
           { path: "/analytics", Component: DevelopmentPage },
