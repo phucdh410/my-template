@@ -13,6 +13,10 @@
     border: 1px dashed rgba(var(--dropzone-color), 0.8);
     cursor: pointer;
 
+    &.error {
+      --dropzone-color: 241, 36, 36;
+    }
+
     &.drag-enter {
       --dropzone-color: 18, 213, 18;
     }

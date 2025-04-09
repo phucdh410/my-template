@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 
 import { Close, Visibility } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
+import classNames from "classnames";
 
 import uploadImgSrc from "@/assets/images/upload.png";
 import { generateKey, getExtension } from "@/funcs";
@@ -9,7 +10,13 @@ import { IUploadedFile } from "@/types/upload";
 
 import "./styles.scss";
 
-export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
+export const CUpload = ({
+  multiple = false,
+  error = false,
+}: {
+  multiple?: boolean;
+  error?: boolean;
+}) => {
   //#region Data
   const inputRef = useRef<HTMLInputElement>(null);
   const dropzoneRef = useRef<HTMLDivElement>(null);
@@ -111,7 +118,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
     <div className="c-upload--wrapper">
       <div
         ref={dropzoneRef}
-        className="c-upload--dropzone"
+        className={classNames("c-upload--dropzone", error && "error")}
         onClick={onBrowse}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
