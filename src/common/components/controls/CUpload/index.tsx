@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 
 import { Close, Visibility } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
@@ -105,19 +105,24 @@ export const CUpload = ({
     handleUploadFiles(droppedFiles);
   };
 
-  const onView = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  const onRemove =
-    (index = -1) =>
+  const onView = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.preventDefault();
       event.stopPropagation();
-      if (index === -1) setImages([]);
-      else setImages((prev) => prev.filter((_, i) => i !== index));
-    };
+    },
+    []
+  );
+
+  const onRemove = useCallback(
+    (index = -1) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (index === -1) setImages([]);
+        else setImages((prev) => prev.filter((_, i) => i !== index));
+      },
+    []
+  );
   //#endregion
 
   //#region Render
@@ -190,57 +195,59 @@ export const CUpload = ({
   //#endregion
 };
 
-export const CFileItem = ({
-  file,
-  onView,
-  onRemove,
-  isLastItem,
-}: {
-  file: IUploadedFile;
-  onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  isLastItem?: boolean;
-}) => {
-  //#region Data
-  const [trigger, setTrigger] = useState(false);
-  //#endregion
+export const CFileItem = memo(
+  ({
+    file,
+    onView,
+    onRemove,
+    isLastItem,
+  }: {
+    file: IUploadedFile;
+    onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    isLastItem?: boolean;
+  }) => {
+    //#region Data
+    const [trigger, setTrigger] = useState(false);
+    //#endregion
 
-  //#region Event
-  const handleRemove = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    if (isLastItem) onRemove(event);
-    else {
-      setTrigger(true);
-      setTimeout(() => {
-        onRemove(event);
-      }, 150); //note: Time at here must be equal or more a bit than animation-duration
-    }
-  };
-  //#endregion
+    //#region Event
+    const handleRemove = (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+      if (isLastItem) onRemove(event);
+      else {
+        setTrigger(true);
+        setTimeout(() => {
+          onRemove(event);
+        }, 150); //note: Time at here must be equal or more a bit than animation-duration
+      }
+    };
+    //#endregion
 
-  //#region Render
-  return (
-    <Tooltip key={file.id} title={file.name} arrow>
-      <div
-        className={classNames(
-          "c-upload--preview-box",
-          trigger && "trigger-animation"
-        )}
-      >
-        <img src={file.url} className="c-upload--preview-image" />
-        <div className="c-upload--preview-backdrop">
-          <div className="c-upload--preview-actions">
-            <IconButton size="small" onClick={onView}>
-              <Visibility fontSize="small" />
-            </IconButton>
-            <IconButton size="small" onClick={handleRemove}>
-              <Close fontSize="small" />
-            </IconButton>
+    //#region Render
+    return (
+      <Tooltip key={file.id} title={file.name} arrow>
+        <div
+          className={classNames(
+            "c-upload--preview-box",
+            trigger && "trigger-animation"
+          )}
+        >
+          <img src={file.url} className="c-upload--preview-image" />
+          <div className="c-upload--preview-backdrop">
+            <div className="c-upload--preview-actions">
+              <IconButton size="small" onClick={onView}>
+                <Visibility fontSize="small" />
+              </IconButton>
+              <IconButton size="small" onClick={handleRemove}>
+                <Close fontSize="small" />
+              </IconButton>
+            </div>
           </div>
         </div>
-      </div>
-    </Tooltip>
-  );
-  //#endregion
-};
+      </Tooltip>
+    );
+    //#endregion
+  }
+);
