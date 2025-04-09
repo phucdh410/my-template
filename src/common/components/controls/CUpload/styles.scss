@@ -1,4 +1,4 @@
-.c-upload--container {
+.c-upload--wrapper {
   --dropzone-color: 191, 191, 191;
 
   * {
@@ -7,12 +7,7 @@
 
   .c-upload--dropzone {
     width: 100%;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 0.5rem;
-    padding: 2rem;
     border-radius: 12px;
     background-color: rgba(var(--dropzone-color), 0.08);
     border: 1px dashed rgba(var(--dropzone-color), 0.8);
@@ -22,24 +17,87 @@
       --dropzone-color: 18, 213, 18;
     }
 
-    .c-upload--icon {
-      max-width: 100px;
+    .c-upload--content {
+      width: 100%;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 0.5rem;
       pointer-events: none;
+
+      .c-upload--icon {
+        max-width: 100px;
+        pointer-events: none;
+      }
+
+      .c-upload--title {
+        margin-top: 0.5rem;
+        color: black;
+        font-weight: 600;
+        font-size: 1.125rem;
+        pointer-events: none;
+      }
+
+      .c-upload--description {
+        color: #637381;
+        font-size: 0.875rem;
+        font-weight: 500;
+        pointer-events: none;
+      }
     }
 
-    .c-upload--title {
-      margin-top: 0.5rem;
-      color: black;
-      font-weight: 600;
-      font-size: 1.125rem;
-      pointer-events: none;
-    }
+    .c-upload--single-preview {
+      padding: 0.5rem;
+      border-radius: inherit;
+      overflow: hidden;
+      position: relative;
 
-    .c-upload--description {
-      color: #637381;
-      font-size: 0.875rem;
-      font-weight: 500;
-      pointer-events: none;
+      .c-upload--preview-box {
+        position: relative;
+        aspect-ratio: 16/9;
+        border-radius: inherit;
+
+        img.c-upload--preview-image {
+          border-radius: inherit;
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .c-upload--preview-backdrop {
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          transition: all 0.2s ease-in-out;
+
+          .c-upload--preview-actions {
+            position: absolute;
+            display: inline-flex;
+            gap: 0.25rem;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+
+            .MuiIconButton-root {
+              color: white;
+              background-color: #c5c5c580;
+            }
+          }
+
+          &:hover {
+            background-color: #3c3c3c72;
+            .c-upload--preview-actions {
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
   }
 }

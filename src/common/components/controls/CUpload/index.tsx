@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 
+import { Close, Visibility } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+
 import uploadImgSrc from "@/assets/images/upload.png";
 import { getExtension } from "@/funcs";
 import { IUploadedFile } from "@/types/upload";
@@ -84,11 +87,22 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
     }
     console.log("🚀 ~ onDrop ~ event:", event);
   };
+
+  const onView = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const onRemove = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setFiles([]);
+  };
   //#endregion
 
   //#region Render
   return (
-    <div className="c-upload--container">
+    <div className="c-upload--wrapper">
       <div
         ref={dropzoneRef}
         className="c-upload--dropzone"
@@ -99,9 +113,23 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
         onDrop={onDrop}
       >
         {files.length > 0 && !multiple ? (
-          <img src={files[0].url} />
+          <div className="c-upload--single-preview">
+            <div className="c-upload--preview-box">
+              <img src={files[0].url} className="c-upload--preview-image" />
+              <div className="c-upload--preview-backdrop">
+                <div className="c-upload--preview-actions">
+                  <IconButton size="small" onClick={onView}>
+                    <Visibility fontSize="small" />
+                  </IconButton>
+                  <IconButton size="small" onClick={onRemove}>
+                    <Close fontSize="small" />
+                  </IconButton>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
-          <>
+          <div className="c-upload--content">
             <img
               src={uploadImgSrc}
               alt="upload-icon"
@@ -114,15 +142,15 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
               Thả {multiple ? "files" : "file"} vào đây hoặc chọn từ thiết bị
               của bạn
             </span>
-            <input
-              ref={inputRef}
-              type="file"
-              hidden
-              multiple={multiple}
-              onChange={onInputChange}
-            />
-          </>
+          </div>
         )}
+        <input
+          ref={inputRef}
+          type="file"
+          hidden
+          multiple={multiple}
+          onChange={onInputChange}
+        />
       </div>
     </div>
   );
