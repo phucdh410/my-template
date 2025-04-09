@@ -172,6 +172,7 @@ export const CUpload = ({
               file={file}
               onView={onView}
               onRemove={onRemove(index)}
+              isLastItem={index === files.length - 1}
             />
           ))}
         </div>
@@ -185,10 +186,12 @@ export const CFileItem = ({
   file,
   onView,
   onRemove,
+  isLastItem,
 }: {
   file: IUploadedFile;
   onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  isLastItem?: boolean;
 }) => {
   //#region Data
   const [trigger, setTrigger] = useState(false);
@@ -198,10 +201,13 @@ export const CFileItem = ({
   const handleRemove = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    setTrigger(true);
-    setTimeout(() => {
-      onRemove(event);
-    }, 450); //note: Time at here must be equal or less a bit than animation-duration
+    if (isLastItem) onRemove(event);
+    else {
+      setTrigger(true);
+      setTimeout(() => {
+        onRemove(event);
+      }, 300); //note: Time at here must be equal or more a bit than animation-duration
+    }
   };
   //#endregion
 
