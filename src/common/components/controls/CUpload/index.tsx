@@ -30,6 +30,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
         setFiles((prev) => [
           ...prev,
           ...files.map((file) => ({
+            id: generateKey(`${file.name}-${file.size}-${file.type}`),
             name: file.name,
             size: file.size,
             type: file.type,
@@ -42,6 +43,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
         if (file)
           setFiles([
             {
+              id: generateKey(`${file.name}-${file.size}-${file.type}`),
               name: file.name,
               size: file.size,
               type: file.type,
@@ -159,13 +161,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
       {files.length > 0 && multiple && (
         <div className="c-upload--multiple-preview">
           {files.map((file, index) => (
-            <Tooltip
-              key={generateKey(
-                file.name + file.type + file.size + new Date().getTime()
-              )}
-              title={file.name}
-              arrow
-            >
+            <Tooltip key={file.id} title={file.name} arrow>
               <div className="c-upload--preview-box">
                 <img src={file.url} className="c-upload--preview-image" />
                 <div className="c-upload--preview-backdrop">
