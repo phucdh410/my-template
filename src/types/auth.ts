@@ -1,4 +1,4 @@
-//note: LOGIN INTERFACE
+//note: LOGIN INTERFACES
 export interface ILoginPayload {
   username: string;
   password: string;

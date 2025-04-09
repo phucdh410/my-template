@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-//note: NAVIGATION INTERFACE
+//note: NAVIGATION INTERFACES
 export interface INavigationGroup {
   name: string;
   list: INavigationItem[];

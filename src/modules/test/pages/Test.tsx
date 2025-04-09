@@ -1,19 +1,16 @@
-import { useState } from "react";
+import { Paper, Stack } from "@mui/material";
 
-import { CTabs } from "@/components/others";
-
-const tabs = [
-  { name: "Tab 1", value: "1" },
-  { name: "Đây là tab thứ 2", value: "2" },
-  { name: "Cái tab 3", value: "3" },
-];
+import { CUpload } from "@/components/controls";
 
 const TestPage = () => {
-  const [value, setValue] = useState("1");
-
   return (
     <>
-      <CTabs value={value} tabs={tabs} onChange={setValue} />
+      <Paper sx={{ maxWidth: 680 }}>
+        <Stack p={4} gap={5}>
+          <CUpload multiple />
+          <CUpload />
+        </Stack>
+      </Paper>
     </>
   );
 };
