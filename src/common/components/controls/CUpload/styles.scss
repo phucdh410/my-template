@@ -123,7 +123,7 @@
       &.trigger-animation {
         opacity: 0;
         margin-right: 0;
-        animation: remove-image 300ms ease-out forwards;
+        animation: remove-image 150ms ease-in forwards;
       }
 
       .c-upload--preview-image {

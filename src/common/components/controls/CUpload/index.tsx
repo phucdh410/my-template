@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import { Close, Visibility } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
@@ -21,19 +21,17 @@ export const CUpload = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const dropzoneRef = useRef<HTMLDivElement>(null);
 
-  const [files, setFiles] = useState<IUploadedFile[]>([]);
+  const [images, setImages] = useState<IUploadedFile[]>([]);
   //#endregion
 
   //#region Event
   const onBrowse = () => inputRef.current?.click();
 
-  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFiles = event.target.files;
-
-    try {
+  const handleUploadFiles = useCallback(
+    (fileList: FileList | null) => {
       if (multiple) {
-        const files = selectedFiles ? Array.from(selectedFiles) : [];
-        setFiles((prev) => [
+        const files = fileList ? Array.from(fileList) : [];
+        setImages((prev) => [
           ...prev,
           ...files.map((file) => ({
             id: generateKey(`${file.name}-${file.size}-${file.type}`),
@@ -45,9 +43,9 @@ export const CUpload = ({
           })),
         ]);
       } else {
-        const file = selectedFiles?.[0];
+        const file = fileList?.[0];
         if (file)
-          setFiles([
+          setImages([
             {
               id: generateKey(`${file.name}-${file.size}-${file.type}`),
               name: file.name,
@@ -58,6 +56,15 @@ export const CUpload = ({
             },
           ]);
       }
+    },
+    [multiple]
+  );
+
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = event.target.files;
+
+    try {
+      handleUploadFiles(selectedFiles);
     } catch (error: any) {
       console.error(error);
     } finally {
@@ -94,7 +101,8 @@ export const CUpload = ({
     if (dropzoneRef.current) {
       dropzoneRef.current.classList.remove("drag-enter");
     }
-    console.log("🚀 ~ onDrop ~ event:", event);
+    const droppedFiles = event.dataTransfer.files;
+    handleUploadFiles(droppedFiles);
   };
 
   const onView = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -107,8 +115,8 @@ export const CUpload = ({
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.preventDefault();
       event.stopPropagation();
-      if (index === -1) setFiles([]);
-      else setFiles((prev) => prev.filter((_, i) => i !== index));
+      if (index === -1) setImages([]);
+      else setImages((prev) => prev.filter((_, i) => i !== index));
     };
   //#endregion
 
@@ -124,10 +132,10 @@ export const CUpload = ({
         onDragOver={onDragOver}
         onDrop={onDrop}
       >
-        {files.length > 0 && !multiple ? (
+        {images.length > 0 && !multiple ? (
           <div className="c-upload--single-preview">
             <div className="c-upload--preview-box">
-              <img src={files[0].url} className="c-upload--preview-image" />
+              <img src={images[0].url} className="c-upload--preview-image" />
               <div className="c-upload--preview-backdrop">
                 <div className="c-upload--preview-actions">
                   <IconButton size="small" onClick={onView}>
@@ -164,15 +172,15 @@ export const CUpload = ({
           onChange={onInputChange}
         />
       </div>
-      {files.length > 0 && multiple && (
+      {images.length > 0 && multiple && (
         <div className="c-upload--multiple-preview">
-          {files.map((file, index) => (
+          {images.map((file, index) => (
             <CFileItem
               key={file.id}
               file={file}
               onView={onView}
               onRemove={onRemove(index)}
-              isLastItem={index === files.length - 1}
+              isLastItem={index === images.length - 1}
             />
           ))}
         </div>
@@ -206,7 +214,7 @@ export const CFileItem = ({
       setTrigger(true);
       setTimeout(() => {
         onRemove(event);
-      }, 300); //note: Time at here must be equal or more a bit than animation-duration
+      }, 150); //note: Time at here must be equal or more a bit than animation-duration
     }
   };
   //#endregion
