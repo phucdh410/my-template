@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 
 import { Close, Visibility } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 import uploadImgSrc from "@/assets/images/upload.png";
-import { getExtension } from "@/funcs";
+import { generateKey, getExtension } from "@/funcs";
 import { IUploadedFile } from "@/types/upload";
 
 import "./styles.scss";
@@ -15,6 +15,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
   const dropzoneRef = useRef<HTMLDivElement>(null);
 
   const [files, setFiles] = useState<IUploadedFile[]>([]);
+  console.log("🚀 ~ CUpload ~ files:", files);
   //#endregion
 
   //#region Event
@@ -93,11 +94,14 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
     event.stopPropagation();
   };
 
-  const onRemove = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setFiles([]);
-  };
+  const onRemove =
+    (index = -1) =>
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (index === -1) setFiles([]);
+      else setFiles((prev) => prev.filter((_, i) => i !== index));
+    };
   //#endregion
 
   //#region Render
@@ -121,7 +125,7 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
                   <IconButton size="small" onClick={onView}>
                     <Visibility fontSize="small" />
                   </IconButton>
-                  <IconButton size="small" onClick={onRemove}>
+                  <IconButton size="small" onClick={onRemove()}>
                     <Close fontSize="small" />
                   </IconButton>
                 </div>
@@ -152,6 +156,33 @@ export const CUpload = ({ multiple = false }: { multiple?: boolean }) => {
           onChange={onInputChange}
         />
       </div>
+      {files.length > 0 && multiple && (
+        <div className="c-upload--multiple-preview">
+          {files.map((file, index) => (
+            <Tooltip
+              key={generateKey(
+                file.name + file.type + file.size + new Date().getTime()
+              )}
+              title={file.name}
+              arrow
+            >
+              <div className="c-upload--preview-box">
+                <img src={file.url} className="c-upload--preview-image" />
+                <div className="c-upload--preview-backdrop">
+                  <div className="c-upload--preview-actions">
+                    <IconButton size="small" onClick={onView}>
+                      <Visibility fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" onClick={onRemove(index)}>
+                      <Close fontSize="small" />
+                    </IconButton>
+                  </div>
+                </div>
+              </div>
+            </Tooltip>
+          ))}
+        </div>
+      )}
     </div>
   );
   //#endregion
