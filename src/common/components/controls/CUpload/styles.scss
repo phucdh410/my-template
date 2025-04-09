@@ -114,10 +114,14 @@
 
     .c-upload--preview-box {
       border-radius: 6px;
-      aspect-ratio: square;
+      aspect-ratio: 1/1;
       position: relative;
       height: 80px;
       width: 80px;
+
+      &.trigger-animation {
+        animation: remove-image 500ms ease forwards;
+      }
 
       .c-upload--preview-image {
         position: absolute;
@@ -163,5 +167,19 @@
         }
       }
     }
+  }
+}
+
+@keyframes remove-image {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translateY(10px, -40px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(30px, -60px) rotate(25deg);
   }
 }

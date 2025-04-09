@@ -22,7 +22,6 @@ export const CUpload = ({
   const dropzoneRef = useRef<HTMLDivElement>(null);
 
   const [files, setFiles] = useState<IUploadedFile[]>([]);
-  console.log("🚀 ~ CUpload ~ files:", files);
   //#endregion
 
   //#region Event
@@ -168,25 +167,66 @@ export const CUpload = ({
       {files.length > 0 && multiple && (
         <div className="c-upload--multiple-preview">
           {files.map((file, index) => (
-            <Tooltip key={file.id} title={file.name} arrow>
-              <div className="c-upload--preview-box">
-                <img src={file.url} className="c-upload--preview-image" />
-                <div className="c-upload--preview-backdrop">
-                  <div className="c-upload--preview-actions">
-                    <IconButton size="small" onClick={onView}>
-                      <Visibility fontSize="small" />
-                    </IconButton>
-                    <IconButton size="small" onClick={onRemove(index)}>
-                      <Close fontSize="small" />
-                    </IconButton>
-                  </div>
-                </div>
-              </div>
-            </Tooltip>
+            <CFileItem
+              key={file.id}
+              file={file}
+              onView={onView}
+              onRemove={onRemove(index)}
+            />
           ))}
         </div>
       )}
     </div>
+  );
+  //#endregion
+};
+
+export const CFileItem = ({
+  file,
+  onView,
+  onRemove,
+}: {
+  file: IUploadedFile;
+  onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}) => {
+  //#region Data
+  const [trigger, setTrigger] = useState(false);
+  //#endregion
+
+  //#region Event
+  const handleRemove = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setTrigger(true);
+    setTimeout(() => {
+      onRemove(event);
+    }, 450); //note: Time at here must be equal or less a bit than animation-duration
+  };
+  //#endregion
+
+  //#region Render
+  return (
+    <Tooltip key={file.id} title={file.name} arrow>
+      <div
+        className={classNames(
+          "c-upload--preview-box",
+          trigger && "trigger-animation"
+        )}
+      >
+        <img src={file.url} className="c-upload--preview-image" />
+        <div className="c-upload--preview-backdrop">
+          <div className="c-upload--preview-actions">
+            <IconButton size="small" onClick={onView}>
+              <Visibility fontSize="small" />
+            </IconButton>
+            <IconButton size="small" onClick={handleRemove}>
+              <Close fontSize="small" />
+            </IconButton>
+          </div>
+        </div>
+      </div>
+    </Tooltip>
   );
   //#endregion
 };
