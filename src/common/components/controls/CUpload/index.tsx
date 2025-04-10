@@ -5,6 +5,8 @@ import { IconButton, Tooltip } from "@mui/material";
 import classNames from "classnames";
 
 import uploadImgSrc from "@/assets/images/upload.png";
+import { CImagePreviewModal } from "@/components/others";
+import { ICImagePreviewModalRef } from "@/components/others/CImagePreviewModal/types";
 import { generateKey, getExtension } from "@/funcs";
 import { IUploadedFile } from "@/types/upload";
 
@@ -20,6 +22,7 @@ export const CUpload = ({
   //#region Data
   const inputRef = useRef<HTMLInputElement>(null);
   const dropzoneRef = useRef<HTMLDivElement>(null);
+  const imagePreviewRef = useRef<ICImagePreviewModalRef>(null);
 
   const [images, setImages] = useState<IUploadedFile[]>([]);
   //#endregion
@@ -106,10 +109,12 @@ export const CUpload = ({
   };
 
   const onView = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      event.preventDefault();
-      event.stopPropagation();
-    },
+    (file: IUploadedFile) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        imagePreviewRef.current?.open(file);
+      },
     []
   );
 
@@ -143,7 +148,7 @@ export const CUpload = ({
               <img src={images[0].url} className="c-upload--preview-image" />
               <div className="c-upload--preview-backdrop">
                 <div className="c-upload--preview-actions">
-                  <IconButton size="small" onClick={onView}>
+                  <IconButton size="small" onClick={onView(images[0])}>
                     <Visibility fontSize="small" />
                   </IconButton>
                   <IconButton size="small" onClick={onRemove()}>
@@ -183,13 +188,15 @@ export const CUpload = ({
             <CFileItem
               key={file.id}
               file={file}
-              onView={onView}
+              onView={onView(file)}
               onRemove={onRemove(index)}
               isLastItem={index === images.length - 1}
             />
           ))}
         </div>
       )}
+
+      <CImagePreviewModal ref={imagePreviewRef} />
     </div>
   );
   //#endregion
