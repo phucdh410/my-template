@@ -1,0 +1,38 @@
+.greeting {
+  font-family: "Playwrite BE VLG";
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.5rem;
+  line-height: 3rem;
+  position: relative;
+  user-select: none;
+  color: var(--mui-sidebar-item-colors-main);
+  text-shadow: 2px 2px 2px rgba(0 0 0 / 15%);
+
+  .overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    background: white;
+    animation: reveal-greeting 12s linear infinite;
+  }
+}
+
+@keyframes reveal-greeting {
+  0% {
+    transform: translateX(0%);
+  }
+  7% {
+    transform: translateX(100%);
+  }
+  90% {
+    transform: translateX(100%);
+  }
+  97% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

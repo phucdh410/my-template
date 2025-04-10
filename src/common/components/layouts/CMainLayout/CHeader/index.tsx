@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 import { CONTAINER_PADDING_X } from "@/constants/variables";
 
+import { CGreeting } from "./CGreeting";
 import { CProfile } from "./CProfile";
 
 import "./styles.scss";
@@ -44,7 +45,7 @@ export const CHeader = () => {
         alignItems="center"
         px={CONTAINER_PADDING_X}
       >
-        <div style={{ color: "black" }}>Logo</div>
+        <CGreeting />
         <div style={{ flex: 1 }}></div>
         <CProfile />
       </Stack>
