@@ -332,7 +332,7 @@ theme = createTheme(theme, {
           letterSpacing: "0.05em",
           fontSize: "0.875rem",
           userSelect: "none",
-          color: theme.palette.divider,
+          color: "rgb(175 175 175)",
         },
       },
     },
