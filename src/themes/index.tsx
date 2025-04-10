@@ -140,6 +140,15 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region OutlinedInput
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          transition: "border-color 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        },
+      },
+    },
+    //#endregion
     //#region TextField
     MuiTextField: {
       defaultProps: {
