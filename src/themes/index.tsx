@@ -600,9 +600,7 @@ declare module "@mui/material/styles" {
     "2xl": true;
     "3xl": true;
   }
-}
 
-declare module "@mui/material/styles" {
   interface Palette {
     black: Palette["primary"];
     white: Palette["primary"];
