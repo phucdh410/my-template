@@ -61,7 +61,7 @@ export const CSidebar = () => {
         <img
           src={logoSrc}
           alt="logo"
-          style={{ maxWidth: open ? "60px" : "50px" }}
+          style={{ maxWidth: open ? "70px" : "60px" }}
         />
       </Stack>
       {open ? <CNavigations /> : <CNavigationsCollapse />}
