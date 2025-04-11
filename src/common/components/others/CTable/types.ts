@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 import { ICFiltersTable } from "./CFiltersTable/types";
 import { ICPaginationTableProps } from "./CPaginationTable/types";
@@ -12,9 +12,10 @@ export interface ICTableHeaderBase<T> {
   key: string;
 
   /**
-   * Display label for the column header.
+   * The display content for the column header.
+   * Can be a plain string or a custom React node (e.g., for styled or interactive headers).
    */
-  label: string;
+  label: string | ReactNode;
 
   /**
    * Optional flag to set the alignment.
