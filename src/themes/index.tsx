@@ -149,6 +149,21 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region FormLabel
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          "&.c-form-label": {
+            transform: INPUT__TRANSFORM_INITIAL,
+            "&.MuiInputLabel-shrink": {
+              transform: INPUT__TRANSFORM_SHRINK,
+              fontWeight: 600,
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region TextField
     MuiTextField: {
       defaultProps: {
@@ -159,13 +174,6 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           "&.c-input,&.c-date-picker": {
-            ".MuiInputLabel-root": {
-              transform: INPUT__TRANSFORM_INITIAL,
-              "&.MuiInputLabel-shrink": {
-                transform: INPUT__TRANSFORM_SHRINK,
-                fontWeight: 600,
-              },
-            },
             ".MuiOutlinedInput-root": {
               borderRadius: INPUT__BORDER_RADIUS,
               ".MuiOutlinedInput-input": {
@@ -196,13 +204,6 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           "&.c-autocomplete": {
-            ".MuiInputLabel-root": {
-              transform: INPUT__TRANSFORM_INITIAL,
-              "&.MuiInputLabel-shrink": {
-                transform: INPUT__TRANSFORM_SHRINK,
-                fontWeight: 600,
-              },
-            },
             ".MuiAutocomplete-inputRoot": {
               padding: 0,
               paddingRight: "39px",

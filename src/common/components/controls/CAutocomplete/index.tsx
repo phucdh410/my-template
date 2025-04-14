@@ -73,6 +73,9 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
           label={label}
           placeholder={placeholder}
           slotProps={{
+            inputLabel: {
+              className: "c-form-label",
+            },
             input: {
               ...params.InputProps,
               endAdornment: <>{params.InputProps.endAdornment}</>,

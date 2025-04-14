@@ -51,6 +51,11 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
           placeholder={placeholder}
           rows={rows}
           value={value}
+          slotProps={{
+            inputLabel: {
+              className: "c-form-label",
+            },
+          }}
           {...props}
         />
       </CFormControl>
