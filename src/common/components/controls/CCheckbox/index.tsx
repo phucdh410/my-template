@@ -27,7 +27,7 @@ export const CCheckbox = forwardRef<ICCheckboxRef, ICCheckboxProps>(
         label={label}
         value={!!value}
         onChange={onInputChange}
-        sx={{ mr: 0 }}
+        sx={{ m: 0, width: "fit-content" }}
         control={
           <Checkbox
             className={classNames("c-checkbox", className)}
