@@ -42,7 +42,7 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
       loading,
       loadingText,
       blurOnSelect = true,
-      virtual,
+      multiple = false,
       ...props
     },
     ref
@@ -128,6 +128,7 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
     return (
       <CFormControl error={error} errorText={errorText}>
         <Autocomplete
+          multiple={multiple}
           blurOnSelect={blurOnSelect}
           className={classNames("c-autocomplete", className)}
           disableClearable={disableClearable}

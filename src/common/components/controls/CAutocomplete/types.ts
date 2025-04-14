@@ -31,5 +31,5 @@ export interface ICAutocompleteProps extends IFormInputComponentProps {
   loading?: boolean;
   loadingText?: string;
   blurOnSelect?: "touch" | "mouse" | true | false;
-  virtual?: boolean;
+  multiple?: boolean;
 }
