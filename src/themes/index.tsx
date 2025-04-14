@@ -163,6 +163,7 @@ theme = createTheme(theme, {
               transform: INPUT__TRANSFORM_INITIAL,
               "&.MuiInputLabel-shrink": {
                 transform: INPUT__TRANSFORM_SHRINK,
+                fontWeight: 600,
               },
             },
             ".MuiOutlinedInput-root": {
@@ -199,6 +200,7 @@ theme = createTheme(theme, {
               transform: INPUT__TRANSFORM_INITIAL,
               "&.MuiInputLabel-shrink": {
                 transform: INPUT__TRANSFORM_SHRINK,
+                fontWeight: 600,
               },
             },
             ".MuiAutocomplete-inputRoot": {
