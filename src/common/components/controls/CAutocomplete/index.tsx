@@ -5,6 +5,7 @@ import {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
   AutocompleteRenderInputParams,
+  Chip,
   TextField,
 } from "@mui/material";
 import classNames from "classnames";
@@ -59,10 +60,15 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
     }, [_options, optionAll]);
 
     const currentValue = useMemo(() => {
-      if (optionAll && value === "") return ALL_OPTION;
-      const foundValue = options.find((e) => e[get] === value);
-      return foundValue ?? null;
-    }, [optionAll, options, value]);
+      if (multiple) {
+        if (!value || !Array.isArray(value)) return [];
+        return options.filter((e) => value.includes(e[get]));
+      } else {
+        if (optionAll && value === "") return ALL_OPTION;
+        const foundValue = options.find((e) => e[get] === value);
+        return foundValue ?? null;
+      }
+    }, [optionAll, options, value, get, multiple]);
     //#endregion
 
     //#region Event
@@ -104,23 +110,59 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
     const onValueChange = useCallback(
       (
         event: React.SyntheticEvent,
-        selectedOption: IAutocompleteOption | null,
+        selectedOption: IAutocompleteOption[] | IAutocompleteOption | null,
         reason: AutocompleteChangeReason,
         details?: AutocompleteChangeDetails<IAutocompleteOption> | undefined
       ): void => {
-        if (selectedOption === null) {
-          onChange?.(null, event, selectedOption, reason, details);
-        } else {
+        if (multiple) {
           onChange?.(
-            selectedOption[get],
+            [...(selectedOption as IAutocompleteOption[]).map((e) => e[get])],
             event,
             selectedOption,
             reason,
             details
           );
+        } else {
+          if (selectedOption === null) {
+            onChange?.(null, event, selectedOption, reason, details);
+          } else {
+            onChange?.(
+              (selectedOption as IAutocompleteOption)[get],
+              event,
+              selectedOption,
+              reason,
+              details
+            );
+          }
         }
       },
       [get, onChange]
+    );
+
+    const renderValue = useCallback(
+      (
+        values: IAutocompleteOption[] | IAutocompleteOption,
+        getItemProps: (arg: { index: number }) => Record<string, any>
+      ) =>
+        values?.length > 0
+          ? (values as IAutocompleteOption[]).map((valueItem, index) => {
+              const {
+                key,
+                className: itemClassname,
+                ...itemProps
+              } = getItemProps({ index });
+              return (
+                <Chip
+                  key={key}
+                  size="small"
+                  label={valueItem.label}
+                  className={classNames("c-autocomplete-tag", itemClassname)}
+                  {...itemProps}
+                />
+              );
+            })
+          : null,
+      []
     );
     //#endregion
 
@@ -129,8 +171,13 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
       <CFormControl error={error} errorText={errorText}>
         <Autocomplete
           multiple={multiple}
-          blurOnSelect={blurOnSelect}
-          className={classNames("c-autocomplete", className)}
+          blurOnSelect={multiple ? false : blurOnSelect}
+          disableCloseOnSelect={multiple}
+          className={classNames(
+            "c-autocomplete",
+            multiple && "c-autocomplete-multiple",
+            className
+          )}
           disableClearable={disableClearable}
           fullWidth={fullWidth}
           getOptionDisabled={getOptionDisabled}
@@ -142,6 +189,7 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
           onChange={onValueChange}
           options={options}
           renderInput={renderInput}
+          renderValue={multiple ? renderValue : undefined}
           value={currentValue}
         />
       </CFormControl>

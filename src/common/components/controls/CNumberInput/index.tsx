@@ -83,6 +83,9 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
           placeholder={placeholder}
           value={currentValue}
           slotProps={{
+            inputLabel: {
+              className: "c-form-label",
+            },
             input: {
               inputMode: isFloat ? "decimal" : "numeric",
               endAdornment: suffix && (

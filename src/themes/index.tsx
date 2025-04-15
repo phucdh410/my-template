@@ -217,6 +217,29 @@ theme = createTheme(theme, {
                 fontSize: INPUT__LEGEND_FONT_SIZE,
               },
             },
+            "&.c-autocomplete-multiple": {
+              ".MuiAutocomplete-inputRoot": {
+                paddingBlock: "10px",
+                paddingLeft: "10px",
+                ".MuiAutocomplete-input": {
+                  padding: 0,
+                  paddingLeft: "4px",
+                },
+              },
+            },
+          },
+        },
+        tag: {
+          "&.c-autocomplete-tag": {
+            borderRadius: "8px",
+            backgroundColor: alpha(theme.palette.primary.main, 0.2),
+            color: theme.palette.primary.main,
+            fontWeight: 600,
+            cursor: "default",
+            ".MuiSvgIcon-root": {
+              padding: "0.5px",
+              color: alpha(theme.palette.primary.main, 0.75),
+            },
           },
         },
         popper: {
