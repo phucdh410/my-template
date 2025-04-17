@@ -99,7 +99,8 @@ export const useCalculatePinPositions = <T extends object>(
 //#region Calculate columns width
 export const useTableColumnsWidth = (
   headerContainerRef: RefObject<HTMLDivElement | null>,
-  tableRef: RefObject<HTMLTableElement | null>
+  tableRef: RefObject<HTMLTableElement | null>,
+  data: any //note: Ta chỉ cần biết data thay đổi để cập nhật lại width, nên không quan trọng dữ liệu nó loại gì
 ) => {
   const [widthCols, setWidthCols] = useState<number[]>([]);
 
@@ -108,29 +109,24 @@ export const useTableColumnsWidth = (
     const headerContainer = headerContainerRef.current;
     const table = tableRef.current;
 
-    const observer = new ResizeObserver(() => {
-      const headerRow = headerContainer.querySelector("table thead tr");
-      const firstRow = table.querySelector("tbody tr");
+    const headerRow = headerContainer.querySelector("table thead tr");
+    const firstRow = table.querySelector("tbody tr");
 
-      if (firstRow && headerRow) {
-        const newWidths: number[] = [];
-        const headerColumns = headerRow.querySelectorAll("th");
-        const bodyColumns = firstRow.querySelectorAll("td");
+    if (firstRow && headerRow) {
+      const newWidths: number[] = [];
+      const headerColumns = headerRow.querySelectorAll("th");
+      const bodyColumns = firstRow.querySelectorAll("td");
 
-        for (let i = 0; i < bodyColumns.length; i++) {
-          const headerCellWidth =
-            headerColumns[i].getBoundingClientRect().width;
-          const bodyCellWidth = bodyColumns[i].getBoundingClientRect().width;
-          newWidths.push(Math.max(headerCellWidth, bodyCellWidth));
-        }
-        setWidthCols(newWidths);
-      }
-    });
+      headerColumns.forEach((e, i) => {
+        if (e.classList.contains("scrollbar-cell")) return;
+        const headerWidth = e.getBoundingClientRect().width;
+        const bodyWidht = bodyColumns[i].getBoundingClientRect().width;
+        newWidths.push(Math.max(headerWidth, bodyWidht));
+      });
 
-    observer.observe(table);
-
-    return () => observer.disconnect();
-  }, []);
+      setWidthCols(newWidths);
+    }
+  }, [data]);
 
   return { widthCols };
 };

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { Fragment, useCallback, useRef } from "react";
 
 import {
   Box,
@@ -47,7 +47,11 @@ export const CTable = <T extends object, F extends object>({
   useTableScrollShadow(tableWrapperRef, bodyContainerRef);
   const { hasVertical } = useDetectScrollbar(bodyContainerRef);
   const { pinPositions } = useCalculatePinPositions(headers);
-  const { widthCols } = useTableColumnsWidth(headerContainerRef, tableRef);
+  const { widthCols } = useTableColumnsWidth(
+    headerContainerRef,
+    tableRef,
+    data
+  );
   //#endregion
 
   //#region Event
@@ -99,52 +103,50 @@ export const CTable = <T extends object, F extends object>({
             sx={{ tableLayout: "fixed", width: "max-content" }}
           >
             <colgroup>
-              {headers.map((headerCol, headerColIndex) => {
-                const isLastCol = headerColIndex === headers.length - 1;
-                const baseWidth = headerCol.width ?? widthCols[headerColIndex];
-                return (
-                  <col
-                    key={generateKey(headerCol.key)}
-                    width={
-                      hasVertical && isLastCol
-                        ? (baseWidth ?? 0) + 15
-                        : baseWidth
-                    }
-                  />
-                );
-              })}
+              {headers.map((headerCol, headerColIndex) => (
+                <col
+                  key={generateKey(headerCol.key)}
+                  width={headerCol.width ?? widthCols[headerColIndex]}
+                />
+              ))}
             </colgroup>
             <TableHead className="c-table-head">
               <TableRow className="c-table-head--row">
                 {headers.map((header, headerIndex) => (
-                  <TableCell
-                    key={generateKey(header.key)}
-                    align={header.align ?? "center"}
-                    className={classNames(
-                      "c-table-head--cell",
-                      header.className,
-                      {
-                        "pin-left": header.pin === "left",
-                        "pin-right": header.pin === "right",
-                        "pin-left-last":
-                          header.pin === "left" &&
-                          header.key === pinPositions?.leftLastKey,
-                        "pin-right-first":
-                          header.pin === "right" &&
-                          header.key === pinPositions?.rightFirstKey,
-                      }
+                  <Fragment key={generateKey(header.key)}>
+                    <TableCell
+                      align={header.align ?? "center"}
+                      className={classNames(
+                        "c-table-head--cell",
+                        header.className,
+                        {
+                          "pin-left": header.pin === "left",
+                          "pin-right": header.pin === "right",
+                          "pin-left-last":
+                            header.pin === "left" &&
+                            header.key === pinPositions?.leftLastKey,
+                          "pin-right-first":
+                            header.pin === "right" &&
+                            header.key === pinPositions?.rightFirstKey,
+                        }
+                      )}
+                      style={{
+                        textTransform: headerTransform
+                          ? headerTransform
+                          : "none",
+                        position: header.pin ? "sticky" : undefined,
+                        zIndex: header.pin ? 4 : 3,
+                        ...(header.pin && header.pin === "left"
+                          ? { left: pinPositions?.left[header.key] }
+                          : { right: pinPositions?.right[header.key] }),
+                      }}
+                    >
+                      {header.label}
+                    </TableCell>
+                    {headerIndex === headers.length - 1 && hasVertical && (
+                      <TableCell className="c-table-head--cell scrollbar-cell" />
                     )}
-                    style={{
-                      textTransform: headerTransform ? headerTransform : "none",
-                      position: header.pin ? "sticky" : undefined,
-                      zIndex: header.pin ? 4 : 3,
-                      ...(header.pin && header.pin === "left"
-                        ? { left: pinPositions?.left[header.key] }
-                        : { right: pinPositions?.right[header.key] }),
-                    }}
-                  >
-                    {header.label}
-                  </TableCell>
+                  </Fragment>
                 ))}
               </TableRow>
             </TableHead>

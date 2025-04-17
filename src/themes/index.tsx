@@ -532,6 +532,10 @@ theme = createTheme(theme, {
                 padding: TABLE__CELL_PADDING,
                 backgroundColor: "#f9fafb",
                 color: "#667085",
+                "&.scrollbar-cell": {
+                  width: 15,
+                  padding: 0,
+                },
               },
             },
           },
