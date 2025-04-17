@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useMemo, useState } from "react";
 
 import { TCHeadersTable } from "./types";
+import { SELECTION_COL_KEY, SELECTION_COL_WIDTH } from "./variables";
 
 //#region Handle shadow when table scroll
 export const useTableScrollShadow = (
@@ -80,9 +81,9 @@ export const useCalculatePinPositions = <T extends object>(
     let rightFirstKey = "";
 
     if (selectable) {
-      left["selectable-col"] = "0px";
-      leftOffset += 70;
-      leftLastKey = "selectable-col";
+      left[SELECTION_COL_KEY] = "0px";
+      leftOffset += SELECTION_COL_WIDTH;
+      leftLastKey = SELECTION_COL_KEY;
     }
 
     headers.forEach((header, index) => {

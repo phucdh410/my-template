@@ -26,6 +26,7 @@ import {
   useTableScrollShadow,
 } from "./hooks";
 import { ICTableProps, TColumnTypes } from "./types";
+import { SELECTION_COL_KEY, SELECTION_COL_WIDTH } from "./variables";
 
 export const CTable = <T extends object, F extends object>({
   headers = [],
@@ -88,7 +89,7 @@ export const CTable = <T extends object, F extends object>({
   const renderColGroup = useCallback(() => {
     return (
       <colgroup>
-        {selectable && <col width={70} />}
+        {selectable && <col width={SELECTION_COL_WIDTH} />}
         {headers.map((headerCol, headerColIndex) => (
           <col
             key={generateKey(headerCol.key)}
@@ -128,7 +129,7 @@ export const CTable = <T extends object, F extends object>({
                 {selectable && (
                   <CTableCell
                     isHeader
-                    headerKey="selectable-col"
+                    headerKey={SELECTION_COL_KEY}
                     className="selection-cell"
                     pin="left"
                     pinPositions={pinPositions}
@@ -165,7 +166,7 @@ export const CTable = <T extends object, F extends object>({
         <TableContainer
           ref={bodyContainerRef}
           className="table-body-container"
-          sx={{ height }}
+          sx={{ height, scrollBehavior: "smooth" }}
           onScroll={onTableSroll}
         >
           <Table
@@ -184,7 +185,7 @@ export const CTable = <T extends object, F extends object>({
                 >
                   {selectable && (
                     <CTableCell
-                      headerKey="selectable-col"
+                      headerKey={SELECTION_COL_KEY}
                       className="selection-cell"
                       pin="left"
                       pinPositions={pinPositions}
