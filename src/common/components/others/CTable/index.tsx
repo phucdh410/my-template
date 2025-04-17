@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useMemo, useRef } from "react";
+import { Fragment, useCallback, useRef } from "react";
 
 import {
   Box,
@@ -38,7 +38,11 @@ export const CTable = <T extends object, F extends object>({
   hover = true,
   filters,
   pagination,
-  selection,
+  selectable = false,
+  selections = [],
+  isCheckAll = false,
+  isIndeterminate = false,
+  onCheck,
 }: ICTableProps<T, F>) => {
   //#region Data
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -46,12 +50,9 @@ export const CTable = <T extends object, F extends object>({
   const bodyContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
-  const selectable = useMemo(() => !!selection, [selection]);
-
   useTableScrollShadow(tableWrapperRef, bodyContainerRef);
   const { hasVertical } = useDetectScrollbar(bodyContainerRef);
   const { pinPositions } = useCalculatePinPositions(headers, selectable);
-  console.log("🚀 ~ pinPositions:", pinPositions);
   const { widthCols } = useTableColumnsWidth(
     headerContainerRef,
     tableRef,
@@ -124,7 +125,7 @@ export const CTable = <T extends object, F extends object>({
             {renderColGroup()}
             <TableHead className="c-table-head">
               <TableRow className="c-table-head--row">
-                {selection && (
+                {selectable && (
                   <CTableCell
                     isHeader
                     headerKey="selectable-col"
@@ -133,9 +134,9 @@ export const CTable = <T extends object, F extends object>({
                     pinPositions={pinPositions}
                   >
                     <CCheckbox
-                      value={selection.isCheckAll ?? false}
-                      isIndeterminate={selection.isIndeterminate}
-                      onChange={selection.onCheck?.()}
+                      value={isCheckAll ?? false}
+                      isIndeterminate={isIndeterminate}
+                      onChange={onCheck?.()}
                     />
                   </CTableCell>
                 )}
@@ -181,7 +182,7 @@ export const CTable = <T extends object, F extends object>({
                   hover={hover}
                   className="c-table-body--row"
                 >
-                  {selection && (
+                  {selectable && (
                     <CTableCell
                       headerKey="selectable-col"
                       className="selection-cell"
@@ -189,12 +190,10 @@ export const CTable = <T extends object, F extends object>({
                       pinPositions={pinPositions}
                     >
                       <CCheckbox
-                        value={selection.selecteds.includes(
+                        value={selections.includes(
                           row[rowKey as keyof T] as string
                         )}
-                        onChange={selection.onCheck?.(
-                          row[rowKey as keyof T] as string
-                        )}
+                        onChange={onCheck?.(row[rowKey as keyof T] as string)}
                       />
                     </CTableCell>
                   )}

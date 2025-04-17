@@ -34,22 +34,22 @@ const TestPage = () => {
   //#region Data
   const [data, setData] = useState(DATA);
 
-  const [selection, setSelection] = useState<string[]>([]);
+  const [selections, setSelections] = useState<string[]>([]);
 
-  const isCheckAll = !!(selection.length && selection.length === data.length);
+  const isCheckAll = !!(selections.length && selections.length === data.length);
   const isIndeterminate = !!(
-    selection.length && selection.length < data.length
+    selections.length && selections.length < data.length
   );
   //#endregion
 
   //#region Event
   const onCheck = (rowKey?: string) => (checked: boolean) => {
     if (!rowKey) {
-      if (checked) setSelection(data.map((e) => e.id));
-      else setSelection([]);
+      if (checked) setSelections(data.map((e) => e.id));
+      else setSelections([]);
     } else {
-      if (checked) setSelection((prev) => [...prev, rowKey]);
-      else setSelection((prev) => prev.filter((e) => e !== rowKey));
+      if (checked) setSelections((prev) => [...prev, rowKey]);
+      else setSelections((prev) => prev.filter((e) => e !== rowKey));
     }
   };
   //#endregion
@@ -149,12 +149,11 @@ const TestPage = () => {
           pages: MOCKUP_PAGINATION.pages,
           onPageChange: MOCKUP_PAGINATION.onPageChange,
         }}
-        selection={{
-          selecteds: selection,
-          isCheckAll,
-          isIndeterminate,
-          onCheck,
-        }}
+        selectable
+        selections={selections}
+        isCheckAll={isCheckAll}
+        isIndeterminate={isIndeterminate}
+        onCheck={onCheck}
       />
     </Container>
   );

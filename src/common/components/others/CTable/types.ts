@@ -153,12 +153,14 @@ export interface ICTableProps<T, F> {
 
   pagination?: ICPaginationTableProps;
 
-  selection?: TCTableSelection;
-}
+  //note: Below props are used to Selection feature
+  selectable?: boolean;
 
-type TCTableSelection = {
-  selecteds: string[];
+  selections?: string[];
+
   isCheckAll?: boolean;
+
   isIndeterminate?: boolean;
+
   onCheck?: (rowKey?: string) => (checked: boolean) => void; //note: Unless rowKey = Check all
-};
+}
