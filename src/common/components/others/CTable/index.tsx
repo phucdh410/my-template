@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useRef } from "react";
+import { Fragment, useCallback, useMemo, useRef } from "react";
 
 import {
   Box,
@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 
+import { CCheckbox } from "@/components/controls";
 import { generateKey } from "@/funcs";
 
 import { CTableCell } from "./CCell";
@@ -37,6 +38,7 @@ export const CTable = <T extends object, F extends object>({
   hover = true,
   filters,
   pagination,
+  selection,
 }: ICTableProps<T, F>) => {
   //#region Data
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -44,9 +46,12 @@ export const CTable = <T extends object, F extends object>({
   const bodyContainerRef = useRef<HTMLDivElement>(null);
   const tableRef = useRef<HTMLTableElement>(null);
 
+  const selectable = useMemo(() => !!selection, [selection]);
+
   useTableScrollShadow(tableWrapperRef, bodyContainerRef);
   const { hasVertical } = useDetectScrollbar(bodyContainerRef);
-  const { pinPositions } = useCalculatePinPositions(headers);
+  const { pinPositions } = useCalculatePinPositions(headers, selectable);
+  console.log("🚀 ~ pinPositions:", pinPositions);
   const { widthCols } = useTableColumnsWidth(
     headerContainerRef,
     tableRef,
@@ -78,6 +83,20 @@ export const CTable = <T extends object, F extends object>({
       headerEl.scrollLeft = bodyEl.scrollLeft;
     }
   }, []);
+
+  const renderColGroup = useCallback(() => {
+    return (
+      <colgroup>
+        {selectable && <col width={70} />}
+        {headers.map((headerCol, headerColIndex) => (
+          <col
+            key={generateKey(headerCol.key)}
+            width={headerCol.width ?? widthCols[headerColIndex]}
+          />
+        ))}
+      </colgroup>
+    );
+  }, [selectable, headers, widthCols]);
   //#endregion
 
   //#region Render
@@ -102,16 +121,24 @@ export const CTable = <T extends object, F extends object>({
             className="c-table"
             sx={{ tableLayout: "fixed", width: "max-content" }}
           >
-            <colgroup>
-              {headers.map((headerCol, headerColIndex) => (
-                <col
-                  key={generateKey(headerCol.key)}
-                  width={headerCol.width ?? widthCols[headerColIndex]}
-                />
-              ))}
-            </colgroup>
+            {renderColGroup()}
             <TableHead className="c-table-head">
               <TableRow className="c-table-head--row">
+                {selection && (
+                  <CTableCell
+                    isHeader
+                    headerKey="selectable-col"
+                    className="selection-cell"
+                    pin="left"
+                    pinPositions={pinPositions}
+                  >
+                    <CCheckbox
+                      value={selection.isCheckAll ?? false}
+                      isIndeterminate={selection.isIndeterminate}
+                      onChange={selection.onCheck?.()}
+                    />
+                  </CTableCell>
+                )}
                 {headers.map((header, headerIndex) => (
                   <Fragment key={generateKey(header.key)}>
                     <CTableCell
@@ -146,14 +173,7 @@ export const CTable = <T extends object, F extends object>({
             stickyHeader={stickyHeader}
             sx={{ tableLayout: "auto", width: "max-content", minWidth: "100%" }}
           >
-            <colgroup>
-              {headers.map((headerCol, headerColIndex) => (
-                <col
-                  key={generateKey(headerCol.key)}
-                  width={headerCol.width ?? widthCols[headerColIndex]}
-                />
-              ))}
-            </colgroup>
+            {renderColGroup()}
             <TableBody className="c-table-body">
               {data.map((row, rowIndex) => (
                 <TableRow
@@ -161,6 +181,23 @@ export const CTable = <T extends object, F extends object>({
                   hover={hover}
                   className="c-table-body--row"
                 >
+                  {selection && (
+                    <CTableCell
+                      headerKey="selectable-col"
+                      className="selection-cell"
+                      pin="left"
+                      pinPositions={pinPositions}
+                    >
+                      <CCheckbox
+                        value={selection.selecteds.includes(
+                          row[rowKey as keyof T] as string
+                        )}
+                        onChange={selection.onCheck?.(
+                          row[rowKey as keyof T] as string
+                        )}
+                      />
+                    </CTableCell>
+                  )}
                   {headers.map((header, columnIndex) => (
                     <CTableCell
                       key={generateKey(header.key)}

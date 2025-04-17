@@ -152,4 +152,13 @@ export interface ICTableProps<T, F> {
   filters?: ICFiltersTable<F>;
 
   pagination?: ICPaginationTableProps;
+
+  selection?: TCTableSelection;
 }
+
+type TCTableSelection = {
+  selecteds: string[];
+  isCheckAll?: boolean;
+  isIndeterminate?: boolean;
+  onCheck?: (rowKey?: string) => (checked: boolean) => void; //note: Unless rowKey = Check all
+};

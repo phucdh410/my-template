@@ -65,10 +65,12 @@ export const useDetectScrollbar = (
 
 //#region Calculate pin positions for columns
 export const useCalculatePinPositions = <T extends object>(
-  headers: TCHeadersTable<T>
+  headers: TCHeadersTable<T>,
+  selectable?: boolean
 ) => {
   const pinPositions = useMemo(() => {
-    if (!headers.some((header) => header.pin)) return null;
+    if (!headers.some((header) => header.pin) && !selectable) return null;
+
     let leftOffset = 0;
     const left: Record<string, string> = {};
     let leftLastKey = "";
@@ -76,6 +78,12 @@ export const useCalculatePinPositions = <T extends object>(
     let rightOffset = 0;
     const right: Record<string, string> = {};
     let rightFirstKey = "";
+
+    if (selectable) {
+      left["selectable-col"] = "0px";
+      leftOffset += 70;
+      leftLastKey = "selectable-col";
+    }
 
     headers.forEach((header, index) => {
       if (header.pin === "left") {
@@ -90,7 +98,7 @@ export const useCalculatePinPositions = <T extends object>(
     });
 
     return { left, right, leftLastKey, rightFirstKey };
-  }, [headers]);
+  }, [headers, selectable]);
 
   return { pinPositions };
 };
@@ -118,7 +126,11 @@ export const useTableColumnsWidth = (
       const bodyColumns = firstRow.querySelectorAll("td");
 
       headerColumns.forEach((e, i) => {
-        if (e.classList.contains("scrollbar-cell")) return;
+        if (
+          e.classList.contains("scrollbar-cell") ||
+          e.classList.contains("selection-cell")
+        )
+          return;
         const headerWidth = e.getBoundingClientRect().width;
         const bodyWidht = bodyColumns[i].getBoundingClientRect().width;
         newWidths.push(Math.max(headerWidth, bodyWidht));
