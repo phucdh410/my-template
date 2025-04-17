@@ -55,7 +55,7 @@ export const CTable = <T extends object, F extends object>({
     (value: any, columnType: TColumnTypes) => {
       switch (columnType) {
         case "number":
-          return value?.toLocaleString();
+          return (value ?? 0)?.toLocaleString();
         case "date":
           return dayjs(value).format("DD/MM/YYYY");
         case "datetime":
