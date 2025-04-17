@@ -33,25 +33,9 @@ const MOCKUP_PAGINATION = {
 const TestPage = () => {
   //#region Data
   const [data, setData] = useState(DATA);
-
-  const [selections, setSelections] = useState<string[]>([]);
-
-  const isCheckAll = !!(selections.length && selections.length === data.length);
-  const isIndeterminate = !!(
-    selections.length && selections.length < data.length
-  );
   //#endregion
 
   //#region Event
-  const onCheck = (rowKey?: string) => (checked: boolean) => {
-    if (!rowKey) {
-      if (checked) setSelections(data.map((e) => e.id));
-      else setSelections([]);
-    } else {
-      if (checked) setSelections((prev) => [...prev, rowKey]);
-      else setSelections((prev) => prev.filter((e) => e !== rowKey));
-    }
-  };
   //#endregion
 
   //#region Render
@@ -59,8 +43,6 @@ const TestPage = () => {
     {
       key: "name",
       label: "Tên sản phẩm",
-      width: 300,
-      pin: "left",
       align: "left",
       renderCell: (value, record) => (
         <Stack direction="row" gap={0.5} alignItems="center">
@@ -88,12 +70,10 @@ const TestPage = () => {
     {
       key: "brand",
       label: "Hãng",
-      width: 400,
     },
     {
       key: "capacity",
       label: "Dung lượng",
-      width: 350,
     },
     {
       key: "price",
@@ -149,11 +129,6 @@ const TestPage = () => {
           pages: MOCKUP_PAGINATION.pages,
           onPageChange: MOCKUP_PAGINATION.onPageChange,
         }}
-        selectable
-        selections={selections}
-        isCheckAll={isCheckAll}
-        isIndeterminate={isIndeterminate}
-        onCheck={onCheck}
       />
     </Container>
   );

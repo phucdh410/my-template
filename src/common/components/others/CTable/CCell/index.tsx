@@ -18,6 +18,7 @@ interface ICCellProps extends PropsWithChildren {
     leftLastKey: string;
     rightFirstKey: string;
   } | null;
+  selectable?: boolean;
 }
 
 const Cell = ({
@@ -29,6 +30,7 @@ const Cell = ({
   headerTransform,
   pinPositions,
   children,
+  selectable,
 }: ICCellProps) => {
   return (
     <TableCell
@@ -36,6 +38,7 @@ const Cell = ({
       className={classNames(
         `c-table-${isHeader ? "head" : "body"}--cell`,
         className,
+        selectable && "selection-cell",
         {
           "pin-left": pin === "left",
           "pin-right": pin === "right",

@@ -129,9 +129,9 @@ export const CTable = <T extends object, F extends object>({
                 {selectable && (
                   <CTableCell
                     isHeader
-                    headerKey={SELECTION_COL_KEY}
-                    className="selection-cell"
+                    selectable
                     pin="left"
+                    headerKey={SELECTION_COL_KEY}
                     pinPositions={pinPositions}
                   >
                     <CCheckbox
@@ -185,9 +185,9 @@ export const CTable = <T extends object, F extends object>({
                 >
                   {selectable && (
                     <CTableCell
-                      headerKey={SELECTION_COL_KEY}
-                      className="selection-cell"
+                      selectable
                       pin="left"
+                      headerKey={SELECTION_COL_KEY}
                       pinPositions={pinPositions}
                     >
                       <CCheckbox
