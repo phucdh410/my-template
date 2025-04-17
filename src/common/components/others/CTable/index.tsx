@@ -106,7 +106,9 @@ export const CTable = <T extends object, F extends object>({
                   <col
                     key={generateKey(headerCol.key)}
                     width={
-                      hasVertical && isLastCol ? baseWidth + 15 : baseWidth
+                      hasVertical && isLastCol
+                        ? (baseWidth ?? 0) + 15
+                        : baseWidth
                     }
                   />
                 );
