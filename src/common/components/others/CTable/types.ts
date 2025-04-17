@@ -4,6 +4,9 @@ import { ICFiltersTable } from "./CFiltersTable/types";
 import { ICPaginationTableProps } from "./CPaginationTable/types";
 
 export type TColumnTypes = "number" | "date" | "datetime";
+export type TColumnAligns = "left" | "center" | "right";
+export type TColumnPins = "left" | "right";
+export type THeaderTransform = "uppercase" | "lowercase" | "capitalize";
 
 export interface ICTableHeaderBase<T> {
   /**
@@ -21,7 +24,7 @@ export interface ICTableHeaderBase<T> {
    * Optional flag to set the alignment.
    * @default `center`
    */
-  align?: "left" | "center" | "right";
+  align?: TColumnAligns;
 
   /**
    * Specifies the type of data in the column.
@@ -77,7 +80,7 @@ export type ICTableHeaderProps<T> =
        * - `"right"`: Pins this column to the right.
        * - `undefined`: This column is not pinned.
        */
-      pin: "left" | "right";
+      pin: TColumnPins;
 
       /**
        * Defines the width of the column.
@@ -125,7 +128,7 @@ export interface ICTableProps<T, F> {
    * This can be used to enforce consistent text styling across headers.
    * @default `none`
    */
-  headerTransform?: "uppercase" | "lowercase" | "capitalize";
+  headerTransform?: THeaderTransform;
 
   /**
    * Set the header sticky.

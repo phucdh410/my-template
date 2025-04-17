@@ -11,11 +11,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import classNames from "classnames";
 import dayjs from "dayjs";
 
 import { generateKey } from "@/funcs";
 
+import { CTableCell } from "./CCell";
 import { CFiltersTable } from "./CFiltersTable";
 import { CPaginationTable } from "./CPaginationTable";
 import {
@@ -114,35 +114,17 @@ export const CTable = <T extends object, F extends object>({
               <TableRow className="c-table-head--row">
                 {headers.map((header, headerIndex) => (
                   <Fragment key={generateKey(header.key)}>
-                    <TableCell
-                      align={header.align ?? "center"}
-                      className={classNames(
-                        "c-table-head--cell",
-                        header.className,
-                        {
-                          "pin-left": header.pin === "left",
-                          "pin-right": header.pin === "right",
-                          "pin-left-last":
-                            header.pin === "left" &&
-                            header.key === pinPositions?.leftLastKey,
-                          "pin-right-first":
-                            header.pin === "right" &&
-                            header.key === pinPositions?.rightFirstKey,
-                        }
-                      )}
-                      style={{
-                        textTransform: headerTransform
-                          ? headerTransform
-                          : "none",
-                        position: header.pin ? "sticky" : undefined,
-                        zIndex: header.pin ? 4 : 3,
-                        ...(header.pin && header.pin === "left"
-                          ? { left: pinPositions?.left[header.key] }
-                          : { right: pinPositions?.right[header.key] }),
-                      }}
+                    <CTableCell
+                      isHeader
+                      align={header.align}
+                      headerKey={header.key}
+                      className={header.className}
+                      headerTransform={headerTransform}
+                      pin={header.pin}
+                      pinPositions={pinPositions}
                     >
                       {header.label}
-                    </TableCell>
+                    </CTableCell>
                     {headerIndex === headers.length - 1 && hasVertical && (
                       <TableCell className="c-table-head--cell scrollbar-cell" />
                     )}
@@ -180,26 +162,13 @@ export const CTable = <T extends object, F extends object>({
                   className="c-table-body--row"
                 >
                   {headers.map((header, columnIndex) => (
-                    <TableCell
+                    <CTableCell
                       key={generateKey(header.key)}
-                      align={header.align ?? "center"}
-                      className={classNames("c-table-body--cell", {
-                        "pin-left": header.pin === "left",
-                        "pin-right": header.pin === "right",
-                        "pin-left-last":
-                          header.pin === "left" &&
-                          header.key === pinPositions?.leftLastKey,
-                        "pin-right-first":
-                          header.pin === "right" &&
-                          header.key === pinPositions?.rightFirstKey,
-                      })}
-                      style={{
-                        position: header.pin ? "sticky" : undefined,
-                        zIndex: header.pin ? 2 : 1,
-                        ...(header.pin && header.pin === "left"
-                          ? { left: pinPositions?.left[header.key] }
-                          : { right: pinPositions?.right[header.key] }),
-                      }}
+                      headerKey={header.key}
+                      align={header.align}
+                      className={header.className}
+                      pin={header.pin}
+                      pinPositions={pinPositions}
                     >
                       {header.renderCell
                         ? header.renderCell(
@@ -219,7 +188,7 @@ export const CTable = <T extends object, F extends object>({
                             header.columnType
                           )
                         : row[header.key as keyof T]}
-                    </TableCell>
+                    </CTableCell>
                   ))}
                 </TableRow>
               ))}
