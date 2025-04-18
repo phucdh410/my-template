@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Visibility } from "@mui/icons-material";
 import { Container, IconButton, Stack } from "@mui/material";
 
@@ -32,7 +30,6 @@ const MOCKUP_PAGINATION = {
 
 const TestPage = () => {
   //#region Data
-  const [data, setData] = useState(DATA);
   //#endregion
 
   //#region Event
@@ -96,33 +93,9 @@ const TestPage = () => {
   ];
   return (
     <Container>
-      <button
-        onClick={() => {
-          setData((prev) => [
-            ...prev,
-            {
-              name: `Something-${new Date().getTime()}-${Math.random() * 999}`,
-              battery: "100",
-              brand: "",
-              capacity: "",
-              chip: "",
-              price: 500,
-              frontCamera: "",
-              id: "23d",
-              image: "31f332f3f",
-              os: "",
-              rearCamera: "",
-              screenSize: "",
-              weight: "50",
-            },
-          ]);
-        }}
-      >
-        Add
-      </button>
       <CTable
         headers={headers}
-        data={data}
+        data={DATA}
         height={450}
         pagination={{
           page: MOCKUP_PAGINATION.page,

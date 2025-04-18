@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 
+import { CPermission } from "@/components/controls";
 import { INavigationGroup } from "@/types/navigation";
 
 import { CNavItem } from "../CNavItem";
@@ -28,7 +29,12 @@ export const CGroup = ({ group }: { group: INavigationGroup }) => {
       <Collapse in={open}>
         <ul className="c-navigation--list">
           {group.list.map((listItem, index) => (
-            <CNavItem key={index} data={listItem} />
+            <CPermission
+              key={`${listItem.name}-${listItem.path}-${listItem.permission_code}`}
+              permissionCode={listItem.permission_code}
+            >
+              <CNavItem data={listItem} />
+            </CPermission>
           ))}
         </ul>
       </Collapse>

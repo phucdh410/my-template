@@ -11,6 +11,7 @@ export interface INavigationItem {
   name: string;
   path: string;
   subs?: INavigationSubItem[];
+  permission_code: string;
 
   //note: Name should be short (15 characters) or you shall provide acronym for better mini view
   acronym?: string;

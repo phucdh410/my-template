@@ -88,4 +88,13 @@
       }
     }
   }
+
+  &.disabled {
+    pointer-events: none;
+    user-select: none;
+
+    .c-navigation--nav-item {
+      color: var(--mui-palette-text-disabled);
+    }
+  }
 }

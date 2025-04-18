@@ -52,7 +52,9 @@ const CNavigationItem = ({ data }: { data: INavigationItem }) => {
       )}
     >
       <span className="c-mini-navigation--item-icon">{data.icon}</span>
-      <span className="c-mini-navigation--item-text">{data.name}</span>
+      <span className="c-mini-navigation--item-text">
+        {data?.acronym ?? data.name}
+      </span>
     </Link>
   );
   //#endregion
@@ -113,7 +115,9 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
         onMouseLeave={handleNavItemLeave}
       >
         <span className="c-mini-navigation--item-icon">{data.icon}</span>
-        <span className="c-mini-navigation--item-text">{data.name}</span>
+        <span className="c-mini-navigation--item-text">
+          {data?.acronym ?? data.name}
+        </span>
         <ChevronRight className="c-mini-navigation--expand-icon" />
       </ButtonBase>
       <Popover

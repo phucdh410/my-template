@@ -4,4 +4,5 @@ export * from "./CCheckbox";
 export * from "./CDatePicker";
 export * from "./CInput";
 export * from "./CNumberInput";
+export * from "./CPermission";
 export * from "./CUpload";

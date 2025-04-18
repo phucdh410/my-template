@@ -5,24 +5,29 @@ import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import { Collapse } from "@mui/material";
 import classNames from "classnames";
 
-import { generateKey } from "@/funcs";
+import { CPermission } from "@/components/controls";
 import { useRouteActive } from "@/hooks";
-import { INavigationItem, INavigationSubItem } from "@/types/navigation";
+
+import { ICNavItemProps, ICSubPathItemProps } from "./types";
 
 import "./styles.scss";
 
-export const CNavItem = ({ data }: { data: INavigationItem }) => {
-  return data?.subs ? <CListPathItem data={data} /> : <CPathItem data={data} />;
+export const CNavItem = ({ data, disabled = false }: ICNavItemProps) => {
+  return data?.subs ? (
+    <CListPathItem data={data} disabled={disabled} />
+  ) : (
+    <CPathItem data={data} disabled={disabled} />
+  );
 };
 
-const CPathItem = ({ data }: { data: INavigationItem }) => {
+const CPathItem = ({ data, disabled }: ICNavItemProps) => {
   //#region Data
   const isRouteActive = useRouteActive(data.path);
   //#endregion
 
   //#region Render
   return (
-    <li className="c-navigation--nav-li">
+    <li className={classNames("c-navigation--nav-li", disabled && "disabled")}>
       <Link
         to={`/${data.path}`}
         className={classNames(
@@ -38,7 +43,7 @@ const CPathItem = ({ data }: { data: INavigationItem }) => {
   //#endregion
 };
 
-const CListPathItem = ({ data }: { data: INavigationItem }) => {
+const CListPathItem = ({ data, disabled }: ICNavItemProps) => {
   //#region Data
   const [open, setOpen] = useState(false);
 
@@ -47,7 +52,7 @@ const CListPathItem = ({ data }: { data: INavigationItem }) => {
 
   //#region Render
   return (
-    <li className="c-navigation--nav-li">
+    <li className={classNames("c-navigation--nav-li", disabled && "disabled")}>
       <div
         className={classNames(
           "c-navigation--nav-item",
@@ -66,11 +71,12 @@ const CListPathItem = ({ data }: { data: INavigationItem }) => {
       <Collapse in={open} sx={{ paddingLeft: "24px" }}>
         <ul className="c-navigation--sub-list">
           {data.subs!.map((subItem, index) => (
-            <CSubPathItem
-              key={generateKey(index + subItem.name)}
-              data={subItem}
-              parentPath={data.path}
-            />
+            <CPermission
+              key={`${subItem.name}-${subItem.path}-${subItem.permission_code}`}
+              permissionCode={subItem.permission_code}
+            >
+              <CSubPathItem data={subItem} parentPath={data.path} />
+            </CPermission>
           ))}
         </ul>
       </Collapse>
@@ -82,17 +88,15 @@ const CListPathItem = ({ data }: { data: INavigationItem }) => {
 const CSubPathItem = ({
   data,
   parentPath,
-}: {
-  data: INavigationSubItem;
-  parentPath: string;
-}) => {
+  disabled = false,
+}: ICSubPathItemProps) => {
   //#region Data
   const isRouteActive = useRouteActive(`${parentPath}/${data.path}`);
   //#endregion
 
   //#region Render
   return (
-    <li className="c-navigation--nav-li">
+    <li className={classNames("c-navigation--nav-li", disabled && "disabled")}>
       <Link
         to={`/${parentPath}/${data.path}`}
         className={classNames(
