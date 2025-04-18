@@ -60,6 +60,15 @@
           transform: translateY(-55%);
         }
       }
+
+      &[disabled] {
+        pointer-events: none;
+        user-select: none;
+
+        .c-mini-navigation--item {
+          color: var(--mui-palette-text-disabled);
+        }
+      }
     }
   }
 }
@@ -107,6 +116,15 @@
               &:hover {
                 background-color: var(--mui-sidebar-item-colors-activeBgHover);
               }
+            }
+          }
+
+          &[disabled] {
+            pointer-events: none;
+            user-select: none;
+
+            .c-mini-navigation--li-item {
+              color: var(--mui-palette-text-disabled);
             }
           }
         }

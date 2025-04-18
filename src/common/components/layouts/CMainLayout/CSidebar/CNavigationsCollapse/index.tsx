@@ -5,6 +5,7 @@ import { ChevronRight } from "@mui/icons-material";
 import { ButtonBase, Popover } from "@mui/material";
 import classNames from "classnames";
 
+import { CPermission } from "@/components/controls";
 import { NAVIGATIONS } from "@/constants/navigations";
 import { generateKey } from "@/funcs";
 import { useRouteActive } from "@/hooks";
@@ -19,16 +20,18 @@ export const CNavigationsCollapse = () => {
       <ul className="c-mini-navigation--ul">
         {NAVIGATIONS.flatMap((group) =>
           group.list.map((navItem, index) => (
-            <li
-              key={generateKey(navItem.name + index)}
-              className="c-mini-navigation--li"
+            <CPermission
+              key={`${navItem.name}-${navItem.path}-${navItem.permission_code}`}
+              permissionCode={navItem.permission_code}
             >
-              {navItem.subs ? (
-                <CNavigationListItems data={navItem} />
-              ) : (
-                <CNavigationItem data={navItem} />
-              )}
-            </li>
+              <li className="c-mini-navigation--li">
+                {navItem.subs ? (
+                  <CNavigationListItems data={navItem} />
+                ) : (
+                  <CNavigationItem data={navItem} />
+                )}
+              </li>
+            </CPermission>
           ))
         )}
       </ul>
@@ -176,18 +179,23 @@ const CNavigationDropdownItem = ({
 
   //#region Render
   return (
-    <li className="c-mini-navigation--li">
-      <Link
-        to={`/${parentPath}/${data.path}`}
-        className={classNames(
-          isRouteActive && "active",
-          "c-mini-navigation--li-item"
-        )}
-        onClick={onClose}
-      >
-        {data.name}
-      </Link>
-    </li>
+    <CPermission
+      key={`${data.name}-${data.path}-${data.permission_code}`}
+      permissionCode={data.permission_code}
+    >
+      <li className="c-mini-navigation--li">
+        <Link
+          to={`/${parentPath}/${data.path}`}
+          className={classNames(
+            isRouteActive && "active",
+            "c-mini-navigation--li-item"
+          )}
+          onClick={onClose}
+        >
+          {data.name}
+        </Link>
+      </li>
+    </CPermission>
   );
   //#endregion
 };
