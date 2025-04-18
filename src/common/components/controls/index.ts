@@ -2,6 +2,7 @@ export * from "./CAutocomplete";
 export * from "./CButton";
 export * from "./CCheckbox";
 export * from "./CDatePicker";
+export * from "./CDateRangePicker";
 export * from "./CInput";
 export * from "./CNumberInput";
 export * from "./CPermission";

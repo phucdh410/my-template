@@ -59,6 +59,7 @@ export default tseslint.config(
         },
       ],
       "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
       "@typescript-eslint/no-extra-non-null-assertion": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-empty-object-type": "off",

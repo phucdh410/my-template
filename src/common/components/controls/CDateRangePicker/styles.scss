@@ -1,0 +1,39 @@
+.c-date-range-picker--dialog {
+  .c-date-range-picker--calendar-wrapper {
+    border-radius: 16px;
+    border: 1px dashed var(--mui-palette-divider);
+  }
+
+  .c-date-range-picker--modal-button {
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 5px 12px;
+    line-height: 1.5rem;
+    box-shadow: none !important;
+    border: 1px solid black;
+
+    &.cancel-button {
+      color: black;
+      background-color: white;
+      border-color: rgba(0 0 0 / 15%);
+    }
+
+    &.apply-button {
+      color: white;
+      background-color: black;
+      border-color: black;
+
+      &.Mui-disabled {
+        border-color: var(--mui-palette-action-disabledBackground);
+        color: var(--mui-palette-action-disabled);
+        background-color: var(--mui-palette-action-disabledBackground);
+      }
+    }
+  }
+
+  .c-date-range-picker--error {
+    color: var(--mui-palette-error-main);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+}

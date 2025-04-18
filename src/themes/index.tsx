@@ -435,8 +435,21 @@ theme = createTheme(theme, {
     //#region Dialog
     MuiDialog: {
       styleOverrides: {
-        root: {},
+        root: {
+          ".MuiBackdrop-root": {
+            backgroundColor: "rgba(28, 37, 46, 0.48)",
+          },
+        },
+        paper: {
+          borderRadius: "16px",
+          boxShadow: "-40px 40px 80px -8px rgba(0 0 0 / 0.24)",
+        },
       },
+    },
+    //#endregion
+    //#region Backdrop
+    MuiBackdrop: {
+      styleOverrides: {},
     },
     //#endregion
     //#region Stack
