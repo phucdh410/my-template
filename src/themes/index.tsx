@@ -359,6 +359,15 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region DateCalendar
+    MuiDateCalendar: {
+      defaultProps: {
+        slots: {
+          switchViewIcon: ExpandMore,
+        },
+      },
+    },
+    //#endregion
     //#region DayCalendar
     MuiDayCalendar: {
       styleOverrides: {

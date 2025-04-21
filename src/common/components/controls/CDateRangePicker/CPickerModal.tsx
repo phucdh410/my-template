@@ -60,7 +60,8 @@ export const CPickerModal = forwardRef<ICPickerModalRef, ICPickerModalProps>(
     //#endregion
 
     useImperativeHandle(ref, () => ({
-      open: () => {
+      open: (initValues) => {
+        if (initValues) setValues(initValues);
         setOpen(true);
       },
     }));
@@ -86,6 +87,7 @@ export const CPickerModal = forwardRef<ICPickerModalRef, ICPickerModalProps>(
                 minDate={DEFAULT_LIMIT_RANGES.min}
                 maxDate={max}
                 reduceAnimations
+                dayOfWeekFormatter={(date) => date.format("dd")}
               />
             </div>
             <div className="c-date-range-picker--calendar-wrapper">
@@ -95,6 +97,7 @@ export const CPickerModal = forwardRef<ICPickerModalRef, ICPickerModalProps>(
                 minDate={min}
                 maxDate={DEFAULT_LIMIT_RANGES.max}
                 reduceAnimations
+                dayOfWeekFormatter={(date) => date.format("dd")}
               />
             </div>
           </Stack>

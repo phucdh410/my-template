@@ -4,10 +4,13 @@ import { IFormInputComponentProps, IFormInputComponentRef } from "@/types/form";
 
 export interface ICDateRangePickerRef extends IFormInputComponentRef {}
 
-export interface ICDateRangePickerProps extends IFormInputComponentProps {}
+export interface ICDateRangePickerProps extends IFormInputComponentProps {
+  value?: ICDateRangeValues;
+  onChange?: (values: ICDateRangeValues) => void;
+}
 
 export interface ICPickerModalRef {
-  open: () => void;
+  open: (initValues?: ICDateRangeValues) => void;
 }
 
 export interface ICPickerModalProps {

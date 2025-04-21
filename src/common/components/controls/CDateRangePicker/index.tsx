@@ -1,13 +1,13 @@
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useMemo, useRef } from "react";
 
 import { HighlightOffOutlined } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
-import dayjs from "dayjs";
 
 import { CFormControl } from "../CFormControl";
 
 import { CPickerModal } from "./CPickerModal";
+import { dateRangeValueFormatter } from "./funcs";
 import {
   ICDateRangePickerProps,
   ICDateRangePickerRef,
@@ -23,20 +23,21 @@ export const CDateRangePicker = forwardRef<
 >(
   (
     {
-      error,
-      errorText,
-      className,
-      fullWidth,
-      label,
-      placeholder,
       value,
       onChange,
+      disabled = false,
+      error = false,
+      errorText = "",
+      className,
+      fullWidth = true,
+      label,
+      placeholder,
       ...props
     },
     ref
   ) => {
     //#region Data
-    const [displayValue, setDisplayValue] = useState("");
+    const displayValue = useMemo(() => dateRangeValueFormatter(value), [value]);
 
     const modalRef = useRef<ICPickerModalRef>(null);
     //#endregion
@@ -44,59 +45,32 @@ export const CDateRangePicker = forwardRef<
     //#region Event
     const onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
       event.currentTarget?.blur();
-      modalRef.current?.open();
+      modalRef.current?.open(value);
     };
 
     const onValueChange = (values: ICDateRangeValues) => {
-      const { from, to } = values;
-      let text = "";
-
-      const sameYear = dayjs(from).isSame(to, "year");
-      const sameMonth = dayjs(from).isSame(to, "month");
-      const sameDate = dayjs(from).isSame(to, "date");
-
-      if (sameYear) {
-        if (sameMonth) {
-          if (sameDate) {
-            // Same year, same month, same day
-            text = dayjs(from).format("D MMMM YYYY");
-          } else {
-            // Same year, same month, different days
-            text = `${dayjs(from).format("D")} - ${dayjs(to).format(
-              "D MMMM YYYY"
-            )}`;
-          }
-        } else {
-          // Same year, different months
-          text = `${dayjs(from).format("D MMMM")} - ${dayjs(to).format(
-            "D MMMM YYYY"
-          )}`;
-        }
-      } else {
-        // Different years
-        text = `${dayjs(from).format("D MMMM YYYY")} - ${dayjs(to).format(
-          "D MMMM YYYY"
-        )}`;
-      }
-
-      setDisplayValue(text);
+      onChange?.(values);
     };
 
-    const onClear = () => setDisplayValue("");
+    const onClear = () => onChange?.({ from: null, to: null });
     //#endregion
 
     //#region Render
     return (
       <CFormControl error={error} errorText={errorText}>
         <TextField
+          {...props}
+          label={label}
           className={classNames("c-input c-date-range-picker", className)}
-          error={error}
           fullWidth={fullWidth}
           inputRef={ref}
-          label={label}
+          disabled={disabled}
           // onChange={onChange}
           placeholder={placeholder}
           value={displayValue}
+          error={error}
+          focused={false}
+          onFocus={onFocus}
           slotProps={{
             inputLabel: {
               className: "c-form-label",
@@ -111,9 +85,6 @@ export const CDateRangePicker = forwardRef<
               ) : undefined,
             },
           }}
-          {...props}
-          focused={false}
-          onFocus={onFocus}
         />
 
         <CPickerModal ref={modalRef} onChange={onValueChange} />
