@@ -1,27 +1,17 @@
 import { useMemo, useRef, useState } from "react";
 
 import { Stack, Typography } from "@mui/material";
-import dayjs from "dayjs";
 
 import { CButton } from "@/components/controls";
 
-import { DatepickerFilter, SelectionFilter, TFilterProps } from "../types";
+import { displayLabel } from "../../funcs";
+import { DatepickerFilter, SelectionFilter } from "../types";
 
 import { CFilterButton } from "./CFilterButton";
 import { CFilterComponent, ICFilterComponentRef } from "./CFilterComponent";
 import { CFilterPopover } from "./CFilterPopover";
 import { CFilterValueLabel } from "./CFilterValueLabel";
 import { ICFilterItemProps } from "./types";
-
-const displayLabel = <T extends object>(
-  filter: TFilterProps<T>,
-  filterValue: T[keyof T]
-): string => {
-  if (filter.type === "input") return filterValue as string;
-  else if (filter.type === "selection")
-    return filter.options?.find((e) => e.id === filterValue)?.label ?? "";
-  else return dayjs(filterValue as Date).format(filter.format ?? "DD/MM/YYYY");
-};
 
 export const CFilterItem = <T extends object>({
   filter,

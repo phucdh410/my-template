@@ -5,16 +5,10 @@ import { Stack } from "@mui/material";
 import { CButton } from "@/components/controls";
 import { generateKey } from "@/funcs";
 
+import { hasDifferentValue } from "../funcs";
+
 import { CFilterItem } from "./CFilterItem";
 import { ICFiltersTableProps } from "./types";
-
-const hasDifferentValue = (
-  obj1: Record<string, any>,
-  obj2: Record<string, any>
-): boolean =>
-  [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])].some(
-    (key) => obj1[key] !== obj2[key]
-  );
 
 export const CFiltersTable = <T extends object>({
   filters,

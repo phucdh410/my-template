@@ -1,30 +1,24 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 import { ExpandMore } from "@mui/icons-material";
 import { MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
 
+import { LIMIT_OPTIONS } from "../../variables";
 import { LIMIT_VALUES } from "../types";
 
 import { ICSelectLimitProps } from "./types";
-
-const LIMIT_OPTIONS: { id: LIMIT_VALUES; label: number }[] = [
-  { id: 10, label: 10 },
-  { id: 20, label: 20 },
-  { id: 50, label: 50 },
-  { id: 100, label: 100 },
-];
 
 export const SelectLimit = ({
   limit = 10,
   onLimitChange,
 }: ICSelectLimitProps) => {
   //#region Event
-  const onChange = (
-    event: SelectChangeEvent<number>,
-    child: React.ReactNode
-  ) => {
-    onLimitChange?.(Number(event.target.value) as LIMIT_VALUES);
-  };
+  const onChange = useCallback(
+    (event: SelectChangeEvent<number>, child: React.ReactNode) => {
+      onLimitChange?.(Number(event.target.value) as LIMIT_VALUES);
+    },
+    [onLimitChange]
+  );
   //#endregion
 
   //#region Render

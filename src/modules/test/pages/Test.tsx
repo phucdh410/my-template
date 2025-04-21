@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Container, Stack } from "@mui/material";
 
-import { CNumberInput } from "@/components/controls";
+import { CInput, CNumberInput } from "@/components/controls";
 
 const TestPage = () => {
   //#region Data
@@ -15,7 +15,8 @@ const TestPage = () => {
   //#region Render
   return (
     <Container>
-      <Stack mt={4}>
+      <Stack gap={4} mt={4}>
+        <CInput label="Tên sản phẩm" value="Sản phẩm 1" />
         <Controller
           control={control}
           name="price"
@@ -26,6 +27,7 @@ const TestPage = () => {
               isFloat
               max={3000}
               min={1000}
+              suffix="VNĐ"
               {...field}
             />
           )}
