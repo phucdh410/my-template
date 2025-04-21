@@ -1,11 +1,14 @@
-import { forwardRef, useMemo } from "react";
+import { forwardRef, useMemo, useState } from "react";
 
 import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
+import { toast } from "sonner";
 
 import { CFormControl } from "../CFormControl";
 
 import { ICNumberInputProps, ICNumberInputRef } from "./types";
+
+const INVALID_KEYS = ["+", "e", "E", "-"];
 
 export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
   (
@@ -30,8 +33,10 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
     ref
   ) => {
     //#region Data
-    const currentValue = useMemo(
-      () => (Number(value) ?? 0).toLocaleString(),
+    const [isFocus, setIsFocus] = useState(false);
+
+    const displayValue = useMemo(
+      () => (value === 0 ? "0" : (value ?? 0)?.toLocaleString()),
       [value]
     );
     //#endregion
@@ -40,32 +45,39 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
     const onValueChange = (
       event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => {
-      const changedValue = event.target.value;
-      const getDigit = changedValue.replace(/\D/g, "");
-      const newValue = Number(getDigit);
-
-      if (typeof min !== "undefined" && newValue < min) return onChange?.(min);
-      if (typeof max !== "undefined" && newValue > max) return onChange?.(max);
-
-      onChange?.(Number(getDigit));
+      onChange?.(Number(event.target.value));
     };
 
     const onPresKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      onKeyDown?.(event);
+
+      if (INVALID_KEYS.includes(event.key) || (!isFloat && event.key === ".")) {
         event.preventDefault();
-        const step = event.key === "ArrowUp" ? 1 : -1;
-        const newValue = Number(value) + step;
-        if (typeof min !== "undefined" && newValue < min) return;
-        if (typeof max !== "undefined" && newValue > max) return;
-        onChange?.(newValue);
+        event.stopPropagation();
         return;
       }
-
-      onKeyDown?.(event);
 
       if (event.key === "Enter") {
         onEnter?.();
       }
+    };
+
+    const onFocus = () => setIsFocus(true);
+
+    const onBlur = () => {
+      if (max || min) {
+        let numberValue = Number(value);
+        if (max && numberValue > max) {
+          toast.warning(`Giá trị tối đa: ${max}`);
+          onChange?.(max);
+        }
+        if (min && numberValue < min) {
+          toast.warning(`Giá trị tối thiểu: ${min}`);
+          onChange?.(min);
+        }
+      }
+
+      setIsFocus(false);
     };
     //#endregion
 
@@ -73,15 +85,20 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
     return (
       <CFormControl error={error} errorText={errorText}>
         <TextField
+          {...props}
           className={classNames("c-input c-number-input", className)}
           error={error}
           fullWidth={fullWidth}
           inputRef={ref}
           label={label}
+          disabled={disabled}
+          type={isFocus ? "number" : "text"}
+          value={isFocus ? value : displayValue}
           onChange={onValueChange}
           onKeyDown={onPresKeyDown}
+          onFocus={onFocus}
+          onBlur={onBlur}
           placeholder={placeholder}
-          value={currentValue}
           slotProps={{
             inputLabel: {
               className: "c-form-label",
@@ -91,9 +108,12 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
               endAdornment: suffix && (
                 <InputAdornment position="end">{suffix}</InputAdornment>
               ),
+              inputProps: {
+                min: min,
+                max: max,
+              },
             },
           }}
-          {...props}
         />
       </CFormControl>
     );
