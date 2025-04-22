@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import loginBgSrc from "@/assets/images/login-background.gif";
+import loginBgSrc from "@/assets/videos/login-background.mp4";
 
 import { MLoginForm } from "../../components";
 
@@ -11,13 +11,25 @@ const LoginPage = () => {
       width="100vw"
       alignItems="center"
       justifyContent="center"
-      sx={{
-        backgroundImage: `url(${loginBgSrc})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
     >
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "fixed",
+          right: 0,
+          bottom: 0,
+          minWidth: "100%",
+          minHeight: "100%",
+          objectFit: "cover",
+          zIndex: -1,
+        }}
+      >
+        <source src={loginBgSrc} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       <Stack
         borderRadius="16px"
         p={4}
@@ -25,9 +37,10 @@ const LoginPage = () => {
         width={400}
         mb={10}
         sx={{
-          backdropFilter: "blur(6px)",
+          backdropFilter: "blur(5px)",
           backgroundColor: "rgba(255, 255, 255, 0.5)",
-          boxShadow: "0 0 4px 2px rgba(255 255 255)",
+          border: "1px solid rgba(255, 255, 255, 0.3)",
+          boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Typography fontFamily="Inter" fontSize="1.5rem" fontWeight={600}>

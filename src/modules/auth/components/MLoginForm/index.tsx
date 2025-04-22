@@ -47,6 +47,7 @@ export const MLoginForm = () => {
           <CInput
             {...field}
             label="Username"
+            placeholder="Nhập tên đăng nhập"
             error={!!error}
             errorText={error?.message}
             InputProps={{
@@ -66,6 +67,7 @@ export const MLoginForm = () => {
           <CInput
             {...field}
             label="Password"
+            placeholder="Nhập tên mật khẩu"
             error={!!error}
             errorText={error?.message}
             InputProps={{
