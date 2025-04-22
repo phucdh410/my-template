@@ -180,6 +180,9 @@ theme = createTheme(theme, {
                 height: "unset",
                 padding: INPUT__PADDING,
                 lineHeight: INPUT__LINE_HEIGHT,
+                "&.MuiInputBase-inputAdornedStart": {
+                  paddingLeft: 0,
+                },
               },
               "&.MuiInputBase-multiline": {
                 padding: INPUT__PADDING,
