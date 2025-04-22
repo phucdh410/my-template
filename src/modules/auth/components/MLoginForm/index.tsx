@@ -1,5 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 
+import { AccountCircle, Lock } from "@mui/icons-material";
+import { InputAdornment } from "@mui/material";
 import { toast } from "sonner";
 
 import { authApi } from "@/apis/auth.api";
@@ -42,14 +44,38 @@ export const MLoginForm = () => {
         control={control}
         name="username"
         render={({ field, fieldState: { error } }) => (
-          <CInput {...field} error={!!error} errorText={error?.message} />
+          <CInput
+            {...field}
+            label="Username"
+            error={!!error}
+            errorText={error?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
+          />
         )}
       />
       <Controller
         control={control}
         name="password"
         render={({ field, fieldState: { error } }) => (
-          <CInput {...field} error={!!error} errorText={error?.message} />
+          <CInput
+            {...field}
+            label="Password"
+            error={!!error}
+            errorText={error?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              ),
+            }}
+          />
         )}
       />
       <CButton onClick={onSubmit} sx={{ mt: 2 }}>

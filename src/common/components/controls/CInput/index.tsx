@@ -22,6 +22,7 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
       onEnter,
       error = false,
       errorText = "",
+      InputProps,
       ...props
     },
     ref
@@ -55,6 +56,7 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
             inputLabel: {
               className: "c-form-label",
             },
+            input: InputProps,
           }}
           {...props}
         />
