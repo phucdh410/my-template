@@ -21,6 +21,7 @@ type BaseFilter<T> = {
    * - "datepicker": A date selection field.
    */
   type: "input" | "selection" | "datepicker";
+  //TODO: Update type number
 
   /**
    * A callback function triggered when the filter value changes.

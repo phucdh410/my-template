@@ -25,6 +25,8 @@ export const CFiltersTable = <T extends object>({
     [filters.values, filters.onFiltersChange]
   );
   //#endregion
+  //TODO: Fix bug compare
+  // console.log(hasDifferentValue(filters.values, filters.initialValues));
 
   //#region Render
   return (
