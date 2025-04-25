@@ -6,8 +6,7 @@ export interface ICNumberInputRef extends IFormInputComponentRef {}
 
 export interface ICNumberInputProps
   extends IFormInputComponentProps,
-    Pick<ICInputProps, "onEnter"> {
-  suffix?: string;
+    Pick<ICInputProps, "onEnter" | "prefix" | "suffix"> {
   isFloat?: boolean;
   min?: number;
   max?: number;

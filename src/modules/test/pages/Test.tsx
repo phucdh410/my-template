@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { Star } from "@mui/icons-material";
 import { Container, Stack } from "@mui/material";
 
 import {
   CAutocomplete,
+  CDatePicker,
   CDateRangePicker,
   CInput,
   CNumberInput,
@@ -122,7 +124,7 @@ const initialParams = {
 
 const TestPage = () => {
   //#region Data
-  const { control } = useForm({ mode: "all", defaultValues: { price: 0 } });
+  const { control } = useForm({ mode: "all", defaultValues: { price: "" } });
 
   const [filters, setFilters] = useState<IFilterParams>(initialParams);
   //#endregion
@@ -145,7 +147,17 @@ const TestPage = () => {
   return (
     <Container>
       <Stack gap={4} mt={4} pb={50}>
-        <CInput label="Tên sản phẩm" value="" />
+        <CInput label="Input mặc định" value="" />
+        <CInput label="Có start icon" value="" prefix={<Star />} />
+        <CInput label="Có end icon" value="" suffix={<Star />} />
+        <CInput label="Nhiều dòng" value="" rows={4} />
+        <CInput
+          label="Có 2 icon"
+          value=""
+          prefix={<Star />}
+          suffix={<Star />}
+        />
+        <CDatePicker label="Ngày" />
         <Controller
           control={control}
           name="price"

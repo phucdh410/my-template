@@ -9,7 +9,7 @@ export const HEADER__HEIGHT = 72;
 export const CONTAINER_PADDING_X = { xs: 2, md: 4, lg: 5, "2xl": 6 };
 export const CONTAINER_PADDING_Y = { xs: 2, lg: 3 };
 
-export const INPUT__BORDER_RADIUS = "6px";
+export const INPUT__BORDER_RADIUS = "8px";
 export const INPUT__PADDING = "10px 14px";
 export const INPUT__LINE_HEIGHT = 1.5;
 export const INPUT__LEGEND_PADDING = "0px 14px";

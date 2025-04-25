@@ -103,16 +103,6 @@ let theme = createTheme({
 //#region Components
 theme = createTheme(theme, {
   components: {
-    //#region FormHelperText
-    MuiFormHelperText: {
-      styleOverrides: {
-        root: {
-          fontSize: "0.875rem",
-          paddingInline: "6px",
-        },
-      },
-    },
-    //#endregion
     //#region Button
     MuiButton: {
       defaultProps: {
@@ -140,11 +130,12 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
-    //#region OutlinedInput
-    MuiOutlinedInput: {
+    //#region FormHelperText
+    MuiFormHelperText: {
       styleOverrides: {
-        notchedOutline: {
-          transition: "border-color 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        root: {
+          fontSize: "0.875rem",
+          paddingInline: "6px",
         },
       },
     },
@@ -164,6 +155,48 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region OutlinedInput
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          "&.c-outlined-input-root": {
+            borderRadius: INPUT__BORDER_RADIUS,
+            padding: INPUT__PADDING,
+            legend: {
+              fontSize: INPUT__LEGEND_FONT_SIZE,
+            },
+          },
+        },
+        input: {
+          "&.c-outlined-input-input": {
+            padding: 0,
+            height: "unset",
+            lineHeight: INPUT__LINE_HEIGHT,
+          },
+        },
+
+        notchedOutline: {
+          transition: "border-color 150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        },
+      },
+    },
+    //#endregion
+    //#region InputAdornment
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          "&.c-input-adornment-root": {
+            height: 24,
+            width: 24,
+            position: "relative",
+            ".MuiButtonBase-root": {
+              margin: "-8px",
+            },
+          },
+        },
+      },
+    },
+    //#endregion
     //#region TextField
     MuiTextField: {
       defaultProps: {
@@ -172,30 +205,7 @@ theme = createTheme(theme, {
         autoCorrect: "off",
       },
       styleOverrides: {
-        root: {
-          "&.c-input,&.c-date-picker": {
-            ".MuiOutlinedInput-root": {
-              borderRadius: INPUT__BORDER_RADIUS,
-              ".MuiOutlinedInput-input": {
-                height: "unset",
-                padding: INPUT__PADDING,
-                lineHeight: INPUT__LINE_HEIGHT,
-                "&.MuiInputBase-inputAdornedStart": {
-                  paddingLeft: 0,
-                },
-              },
-              "&.MuiInputBase-multiline": {
-                padding: INPUT__PADDING,
-                ".MuiOutlinedInput-input": {
-                  padding: 0,
-                },
-              },
-              legend: {
-                fontSize: INPUT__LEGEND_FONT_SIZE,
-              },
-            },
-          },
-        },
+        root: {},
       },
     },
     //#endregion
@@ -206,31 +216,7 @@ theme = createTheme(theme, {
       },
       styleOverrides: {
         root: {
-          "&.c-autocomplete": {
-            ".MuiAutocomplete-inputRoot": {
-              padding: 0,
-              paddingRight: "39px",
-              borderRadius: INPUT__BORDER_RADIUS,
-              ".MuiAutocomplete-input": {
-                height: "unset",
-                padding: INPUT__PADDING,
-                lineHeight: INPUT__LINE_HEIGHT,
-              },
-              legend: {
-                fontSize: INPUT__LEGEND_FONT_SIZE,
-              },
-            },
-            "&.c-autocomplete-multiple": {
-              ".MuiAutocomplete-inputRoot": {
-                paddingBlock: "10px",
-                paddingLeft: "10px",
-                ".MuiAutocomplete-input": {
-                  padding: 0,
-                  paddingLeft: "4px",
-                },
-              },
-            },
-          },
+          "&.c-autocomplete": {},
         },
         tag: {
           "&.c-autocomplete-tag": {

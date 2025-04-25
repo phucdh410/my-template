@@ -85,9 +85,18 @@ export const CDatePicker = forwardRef<ICDatePickerRef, ICDatePickerProps>(
               InputLabelProps: {
                 className: "c-form-label",
               },
+              InputProps: {
+                className: "c-outlined-input-root",
+              },
+              inputProps: {
+                className: "c-outlined-input-input",
+              },
             },
             inputAdornment: {
-              sx: { display: hidePickerIcon ? "none" : "flex" },
+              className: "c-input-adornment-root",
+              sx: {
+                display: hidePickerIcon ? "none" : "flex",
+              },
             },
           }}
         />

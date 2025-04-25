@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { TextField } from "@mui/material";
+import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
 
 import { CFormControl } from "../CFormControl";
@@ -22,7 +22,8 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
       onEnter,
       error = false,
       errorText = "",
-      InputProps,
+      prefix,
+      suffix,
       ...props
     },
     ref
@@ -56,7 +57,18 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
             inputLabel: {
               className: "c-form-label",
             },
-            input: InputProps,
+            input: {
+              className: "c-outlined-input-root",
+              startAdornment: prefix && (
+                <InputAdornment position="start">{prefix}</InputAdornment>
+              ),
+              endAdornment: suffix && (
+                <InputAdornment position="end">{suffix}</InputAdornment>
+              ),
+            },
+            htmlInput: {
+              className: "c-outlined-input-input",
+            },
           }}
           {...props}
         />

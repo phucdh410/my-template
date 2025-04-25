@@ -24,6 +24,7 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
       onEnter,
       error = false,
       errorText = "",
+      prefix,
       suffix,
       isFloat = false,
       min,
@@ -86,7 +87,7 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
       <CFormControl error={error} errorText={errorText}>
         <TextField
           {...props}
-          className={classNames("c-input c-number-input", className)}
+          className={classNames("c-number-input", className)}
           error={error}
           fullWidth={fullWidth}
           inputRef={ref}
@@ -104,14 +105,19 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
               className: "c-form-label",
             },
             input: {
+              className: "c-outlined-input-root",
               inputMode: isFloat ? "decimal" : "numeric",
+              startAdornment: prefix && (
+                <InputAdornment position="start">{prefix}</InputAdornment>
+              ),
               endAdornment: suffix && (
                 <InputAdornment position="end">{suffix}</InputAdornment>
               ),
-              inputProps: {
-                min: min,
-                max: max,
-              },
+            },
+            htmlInput: {
+              className: "c-outlined-input-input",
+              min: min,
+              max: max,
             },
           }}
         />
