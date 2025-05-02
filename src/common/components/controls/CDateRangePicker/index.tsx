@@ -61,7 +61,7 @@ export const CDateRangePicker = forwardRef<
         <TextField
           {...props}
           label={label}
-          className={classNames("c-input c-date-range-picker", className)}
+          className={classNames("c-date-range-picker", className)}
           fullWidth={fullWidth}
           inputRef={ref}
           disabled={disabled}
@@ -76,6 +76,7 @@ export const CDateRangePicker = forwardRef<
               className: "c-form-label",
             },
             input: {
+              className: "c-outlined-input-root",
               endAdornment: displayValue ? (
                 <InputAdornment position="end">
                   <IconButton size="small" onClick={onClear}>
@@ -83,6 +84,9 @@ export const CDateRangePicker = forwardRef<
                   </IconButton>
                 </InputAdornment>
               ) : undefined,
+            },
+            htmlInput: {
+              className: "c-outlined-input-input",
             },
           }}
         />

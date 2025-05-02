@@ -161,7 +161,7 @@ theme = createTheme(theme, {
         root: {
           "&.c-outlined-input-root": {
             borderRadius: INPUT__BORDER_RADIUS,
-            padding: INPUT__PADDING,
+            padding: `${INPUT__PADDING} !important`,
             legend: {
               fontSize: INPUT__LEGEND_FONT_SIZE,
             },
@@ -169,7 +169,7 @@ theme = createTheme(theme, {
         },
         input: {
           "&.c-outlined-input-input": {
-            padding: 0,
+            padding: "0 !important",
             height: "unset",
             lineHeight: INPUT__LINE_HEIGHT,
           },
@@ -217,6 +217,22 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           "&.c-autocomplete": {},
+        },
+        endAdornment: {
+          "&.MuiAutocomplete-endAdornment": {
+            inset: "0 !important",
+            transform: "none",
+            marginLeft: "8px",
+            height: 24,
+            width: 24,
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            ".MuiButtonBase-root": {
+              padding: "8px",
+              margin: "-8px",
+            },
+          },
         },
         tag: {
           "&.c-autocomplete-tag": {

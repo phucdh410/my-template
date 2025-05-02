@@ -73,23 +73,43 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
 
     //#region Event
     const renderInput = useCallback(
-      (params: AutocompleteRenderInputParams) => (
-        <TextField
-          {...params}
-          label={label}
-          placeholder={placeholder}
-          slotProps={{
-            inputLabel: {
-              className: "c-form-label",
-            },
-            input: {
-              ...params.InputProps,
-              endAdornment: <>{params.InputProps.endAdornment}</>,
-            },
-          }}
-          error={error}
-        />
-      ),
+      (params: AutocompleteRenderInputParams) => {
+        console.log(params);
+        return (
+          <TextField
+            {...params}
+            label={label}
+            placeholder={placeholder}
+            slotProps={{
+              //TODO: cần chỗ này nhưng mở ra thì lỗi
+              inputLabel: {
+                ...params.InputLabelProps,
+                className: classNames(
+                  "c-form-label",
+                  params.InputLabelProps.className
+                ),
+              },
+              input: {
+                ...params.InputProps,
+                className: classNames(
+                  "c-outlined-input-root",
+                  params.InputProps.className
+                ),
+                endAdornment: <>{params.InputProps.endAdornment}</>,
+              },
+              //TODO: cần chỗ này nhưng mở ra thì lỗi
+              htmlInput: {
+                ...params.inputProps,
+                className: classNames(
+                  "c-outlined-input-input",
+                  params.inputProps.className
+                ),
+              },
+            }}
+            error={error}
+          />
+        );
+      },
       [label, placeholder, error]
     );
 
