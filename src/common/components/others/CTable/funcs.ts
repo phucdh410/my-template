@@ -7,7 +7,7 @@ export const hasDifferentValue = (
   obj2: Record<string, any>
 ): boolean =>
   [...new Set([...Object.keys(obj1), ...Object.keys(obj2)])].some(
-    (key) => obj1[key] !== obj2[key]
+    (key) => !!(obj1[key] || obj2[key]) && obj1[key] !== obj2[key]
   );
 
 export const displayLabel = <T extends object>(

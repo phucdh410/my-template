@@ -81,7 +81,6 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
             label={label}
             placeholder={placeholder}
             slotProps={{
-              //TODO: cần chỗ này nhưng mở ra thì lỗi
               inputLabel: {
                 ...params.InputLabelProps,
                 className: classNames(
@@ -97,7 +96,6 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
                 ),
                 endAdornment: <>{params.InputProps.endAdornment}</>,
               },
-              //TODO: cần chỗ này nhưng mở ra thì lỗi
               htmlInput: {
                 ...params.inputProps,
                 className: classNames(
