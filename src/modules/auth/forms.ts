@@ -1,19 +1,18 @@
-import { Resolver } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object } from "yup";
+import { InferType, object, string } from "yup";
 
 import { ILoginPayload } from "@/types/auth";
-import { createStringSchema } from "@/validations";
 
 export const loginDefaultValues: ILoginPayload = {
   username: "",
   password: "",
 };
 
-export const loginResolver: Resolver<ILoginPayload> = yupResolver(
-  object({
-    username: createStringSchema(),
-    password: createStringSchema(),
-  })
-);
+const loginSchema = object({
+  username: string().required(),
+  password: string().required(),
+});
+
+export const loginResolver = yupResolver(loginSchema);
+
+export type TLoginRequestSchema = InferType<typeof loginSchema>;

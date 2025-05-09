@@ -1,19 +1,21 @@
 import { Controller, useForm } from "react-hook-form";
 
 import { AccountCircle, Lock } from "@mui/icons-material";
-import { InputAdornment } from "@mui/material";
 import { toast } from "sonner";
 
 import { authApi } from "@/apis/auth.api";
 import { CButton, CInput } from "@/components/controls";
 import { useAuth } from "@/store/auth";
-import { ILoginPayload } from "@/types/auth";
 
-import { loginDefaultValues, loginResolver } from "../../forms";
+import {
+  loginDefaultValues,
+  loginResolver,
+  TLoginRequestSchema,
+} from "../../forms";
 
 export const MLoginForm = () => {
   //#region Data
-  const { control, handleSubmit } = useForm<ILoginPayload>({
+  const { control, handleSubmit } = useForm<TLoginRequestSchema>({
     mode: "all",
     defaultValues: loginDefaultValues,
     resolver: loginResolver,
@@ -50,13 +52,7 @@ export const MLoginForm = () => {
             placeholder="Nhập tên đăng nhập"
             error={!!error}
             errorText={error?.message}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
+            prefix={<AccountCircle />}
           />
         )}
       />
@@ -70,13 +66,7 @@ export const MLoginForm = () => {
             placeholder="Nhập tên mật khẩu"
             error={!!error}
             errorText={error?.message}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-            }}
+            prefix={<Lock />}
           />
         )}
       />

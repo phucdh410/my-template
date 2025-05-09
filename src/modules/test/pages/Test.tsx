@@ -3,7 +3,9 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Star } from "@mui/icons-material";
 import { Container, Stack } from "@mui/material";
+import dayjs from "dayjs";
 
+import { axiosInstance } from "@/axios";
 import {
   CAutocomplete,
   CDatePicker,
@@ -147,6 +149,31 @@ const TestPage = () => {
   return (
     <Container>
       <Stack gap={4} mt={4} pb={50}>
+        <button
+          onClick={() => {
+            const params = {
+              page: 1,
+              size: 10,
+              q: "",
+              store_code: "",
+              date: null,
+              dept_code: undefined,
+              search: "xin chào các bạn",
+              datevalue: "2024-05-18",
+              datevaluewithtime: "2024-05-18 21:00:32",
+              from_date: new Date(),
+              to_date: dayjs().toISOString(),
+              dayjs: dayjs(),
+              dayjsdate: dayjs().toDate(),
+              status: 0,
+              type: "work",
+              workplace_type: 3,
+            };
+            axiosInstance.get("/test", { params });
+          }}
+        >
+          Call API
+        </button>
         <CInput label="Input mặc định" value="" />
         <CInput label="Có start icon" value="" prefix={<Star />} />
         <CInput label="Có end icon" value="" suffix={<Star />} />

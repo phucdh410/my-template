@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-import { logoutUser } from "@/funcs";
+import { cleanRequestParams, logoutUser } from "@/funcs";
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
@@ -9,6 +9,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (request) => {
+    if (request.method === "get" && request.params) {
+      cleanRequestParams(request.params);
+    }
     return request;
   },
   (errors) => {

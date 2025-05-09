@@ -73,41 +73,38 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
 
     //#region Event
     const renderInput = useCallback(
-      (params: AutocompleteRenderInputParams) => {
-        console.log(params);
-        return (
-          <TextField
-            {...params}
-            label={label}
-            placeholder={placeholder}
-            slotProps={{
-              inputLabel: {
-                ...params.InputLabelProps,
-                className: classNames(
-                  "c-form-label",
-                  params.InputLabelProps.className
-                ),
-              },
-              input: {
-                ...params.InputProps,
-                className: classNames(
-                  "c-outlined-input-root",
-                  params.InputProps.className
-                ),
-                endAdornment: <>{params.InputProps.endAdornment}</>,
-              },
-              htmlInput: {
-                ...params.inputProps,
-                className: classNames(
-                  "c-outlined-input-input",
-                  params.inputProps.className
-                ),
-              },
-            }}
-            error={error}
-          />
-        );
-      },
+      (params: AutocompleteRenderInputParams) => (
+        <TextField
+          {...params}
+          label={label}
+          placeholder={placeholder}
+          slotProps={{
+            inputLabel: {
+              ...params.InputLabelProps,
+              className: classNames(
+                "c-form-label",
+                params.InputLabelProps.className
+              ),
+            },
+            input: {
+              ...params.InputProps,
+              className: classNames(
+                "c-outlined-input-root",
+                params.InputProps.className
+              ),
+              endAdornment: <>{params.InputProps.endAdornment}</>,
+            },
+            htmlInput: {
+              ...params.inputProps,
+              className: classNames(
+                "c-outlined-input-input",
+                params.inputProps.className
+              ),
+            },
+          }}
+          error={error}
+        />
+      ),
       [label, placeholder, error]
     );
 
