@@ -45,7 +45,7 @@ export const CHeader = () => {
         alignItems="center"
         px={CONTAINER_PADDING_X}
       >
-        <CGreeting />
+        {!outTop && <CGreeting />}
         <div style={{ flex: 1 }}></div>
         <CProfile />
       </Stack>

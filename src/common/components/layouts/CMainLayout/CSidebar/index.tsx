@@ -12,6 +12,7 @@ import { useSidebar } from "@/store/sidebar";
 
 import { CNavigations } from "./CNavigations";
 import { CNavigationsCollapse } from "./CNavigationsCollapse";
+import { CSidebarProfile } from "./CSidebarProfile";
 
 const StyledToggleButton = styled(IconButton)(({ theme }) => ({
   fontSize: "1.25rem",
@@ -65,6 +66,7 @@ export const CSidebar = () => {
         />
       </Stack>
       {open ? <CNavigations /> : <CNavigationsCollapse />}
+      <CSidebarProfile open={open} />
     </Stack>
   );
   //#endregion

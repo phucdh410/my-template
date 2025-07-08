@@ -5,7 +5,6 @@ import Scrollbar from "smooth-scrollbar";
 import { NAVIGATIONS } from "@/constants/navigations";
 
 import { CGroup } from "../CGroup";
-import { CSidebarProfile } from "../CSidebarProfile";
 
 import "./styles.scss";
 
@@ -34,7 +33,6 @@ export const CNavigations = () => {
           ))}
         </ul>
       </nav>
-      <CSidebarProfile />
     </div>
   );
 };

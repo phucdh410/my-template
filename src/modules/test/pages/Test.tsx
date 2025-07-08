@@ -12,6 +12,7 @@ import {
   CDateRangePicker,
   CInput,
   CNumberInput,
+  CUpload,
 } from "@/components/controls";
 import { CTable } from "@/components/others";
 import { TFiltersTable } from "@/components/others/CTable/CFiltersTable/types";
@@ -174,6 +175,7 @@ const TestPage = () => {
         >
           Call API
         </button>
+        <CUpload multiple />
         <CInput label="Input mặc định" value="" />
         <CInput label="Có start icon" value="" prefix={<Star />} />
         <CInput label="Có end icon" value="" suffix={<Star />} />

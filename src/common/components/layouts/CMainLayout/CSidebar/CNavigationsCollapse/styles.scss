@@ -1,5 +1,9 @@
 .c-mini-navigation {
+  flex: 1;
   padding-inline: 4px;
+  overflow: auto;
+  scrollbar-width: none;
+
   .c-mini-navigation--ul {
     display: flex;
     flex-direction: column;

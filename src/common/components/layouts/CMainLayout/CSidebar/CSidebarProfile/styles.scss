@@ -26,3 +26,16 @@
     box-shadow: none !important;
   }
 }
+
+.c-sidebar-profile-collapse {
+  .MuiAvatar-root {
+    height: 46px;
+    width: 46px;
+    border-radius: 8px;
+    background-color: var(--mui-palette-error-main);
+
+    .MuiSvgIcon-root {
+      font-size: 2rem;
+    }
+  }
+}
