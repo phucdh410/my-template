@@ -8,21 +8,25 @@ import { CLoading } from "@/components/others";
 import { useAuth } from "@/store/auth";
 
 export const CAuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const { accessToken, setLogined } = useAuth();
+  const { accessToken, isLogined, setAccessToken } = useAuth();
 
   useEffect(() => {
     setAuthToken(accessToken);
+    setAccessToken(accessToken);
   }, [accessToken]);
 
-  const { isFetching, isSuccess } = useQuery({
-    queryKey: ["profile-data", accessToken],
+  const { data, isFetching } = useQuery({
+    queryKey: ["profile-data", isLogined, accessToken],
     queryFn: () => authApi.getProfile(),
-    enabled: !!accessToken,
+    enabled: isLogined,
+    select: (response) => response?.data?.data,
   });
 
   useEffect(() => {
-    if (isSuccess) setLogined(true);
-  }, [isSuccess]);
+    if (data) {
+      // setProfile(data);
+    }
+  }, [data]);
 
   return isFetching ? <CLoading /> : <>{children}</>;
 };

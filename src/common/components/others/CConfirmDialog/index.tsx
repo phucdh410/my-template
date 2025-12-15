@@ -9,10 +9,11 @@ import {
   useTheme,
 } from "@mui/material";
 
+import { ICConfirmDialogProps } from "./types";
+
 import catImg from "./assets/cat.png";
 import personImg from "./assets/person.png";
 import questionImg from "./assets/question.png";
-import { ICConfirmDialogProps } from "./types";
 
 //note: This component is not within the hierarchy of ThemeProvider, so we must use Styled Components or CSS/SCSS for styling.
 import "./styles.scss";

@@ -10,10 +10,10 @@ import timezone from "dayjs/plugin/timezone";
 import updateLocale from "dayjs/plugin/updateLocale";
 import utc from "dayjs/plugin/utc";
 
-import "dayjs/locale/vi";
-
 import App from "./App.tsx";
 import { theme } from "./themes";
+
+import "dayjs/locale/vi";
 
 import "./styles/index.scss";
 

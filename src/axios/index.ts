@@ -4,7 +4,6 @@ import { cleanRequestParams, logoutUser } from "@/funcs";
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
-  timeout: 5000,
 });
 
 axiosInstance.interceptors.request.use(
@@ -14,8 +13,8 @@ axiosInstance.interceptors.request.use(
     }
     return request;
   },
-  (errors) => {
-    return errors;
+  (error) => {
+    return error;
   }
 );
 
@@ -23,11 +22,21 @@ axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (errors: AxiosError<any>) => {
-    if (errors?.response?.status === 401) {
+  (error: AxiosError<any>) => {
+    if (
+      error?.response?.status === 401 &&
+      !error?.response?.config?.url?.includes("/users/logout")
+    ) {
       logoutUser();
     }
-    return errors;
+
+    const _error = {
+      data: error?.response?.data?.data || null,
+      message: error?.response?.data?.message || "Lỗi không xác định!",
+      error: error?.response?.data?.error || "Unknown error!",
+      status: error?.response?.data?.status || null,
+    };
+    return Promise.reject(_error);
   }
 );
 

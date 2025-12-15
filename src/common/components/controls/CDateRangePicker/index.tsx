@@ -4,8 +4,6 @@ import { HighlightOffOutlined } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
 
-import { CFormControl } from "../CFormControl";
-
 import { CPickerModal } from "./CPickerModal";
 import { dateRangeValueFormatter } from "./funcs";
 import {
@@ -14,6 +12,8 @@ import {
   ICDateRangeValues,
   ICPickerModalRef,
 } from "./types";
+
+import { CFormControl } from "../CFormControl";
 
 import "./styles.scss";
 

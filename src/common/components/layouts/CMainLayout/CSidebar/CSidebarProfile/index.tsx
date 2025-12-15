@@ -1,8 +1,9 @@
 import { PowerSettingsNew } from "@mui/icons-material";
 import { Avatar, ButtonBase, Stack, Typography } from "@mui/material";
 
-import avatarSrc from "@/assets/images/avatar.jpg";
 import { CButton } from "@/components/controls";
+
+import avatarSrc from "@/assets/images/avatar.jpg";
 
 import "./styles.scss";
 

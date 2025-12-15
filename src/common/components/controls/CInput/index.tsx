@@ -3,9 +3,9 @@ import { forwardRef } from "react";
 import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
 
-import { CFormControl } from "../CFormControl";
-
 import { ICInputProps, ICInputRef } from "./types";
+
+import { CFormControl } from "../CFormControl";
 
 export const CInput = forwardRef<ICInputRef, ICInputProps>(
   (

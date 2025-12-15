@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { setAuthToken } from "@/axios";
+
 type TAuthState = {
   isLogined: boolean;
   accessToken: string;
@@ -8,9 +10,8 @@ type TAuthState = {
 };
 
 type TAuthAction = {
-  setLogined: (newState: boolean) => void;
-  setAccessToken: (token: string) => void;
-  setRefreshToken: (token: string) => void;
+  setAccessToken: (token?: string) => void;
+  setRefreshToken: (token?: string) => void;
 };
 
 export const useAuth = create<TAuthState & TAuthAction>()(
@@ -19,10 +20,14 @@ export const useAuth = create<TAuthState & TAuthAction>()(
       isLogined: false,
       accessToken: "",
       refreshToken: "",
-      setLogined: (newLoginState) => set(() => ({ isLogined: newLoginState })),
-      setAccessToken: (token) => set(() => ({ accessToken: token })),
+
+      setAccessToken: (token) =>
+        set(() => {
+          setAuthToken(token);
+          return { accessToken: token, isLogined: Boolean(token) };
+        }),
       setRefreshToken: (token) => set(() => ({ refreshToken: token })),
     }),
-    { name: "authentication" }
+    { name: "auth" }
   )
 );

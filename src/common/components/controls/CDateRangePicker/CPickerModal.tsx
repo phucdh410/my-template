@@ -2,15 +2,16 @@ import { forwardRef, useImperativeHandle, useMemo, useState } from "react";
 
 import { Dialog, Stack, Typography } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
+import { PickerValue } from "@mui/x-date-pickers/internals";
 import dayjs, { Dayjs } from "dayjs";
-
-import { CButton } from "../CButton";
 
 import {
   ICDateRangeValues,
   ICPickerModalProps,
   ICPickerModalRef,
 } from "./types";
+
+import { CButton } from "../CButton";
 
 const DEFAULT_LIMIT_RANGES = {
   min: dayjs().startOf("year").subtract(10, "year"),
@@ -48,9 +49,9 @@ export const CPickerModal = forwardRef<ICPickerModalRef, ICPickerModalProps>(
       setMax(DEFAULT_LIMIT_RANGES.max);
     };
 
-    const onDateChange = (key: "from" | "to") => (value: Dayjs) => {
+    const onDateChange = (key: "from" | "to") => (value: PickerValue) => {
       setValues((prev) => ({ ...prev, [key]: value }));
-      key === "from" ? setMin(value) : setMax(value);
+      key === "from" ? setMin(dayjs(value)) : setMax(dayjs(value));
     };
 
     const onApply = () => {

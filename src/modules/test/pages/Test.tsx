@@ -4,8 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { Star } from "@mui/icons-material";
 import { Container, Stack } from "@mui/material";
 import dayjs from "dayjs";
+import { axiosInstance } from "src/axios";
 
-import { axiosInstance } from "@/axios";
 import {
   CAutocomplete,
   CDatePicker,

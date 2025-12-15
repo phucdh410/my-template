@@ -5,10 +5,10 @@ import { Stack } from "@mui/material";
 import { CButton } from "@/components/controls";
 import { generateKey } from "@/funcs";
 
-import { hasDifferentValue } from "../funcs";
-
 import { CFilterItem } from "./CFilterItem";
 import { ICFiltersTableProps } from "./types";
+
+import { hasDifferentValue } from "../funcs";
 
 export const CFiltersTable = <T extends object>({
   filters,

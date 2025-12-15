@@ -34,10 +34,11 @@ export default defineConfig({
     alias: {
       "@/components": path.resolve(__dirname, "src/common/components"),
       "@/constants": path.resolve(__dirname, "src/common/constants"),
+      "@/enums": path.resolve(__dirname, "src/common/enums"),
       "@/assets": path.resolve(__dirname, "src/common/assets"),
       "@/apis": path.resolve(__dirname, "src/apis"),
+      "@/axios": path.resolve(__dirname, "src/axios/index.ts"),
       "@/store": path.resolve(__dirname, "src/store"),
-      "@/axios": path.resolve(__dirname, "src/utils/axios/index.ts"),
       "@/funcs": path.resolve(__dirname, "src/utils/funcs/index.ts"),
       "@/hooks": path.resolve(__dirname, "src/utils/hooks/index.ts"),
       "@/validations": path.resolve(

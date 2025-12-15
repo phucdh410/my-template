@@ -3,10 +3,11 @@ import { memo, useCallback } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
 
-import { LIMIT_OPTIONS } from "../../variables";
+import { ICSelectLimitProps } from "./types";
+
 import { LIMIT_VALUES } from "../types";
 
-import { ICSelectLimitProps } from "./types";
+import { LIMIT_OPTIONS } from "../../variables";
 
 export const SelectLimit = ({
   limit = 10,

@@ -26,10 +26,11 @@
     "paths": {
       "@/components/*": ["src/common/components/*"],
       "@/constants/*": ["src/common/constants/*"],
+      "@/enums/*": ["src/common/enums/*"],
       "@/assets/*": ["src/common/assets/*"],
       "@/apis/*": ["src/apis/*"],
       "@/store/*": ["src/store/*"],
-      "@/axios": ["src/utils/axios/index.ts"],
+      "@/axios": ["src/axios/index.ts"],
       "@/funcs": ["src/utils/funcs/index.ts"],
       "@/hooks": ["src/utils/hooks/index.ts"],
       "@/validations": ["src/utils/validations/index.ts"],

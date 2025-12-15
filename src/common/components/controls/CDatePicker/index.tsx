@@ -8,9 +8,9 @@ import {
 import classNames from "classnames";
 import dayjs, { Dayjs } from "dayjs";
 
-import { CFormControl } from "../CFormControl";
-
 import { ICDatePickerProps, ICDatePickerRef } from "./types";
+
+import { CFormControl } from "../CFormControl";
 
 export const CDatePicker = forwardRef<ICDatePickerRef, ICDatePickerProps>(
   (

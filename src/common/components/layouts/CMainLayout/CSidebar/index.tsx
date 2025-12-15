@@ -1,7 +1,6 @@
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { IconButton, Stack, styled } from "@mui/material";
 
-import logoSrc from "@/assets/images/logo.png";
 import {
   HEADER__HEIGHT,
   SIDEBAR__BORDER_COLOR,
@@ -13,6 +12,8 @@ import { useSidebar } from "@/store/sidebar";
 import { CNavigations } from "./CNavigations";
 import { CNavigationsCollapse } from "./CNavigationsCollapse";
 import { CSidebarProfile } from "./CSidebarProfile";
+
+import logoSrc from "@/assets/images/logo.png";
 
 const StyledToggleButton = styled(IconButton)(({ theme }) => ({
   fontSize: "1.25rem",

@@ -4,11 +4,12 @@ import { Close, Visibility } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
 import classNames from "classnames";
 
-import uploadImgSrc from "@/assets/images/upload.png";
 import { CImagePreviewModal } from "@/components/others";
 import { ICImagePreviewModalRef } from "@/components/others/CImagePreviewModal/types";
 import { generateKey, getExtension } from "@/funcs";
 import { IUploadedFile } from "@/types/upload";
+
+import uploadImgSrc from "@/assets/images/upload.png";
 
 import "./styles.scss";
 

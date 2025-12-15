@@ -6,6 +6,6 @@ export const authApi = {
   login: (body: ILoginPayload): Promise<IApiResponse<ILoginResponse>> =>
     axiosInstance.post("/auth/login", body),
   getProfile: (): Promise<IApiResponse<IProfileResponse>> =>
-    axiosInstance.get("/auth/profile"),
+    axiosInstance.get("/auth/get-profile"),
   logout: () => axiosInstance.get("/auth/logout"),
 };

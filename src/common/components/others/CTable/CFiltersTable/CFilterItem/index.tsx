@@ -4,14 +4,15 @@ import { Stack, Typography } from "@mui/material";
 
 import { CButton } from "@/components/controls";
 
-import { displayLabel } from "../../funcs";
-import { DatepickerFilter, SelectionFilter } from "../types";
-
 import { CFilterButton } from "./CFilterButton";
 import { CFilterComponent, ICFilterComponentRef } from "./CFilterComponent";
 import { CFilterPopover } from "./CFilterPopover";
 import { CFilterValueLabel } from "./CFilterValueLabel";
 import { ICFilterItemProps } from "./types";
+
+import { DatepickerFilter, SelectionFilter } from "../types";
+
+import { displayLabel } from "../../funcs";
 
 export const CFilterItem = <T extends object>({
   filter,

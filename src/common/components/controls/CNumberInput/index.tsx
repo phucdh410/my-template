@@ -4,9 +4,9 @@ import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
 import { toast } from "sonner";
 
-import { CFormControl } from "../CFormControl";
-
 import { ICNumberInputProps, ICNumberInputRef } from "./types";
+
+import { CFormControl } from "../CFormControl";
 
 const INVALID_KEYS = ["+", "e", "E", "-"];
 

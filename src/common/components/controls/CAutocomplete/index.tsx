@@ -12,13 +12,13 @@ import classNames from "classnames";
 
 import { generateKey } from "@/funcs";
 
-import { CFormControl } from "../CFormControl";
-
 import {
   IAutocompleteOption,
   ICAutocompleteProps,
   ICAutocompleteRef,
 } from "./types";
+
+import { CFormControl } from "../CFormControl";
 
 const ALL_OPTION = { id: "", label: "Tất cả" };
 

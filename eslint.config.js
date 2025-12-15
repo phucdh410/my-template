@@ -25,12 +25,11 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      "react-refresh/only-export-components": "off",
       "react-compiler/react-compiler": "error",
       "react-hooks/exhaustive-deps": "off",
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/preserve-manual-memoization": "off",
       "prefer-const": "off",
       "no-constant-binary-expression": "off",
       "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
@@ -41,20 +40,35 @@ export default tseslint.config(
         "error",
         {
           groups: [
-            // Packages `react` related packages come first.
-            ["^react"],
-            // Other packages
-            ["^@?\\w"],
-            // Internal packages.
-            ["^(@|components)(/.*|$)"],
-            // Side effect imports.
+            // React luôn lên đầu tiên
+            ["^react", "^react-dom"],
+
+            // Thư viện bên ngoài (npm packages)
+            ["^@?[a-zA-Z]"],
+
+            // Alias nội bộ kiểu "_" (ví dụ _constants, _controls)
+            ["^_"],
+
+            // Import alias nội bộ (ví dụ @hooks, @components)
+            ["^@"],
+
+            // Import tương đối cùng thư mục
+            ["^\\./"],
+
+            // Import từ thư mục cha 1 cấp
+            ["^\\.\\./"],
+
+            // Import từ thư mục cha nhiều cấp hơn (../../, ../../../, ...)
+            ["^\\.\\./\\.\\./"],
+
+            // Import plugin
             ["^\\u0000"],
-            // Parent imports. Put `..` last.
-            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-            // Other relative imports. Put same-folder imports and `.` last.
-            ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-            // Style imports.
-            ["^.+\\.?(css)$"],
+
+            // Import assets (ảnh, svg…)
+            ["\\.(png|jpg|jpeg|sv|webp)$"],
+
+            // CSS / SCSS / LESS
+            ["\\.s?css$", "\\.less$"],
           ],
         },
       ],

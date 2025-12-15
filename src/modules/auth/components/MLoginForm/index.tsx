@@ -15,7 +15,7 @@ import {
 
 export const MLoginForm = () => {
   //#region Data
-  const { control, handleSubmit } = useForm<TLoginRequestSchema>({
+  const { control, handleSubmit, reset } = useForm<TLoginRequestSchema>({
     mode: "all",
     defaultValues: loginDefaultValues,
     resolver: loginResolver,
@@ -32,6 +32,9 @@ export const MLoginForm = () => {
         const { access_token, refresh_token } = res.data.data;
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
+
+        toast.success("Đăng nhập thành công!");
+        reset(loginDefaultValues);
       } catch (error: any) {
         toast.error(error?.message ?? "Login không thành công!");
       }
@@ -50,6 +53,7 @@ export const MLoginForm = () => {
             {...field}
             label="Username"
             placeholder="Nhập tên đăng nhập"
+            onEnter={onSubmit}
             error={!!error}
             errorText={error?.message}
             prefix={<AccountCircle />}
@@ -64,6 +68,7 @@ export const MLoginForm = () => {
             {...field}
             label="Password"
             placeholder="Nhập tên mật khẩu"
+            onEnter={onSubmit}
             error={!!error}
             errorText={error?.message}
             prefix={<Lock />}
