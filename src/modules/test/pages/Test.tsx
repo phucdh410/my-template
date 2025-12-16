@@ -16,7 +16,7 @@ import {
 } from "@/components/controls";
 import { CTable } from "@/components/others";
 import { TFiltersTable } from "@/components/others/CTable/CFiltersTable/types";
-import { TCHeadersTable } from "@/components/others/CTable/types";
+import { ICTableProps } from "@/components/others/CTable/types";
 
 const ARRAY_1 = [
   { id: "1", label: "Red" },
@@ -136,7 +136,7 @@ const TestPage = () => {
   //#endregion
 
   //#region Render
-  const headers: TCHeadersTable<IData> = [
+  const columns: ICTableProps<IData>["columns"] = [
     { key: "name", label: "Tên sản phẩm", align: "left" },
     { key: "price", label: "Giá tiền", align: "right", columnType: "number" },
     { key: "vendor", label: "Nhà cung cấp" },
@@ -206,7 +206,7 @@ const TestPage = () => {
         <CAutocomplete label="Chọn màu sắc" options={ARRAY_1} multiple />
         <CDateRangePicker label="Thời gian" />
         <CTable
-          headers={headers}
+          columns={columns}
           data={DATA}
           filters={{
             templates,

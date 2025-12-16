@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useMemo, useState } from "react";
 
-import { TCHeadersTable } from "./types";
+import { ICTableProps } from "./types";
 import { SELECTION_COL_KEY, SELECTION_COL_WIDTH } from "./variables";
 
 //#region Handle shadow when table scroll
@@ -66,7 +66,7 @@ export const useDetectScrollbar = (
 
 //#region Calculate pin positions for columns
 export const useCalculatePinPositions = <T extends object>(
-  headers: TCHeadersTable<T>,
+  headers: ICTableProps<T>["columns"],
   selectable?: boolean
 ) => {
   const pinPositions = useMemo(() => {

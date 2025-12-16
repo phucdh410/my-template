@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 
 import { ICFiltersTable } from "./CFiltersTable/types";
 import { ICPaginationTableProps } from "./CPaginationTable/types";
@@ -13,6 +13,11 @@ export interface ICTableHeaderBase<T> {
    * Unique key to identify the column.
    */
   key: string;
+
+  /**
+   * The data index/key in the row data that this column will display.
+   */
+  dataIndex?: keyof T;
 
   /**
    * The display content for the column header.
@@ -66,10 +71,10 @@ export interface ICTableHeaderBase<T> {
    *
    * Example: Rendering a status badge
    * ```tsx
-   * renderCell: (value, row) => <StatusBadge status={value} />
+   * render: (value, row) => <StatusBadge status={value} />
    * ```
    */
-  renderCell?: (value: any, row: T, index: number) => ReactElement;
+  render?: (value: any, row: T, index: number) => JSX.Element;
 }
 
 export type ICTableHeaderProps<T> =
@@ -90,13 +95,11 @@ export type ICTableHeaderProps<T> =
     } & ICTableHeaderBase<T>)
   | ({ pin?: undefined; width?: number } & ICTableHeaderBase<T>);
 
-export type TCHeadersTable<T> = ICTableHeaderProps<T>[];
-
-export interface ICTableProps<T, F> {
+export interface ICTableProps<T, F = Record<string, any>> {
   /**
    * List of column headers, defining how each column should be rendered.
    */
-  headers: ICTableHeaderProps<T>[];
+  columns: ICTableHeaderProps<T>[];
 
   /**
    * Data source for the table, each item represents a row.

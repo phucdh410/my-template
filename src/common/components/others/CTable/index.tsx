@@ -28,8 +28,11 @@ import {
 import { ICTableProps, TColumnTypes } from "./types";
 import { SELECTION_COL_KEY, SELECTION_COL_WIDTH } from "./variables";
 
-export const CTable = <T extends object, F extends object>({
-  headers = [],
+export const CTable = <
+  T extends object,
+  F extends object = Record<string, any>
+>({
+  columns = [],
   data = [],
   loading = false,
   rowKey = "id",
@@ -53,7 +56,7 @@ export const CTable = <T extends object, F extends object>({
 
   useTableScrollShadow(tableWrapperRef, bodyContainerRef);
   const { hasVertical } = useDetectScrollbar(bodyContainerRef);
-  const { pinPositions } = useCalculatePinPositions(headers, selectable);
+  const { pinPositions } = useCalculatePinPositions(columns, selectable);
   const { widthCols } = useTableColumnsWidth(
     headerContainerRef,
     tableRef,
@@ -62,8 +65,10 @@ export const CTable = <T extends object, F extends object>({
   //#endregion
 
   //#region Event
-  const renderValueByColumnType = useCallback(
-    (value: any, columnType: TColumnTypes) => {
+  const renderValue = useCallback((value: any, columnType?: TColumnTypes) => {
+    if (value === null) return "";
+
+    if (columnType) {
       switch (columnType) {
         case "number":
           return (value ?? 0)?.toLocaleString();
@@ -74,9 +79,10 @@ export const CTable = <T extends object, F extends object>({
         default:
           return value;
       }
-    },
-    []
-  );
+    } else {
+      return value;
+    }
+  }, []);
 
   const onTableSroll = useCallback(() => {
     const headerEl = headerContainerRef.current;
@@ -90,7 +96,7 @@ export const CTable = <T extends object, F extends object>({
     return (
       <colgroup>
         {selectable && <col width={SELECTION_COL_WIDTH} />}
-        {headers.map((headerCol, headerColIndex) => (
+        {columns.map((headerCol, headerColIndex) => (
           <col
             key={generateKey(headerCol.key)}
             width={headerCol.width ?? widthCols[headerColIndex]}
@@ -98,7 +104,7 @@ export const CTable = <T extends object, F extends object>({
         ))}
       </colgroup>
     );
-  }, [selectable, headers, widthCols]);
+  }, [selectable, columns, widthCols]);
   //#endregion
 
   //#region Render
@@ -141,7 +147,7 @@ export const CTable = <T extends object, F extends object>({
                     />
                   </CTableCell>
                 )}
-                {headers.map((header, headerIndex) => (
+                {columns.map((header, headerIndex) => (
                   <Fragment key={generateKey(header.key)}>
                     <CTableCell
                       isHeader
@@ -154,7 +160,7 @@ export const CTable = <T extends object, F extends object>({
                     >
                       {header.label}
                     </CTableCell>
-                    {headerIndex === headers.length - 1 && hasVertical && (
+                    {headerIndex === columns.length - 1 && hasVertical && (
                       <TableCell className="c-table-head--cell scrollbar-cell" />
                     )}
                   </Fragment>
@@ -198,33 +204,33 @@ export const CTable = <T extends object, F extends object>({
                       />
                     </CTableCell>
                   )}
-                  {headers.map((header, columnIndex) => (
+                  {columns.map((column, columnIndex) => (
                     <CTableCell
-                      key={generateKey(header.key)}
-                      headerKey={header.key}
-                      align={header.align}
-                      className={header.className}
-                      pin={header.pin}
+                      key={generateKey(column.key)}
+                      headerKey={column.key}
+                      align={column.align}
+                      className={column.className}
+                      pin={column.pin}
                       pinPositions={pinPositions}
                     >
-                      {header.renderCell
-                        ? header.renderCell(
-                            row[header.key as keyof T],
+                      {column.render
+                        ? column.render(
+                            row[column.key as keyof T],
                             row,
                             rowIndex
                           )
-                        : header.valueFormatter
-                        ? header.valueFormatter(
-                            row[header.key as keyof T],
+                        : column.valueFormatter
+                        ? column.valueFormatter(
+                            row[column.key as keyof T],
                             row,
                             rowIndex
                           )
-                        : header.columnType
-                        ? renderValueByColumnType(
-                            row[header.key as keyof T],
-                            header.columnType
-                          )
-                        : row[header.key as keyof T]}
+                        : renderValue(
+                            column.dataIndex
+                              ? row[column.dataIndex as keyof T]
+                              : null,
+                            column.columnType
+                          )}
                     </CTableCell>
                   ))}
                 </TableRow>

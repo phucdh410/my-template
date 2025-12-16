@@ -3,7 +3,6 @@ import { PropsWithChildren, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { authApi } from "@/apis/auth.api";
-import { setAuthToken } from "@/axios";
 import { CLoading } from "@/components/others";
 import { useAuth } from "@/store/auth";
 
@@ -11,7 +10,6 @@ export const CAuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const { accessToken, isLogined, setAccessToken } = useAuth();
 
   useEffect(() => {
-    setAuthToken(accessToken);
     setAccessToken(accessToken);
   }, [accessToken]);
 
