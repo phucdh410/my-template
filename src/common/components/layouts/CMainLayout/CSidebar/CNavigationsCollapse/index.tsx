@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
 
 import { ChevronRight } from "@mui/icons-material";
@@ -67,55 +67,28 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
   //#region Data
   const isRouteActive = useRouteActive(data.path);
 
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [open, setOpen] = useState(false);
 
-  const open = !!anchorEl;
+  const anchorRef = useRef<HTMLDivElement | null>(null);
   //#endregion
 
   //#region Event
-  const onMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleNavItemLeave = (event: React.MouseEvent<HTMLElement>) => {
-    const relatedTarget = event.relatedTarget as HTMLElement | null;
-    const dropdownContainer = document.getElementById(
-      "Mini-navigation-presentation"
-    );
-    if (
-      relatedTarget &&
-      dropdownContainer &&
-      dropdownContainer.contains(relatedTarget)
-    ) {
-      return;
-    } else {
-      setAnchorEl(null);
-    }
-  };
-
-  const handleDropdownLeave = (event: React.MouseEvent<HTMLElement>) => {
-    const relatedTarget = event.relatedTarget as HTMLElement | null;
-    if (relatedTarget && relatedTarget.contains(anchorEl)) {
-      return;
-    } else {
-      setAnchorEl(null);
-    }
-  };
-
-  const onClose = () => setAnchorEl(null);
+  const onEnter = () => setOpen(true);
+  const onLeave = () => setOpen(false);
   //#endregion
 
   //#region Render
   return (
     <>
       <ButtonBase
+        ref={anchorRef}
         component="div"
         className={classNames(
           "c-mini-navigation--item",
           isRouteActive && "active"
         )}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={handleNavItemLeave}
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
       >
         <span className="c-mini-navigation--item-icon">{data.icon}</span>
         <span className="c-mini-navigation--item-text">
@@ -125,7 +98,7 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
       </ButtonBase>
       <Popover
         open={open}
-        anchorEl={anchorEl}
+        anchorEl={() => anchorRef.current}
         anchorOrigin={{
           vertical: "center",
           horizontal: "right",
@@ -134,7 +107,6 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
           vertical: "center",
           horizontal: "left",
         }}
-        onClose={onClose}
         className="c-mini-navigation--popover"
         disableRestoreFocus
         aria-hidden={false}
@@ -142,7 +114,8 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
         slotProps={{
           paper: {
             className: "c-mini-navigation--paper",
-            onMouseLeave: handleDropdownLeave,
+            onMouseEnter: onEnter,
+            onMouseLeave: onLeave,
           },
         }}
       >
@@ -153,7 +126,7 @@ const CNavigationListItems = ({ data }: { data: INavigationItem }) => {
                 key={generateKey(subItem.name + index)}
                 data={subItem}
                 parentPath={data.path}
-                onClose={onClose}
+                onClose={onLeave}
               />
             ))}
           </ul>

@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 
-import { cleanRequestParams, logoutUser } from "@/funcs";
+import { cleanRequestParams } from "@/funcs";
 
 const axiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
       error?.response?.status === 401 &&
       !error?.response?.config?.url?.includes("/users/logout")
     ) {
-      logoutUser();
+      // logoutUser();
     }
 
     const _error = {

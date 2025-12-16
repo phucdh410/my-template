@@ -17,8 +17,8 @@ type TAuthAction = {
 export const useAuth = create<TAuthState & TAuthAction>()(
   persist(
     (set) => ({
-      isLogined: false,
-      accessToken: "",
+      isLogined: true,
+      accessToken: "test",
       refreshToken: "",
 
       setAccessToken: (token) =>
