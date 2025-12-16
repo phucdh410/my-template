@@ -19,6 +19,7 @@ const Cell = ({
   return (
     <TableCell
       align={align}
+      scope={isHeader ? "col" : undefined}
       className={classNames(
         `c-table-${isHeader ? "head" : "body"}--cell`,
         className,

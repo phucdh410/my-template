@@ -95,11 +95,18 @@ export const CTable = <
   const renderColGroup = useCallback(() => {
     return (
       <colgroup>
-        {selectable && <col width={SELECTION_COL_WIDTH} />}
+        {selectable && (
+          <col
+            width={SELECTION_COL_WIDTH}
+            style={{ width: `${SELECTION_COL_WIDTH}px` }}
+          />
+        )}
         {columns.map((headerCol, headerColIndex) => (
           <col
             key={generateKey(headerCol.key)}
-            width={headerCol.width ?? widthCols[headerColIndex]}
+            style={{
+              width: `${headerCol.width ?? widthCols[headerColIndex]}px`,
+            }}
           />
         ))}
       </colgroup>
