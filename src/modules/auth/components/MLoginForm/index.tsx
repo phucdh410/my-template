@@ -4,7 +4,7 @@ import { AccountCircle, Lock } from "@mui/icons-material";
 import { toast } from "sonner";
 
 import { authApi } from "@/apis/auth.api";
-import { CButton, CInput } from "@/components/controls";
+import { CButton, CFormInput, CInput } from "@/components/controls";
 import { useAuth } from "@/store/auth";
 
 import {
@@ -45,7 +45,18 @@ export const MLoginForm = () => {
   //#region Render
   return (
     <>
-      <Controller
+      <CFormInput
+        control={control}
+        name="username"
+        ComponentProps={{
+          label: "Username",
+          placeholder: "Nhập tên đăng nhập",
+          onEnter: onSubmit,
+          prefix: <AccountCircle />,
+        }}
+      />
+
+      {/* <Controller
         control={control}
         name="username"
         render={({ field, fieldState: { error } }) => (
@@ -59,7 +70,7 @@ export const MLoginForm = () => {
             prefix={<AccountCircle />}
           />
         )}
-      />
+      /> */}
       <Controller
         control={control}
         name="password"

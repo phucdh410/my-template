@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useMemo } from "react";
+import { Controller, FieldPath, FieldValues } from "react-hook-form";
 
 import {
   Autocomplete,
@@ -16,6 +17,7 @@ import {
   IAutocompleteOption,
   ICAutocompleteProps,
   ICAutocompleteRef,
+  ICFormAutocompleteProps,
 } from "./types";
 
 import { CFormControl } from "../CFormControl";
@@ -212,3 +214,27 @@ export const CAutocomplete = forwardRef<ICAutocompleteRef, ICAutocompleteProps>(
     //#endregion
   }
 );
+
+export const CFormAutocomplete = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
+  control,
+  name,
+  ComponentProps,
+}: ICFormAutocompleteProps<TFieldValues, TName>) => {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState: { error } }) => (
+        <CAutocomplete
+          {...field}
+          error={!!error}
+          errorText={error?.message}
+          {...ComponentProps}
+        />
+      )}
+    />
+  );
+};

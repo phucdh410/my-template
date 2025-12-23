@@ -1,9 +1,10 @@
 import { forwardRef } from "react";
+import { Controller, FieldPath, FieldValues } from "react-hook-form";
 
 import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
 
-import { ICInputProps, ICInputRef } from "./types";
+import { ICFormInputProps, ICInputProps, ICInputRef } from "./types";
 
 import { CFormControl } from "../CFormControl";
 
@@ -77,3 +78,27 @@ export const CInput = forwardRef<ICInputRef, ICInputProps>(
     //#endregion
   }
 );
+
+export const CFormInput = <
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
+  name,
+  control,
+  ComponentProps,
+}: ICFormInputProps<TFieldValues, TName>) => {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState: { error } }) => (
+        <CInput
+          {...field}
+          error={!!error}
+          errorText={error?.message}
+          {...ComponentProps}
+        />
+      )}
+    />
+  );
+};

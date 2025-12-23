@@ -1,3 +1,5 @@
+import { Control, FieldPath, FieldValues } from "react-hook-form";
+
 import {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
@@ -32,4 +34,13 @@ export interface ICAutocompleteProps extends IFormInputComponentProps {
   loadingText?: string;
   blurOnSelect?: "touch" | "mouse" | true | false;
   multiple?: boolean;
+}
+
+export interface ICFormAutocompleteProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> {
+  control: Control<TFieldValues>;
+  name: TName;
+  ComponentProps: ICAutocompleteProps;
 }
