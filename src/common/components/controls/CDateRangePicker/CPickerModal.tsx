@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useMemo, useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
 import { Dialog, Stack, Typography } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
@@ -34,11 +34,12 @@ export const CPickerModal = forwardRef<ICPickerModalRef, ICPickerModalProps>(
       values.to ? dayjs(values.to) : DEFAULT_LIMIT_RANGES.max
     );
 
-    const errorText = useMemo(() => {
-      if (!values.from && values.to) return "Chưa chọn ngày bắt đầu!";
-      if (values.from && !values.to) return "Chưa chọn ngày kết thúc!";
-      return "";
-    }, [values]);
+    const errorText =
+      !values.from && values.to
+        ? "Chưa chọn ngày bắt đầu!"
+        : values.from && !values.to
+        ? "Chưa chọn ngày kết thúc!"
+        : "";
     //#endregion
 
     //#region Event

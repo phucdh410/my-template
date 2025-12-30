@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react";
+import { forwardRef } from "react";
 
 import {
   DatePicker,
@@ -38,10 +38,7 @@ export const CDatePicker = forwardRef<ICDatePickerRef, ICDatePickerProps>(
     ref
   ) => {
     //#region Data
-    const currentValue = useMemo(() => {
-      if (!value) return null;
-      return dayjs(value);
-    }, [value]);
+    const currentValue = !value ? null : dayjs(value);
     //#endregion
 
     //#region Event

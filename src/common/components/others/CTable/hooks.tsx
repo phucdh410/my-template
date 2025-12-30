@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useMemo, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 
 import { ICTableProps } from "./types";
 import { SELECTION_COL_KEY, SELECTION_COL_WIDTH } from "./variables";
@@ -69,7 +69,7 @@ export const useCalculatePinPositions = <T extends object>(
   headers: ICTableProps<T>["columns"],
   selectable?: boolean
 ) => {
-  const pinPositions = useMemo(() => {
+  const pinPositions = (() => {
     if (!headers.some((header) => header.pin) && !selectable) return null;
 
     let leftOffset = 0;
@@ -99,7 +99,7 @@ export const useCalculatePinPositions = <T extends object>(
     });
 
     return { left, right, leftLastKey, rightFirstKey };
-  }, [headers, selectable]);
+  })();
 
   return { pinPositions };
 };

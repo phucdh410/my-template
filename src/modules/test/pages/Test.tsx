@@ -3,8 +3,6 @@ import { Controller, useForm } from "react-hook-form";
 
 import { Star } from "@mui/icons-material";
 import { Container, Stack } from "@mui/material";
-import dayjs from "dayjs";
-import { axiosInstance } from "src/axios";
 
 import {
   CAutocomplete,
@@ -137,11 +135,22 @@ const TestPage = () => {
 
   //#region Render
   const columns: ICTableProps<IData>["columns"] = [
-    { key: "name", label: "Tên sản phẩm", align: "left" },
-    { key: "price", label: "Giá tiền", align: "right", columnType: "number" },
-    { key: "vendor", label: "Nhà cung cấp" },
-    { key: "quantity", label: "Số lượng" },
-    { key: "created_date", label: "Ngày tạo", columnType: "date" },
+    { key: "name", dataIndex: "name", label: "Tên sản phẩm", align: "left" },
+    {
+      key: "price",
+      dataIndex: "price",
+      label: "Giá tiền",
+      align: "right",
+      columnType: "number",
+    },
+    { key: "vendor", dataIndex: "vendor", label: "Nhà cung cấp" },
+    { key: "quantity", dataIndex: "quantity", label: "Số lượng" },
+    {
+      key: "created_date",
+      dataIndex: "created_date",
+      label: "Ngày tạo",
+      columnType: "date",
+    },
   ];
   const templates: TFiltersTable<IFilterParams> = [
     { key: "name", label: "Tên", type: "input" },
@@ -150,31 +159,6 @@ const TestPage = () => {
   return (
     <Container>
       <Stack gap={4} mt={4} pb={50}>
-        <button
-          onClick={() => {
-            const params = {
-              page: 1,
-              size: 10,
-              q: "",
-              store_code: "",
-              date: null,
-              dept_code: undefined,
-              search: "xin chào các bạn",
-              datevalue: "2024-05-18",
-              datevaluewithtime: "2024-05-18 21:00:32",
-              from_date: new Date(),
-              to_date: dayjs().toISOString(),
-              dayjs: dayjs(),
-              dayjsdate: dayjs().toDate(),
-              status: 0,
-              type: "work",
-              workplace_type: 3,
-            };
-            axiosInstance.get("/test", { params });
-          }}
-        >
-          Call API
-        </button>
         <CUpload multiple />
         <CInput label="Input mặc định" value="" />
         <CInput label="Có start icon" value="" prefix={<Star />} />

@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useRef } from "react";
+import { forwardRef, useRef } from "react";
 
 import { HighlightOffOutlined } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
@@ -37,7 +37,7 @@ export const CDateRangePicker = forwardRef<
     ref
   ) => {
     //#region Data
-    const displayValue = useMemo(() => dateRangeValueFormatter(value), [value]);
+    const displayValue = dateRangeValueFormatter(value);
 
     const modalRef = useRef<ICPickerModalRef>(null);
     //#endregion

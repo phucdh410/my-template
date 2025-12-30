@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { Stack, Typography } from "@mui/material";
 
@@ -22,10 +22,7 @@ export const CFilterItem = <T extends object>({
   //#region Data
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const isExistValue = useMemo(
-    () => !!filterValue || filterValue === 0,
-    [filterValue]
-  );
+  const isExistValue = !!filterValue || filterValue === 0;
 
   const filterComponentRef = useRef<ICFilterComponentRef>(null);
   //#endregion

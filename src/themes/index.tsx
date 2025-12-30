@@ -364,6 +364,31 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
+    //#region PickersOutlinedInput
+    MuiPickersOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: INPUT__BORDER_RADIUS,
+        },
+      },
+    },
+    //#endregion,
+    //#region PickersSectionList
+    MuiPickersSectionList: {
+      styleOverrides: {
+        root: {
+          paddingBlock: "10px !important",
+          lineHeight: "1.5 !important",
+        },
+        section: {
+          lineHeight: "inherit !important",
+        },
+        sectionContent: {
+          lineHeight: "inherit !important",
+        },
+      },
+    },
+    //#endregion
     //#region DateCalendar
     MuiDateCalendar: {
       defaultProps: {

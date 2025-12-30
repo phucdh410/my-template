@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { InputAdornment, TextField } from "@mui/material";
 import classNames from "classnames";
@@ -36,10 +36,7 @@ export const CNumberInput = forwardRef<ICNumberInputRef, ICNumberInputProps>(
     //#region Data
     const [isFocus, setIsFocus] = useState(false);
 
-    const displayValue = useMemo(
-      () => (value === 0 ? "0" : (value ?? 0)?.toLocaleString()),
-      [value]
-    );
+    const displayValue = value === 0 ? "0" : (value ?? 0)?.toLocaleString();
     //#endregion
 
     //#region Event
