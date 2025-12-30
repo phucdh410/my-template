@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 2222 --host",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
+    "build:tsc": "tsc -b && vite build",
     "lint": "eslint src/",
     "lint:fix": "eslint --fix src/",
-    "preview": "vite preview --port 2222"
+    "preview": "vite preview --port 2222",
+    "start": "serve -s dist -p 2222"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
