@@ -1,4 +1,4 @@
-import { memo, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 
 import { Popover } from "@mui/material";
 
@@ -7,7 +7,7 @@ interface ICFilterPopoverProps extends PropsWithChildren {
   onClose: () => void;
 }
 
-const UnHOCComponent: React.FC<ICFilterPopoverProps> = ({
+export const CFilterPopover: React.FC<ICFilterPopoverProps> = ({
   children,
   anchorEl,
   onClose,
@@ -27,5 +27,3 @@ const UnHOCComponent: React.FC<ICFilterPopoverProps> = ({
   );
 };
 //#endregion
-
-export const CFilterPopover = memo(UnHOCComponent);

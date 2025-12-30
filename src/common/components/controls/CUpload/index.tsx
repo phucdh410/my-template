@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { Close, Visibility } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
@@ -31,38 +31,35 @@ export const CUpload = ({
   //#region Event
   const onBrowse = () => inputRef.current?.click();
 
-  const handleUploadFiles = useCallback(
-    (fileList: FileList | null) => {
-      if (multiple) {
-        const files = fileList ? Array.from(fileList) : [];
-        setImages((prev) => [
-          ...prev,
-          ...files.map((file) => ({
+  const handleUploadFiles = (fileList: FileList | null) => {
+    if (multiple) {
+      const files = fileList ? Array.from(fileList) : [];
+      setImages((prev) => [
+        ...prev,
+        ...files.map((file) => ({
+          id: generateKey(`${file.name}-${file.size}-${file.type}`),
+          name: file.name,
+          size: file.size,
+          type: file.type,
+          extension: getExtension(file),
+          url: URL.createObjectURL(file),
+        })),
+      ]);
+    } else {
+      const file = fileList?.[0];
+      if (file)
+        setImages([
+          {
             id: generateKey(`${file.name}-${file.size}-${file.type}`),
             name: file.name,
             size: file.size,
             type: file.type,
             extension: getExtension(file),
             url: URL.createObjectURL(file),
-          })),
+          },
         ]);
-      } else {
-        const file = fileList?.[0];
-        if (file)
-          setImages([
-            {
-              id: generateKey(`${file.name}-${file.size}-${file.type}`),
-              name: file.name,
-              size: file.size,
-              type: file.type,
-              extension: getExtension(file),
-              url: URL.createObjectURL(file),
-            },
-          ]);
-      }
-    },
-    [multiple]
-  );
+    }
+  };
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
@@ -109,26 +106,22 @@ export const CUpload = ({
     handleUploadFiles(droppedFiles);
   };
 
-  const onView = useCallback(
+  const onView =
     (file: IUploadedFile) =>
-      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        event.stopPropagation();
-        imagePreviewRef.current?.open(file);
-      },
-    []
-  );
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      imagePreviewRef.current?.open(file);
+    };
 
-  const onRemove = useCallback(
+  const onRemove =
     (index = -1) =>
-      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (index === -1) setImages([]);
-        else setImages((prev) => prev.filter((_, i) => i !== index));
-      },
-    []
-  );
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (index === -1) setImages([]);
+      else setImages((prev) => prev.filter((_, i) => i !== index));
+    };
   //#endregion
 
   //#region Render
@@ -203,59 +196,57 @@ export const CUpload = ({
   //#endregion
 };
 
-export const CFileItem = memo(
-  ({
-    file,
-    onView,
-    onRemove,
-    isLastItem,
-  }: {
-    file: IUploadedFile;
-    onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    isLastItem?: boolean;
-  }) => {
-    //#region Data
-    const [trigger, setTrigger] = useState(false);
-    //#endregion
+export const CFileItem = ({
+  file,
+  onView,
+  onRemove,
+  isLastItem,
+}: {
+  file: IUploadedFile;
+  onView: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onRemove: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  isLastItem?: boolean;
+}) => {
+  //#region Data
+  const [trigger, setTrigger] = useState(false);
+  //#endregion
 
-    //#region Event
-    const handleRemove = (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => {
-      if (isLastItem) onRemove(event);
-      else {
-        setTrigger(true);
-        setTimeout(() => {
-          onRemove(event);
-        }, 150); //note: Time at here must be equal or more a bit than animation-duration
-      }
-    };
-    //#endregion
+  //#region Event
+  const handleRemove = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (isLastItem) onRemove(event);
+    else {
+      setTrigger(true);
+      setTimeout(() => {
+        onRemove(event);
+      }, 150); //note: Time at here must be equal or more a bit than animation-duration
+    }
+  };
+  //#endregion
 
-    //#region Render
-    return (
-      <Tooltip key={file.id} title={file.name} arrow>
-        <div
-          className={classNames(
-            "c-upload--preview-box",
-            trigger && "trigger-animation"
-          )}
-        >
-          <img src={file.url} className="c-upload--preview-image" />
-          <div className="c-upload--preview-backdrop">
-            <div className="c-upload--preview-actions">
-              <IconButton size="small" onClick={onView}>
-                <Visibility fontSize="small" />
-              </IconButton>
-              <IconButton size="small" onClick={handleRemove}>
-                <Close fontSize="small" />
-              </IconButton>
-            </div>
+  //#region Render
+  return (
+    <Tooltip key={file.id} title={file.name} arrow>
+      <div
+        className={classNames(
+          "c-upload--preview-box",
+          trigger && "trigger-animation"
+        )}
+      >
+        <img src={file.url} className="c-upload--preview-image" />
+        <div className="c-upload--preview-backdrop">
+          <div className="c-upload--preview-actions">
+            <IconButton size="small" onClick={onView}>
+              <Visibility fontSize="small" />
+            </IconButton>
+            <IconButton size="small" onClick={handleRemove}>
+              <Close fontSize="small" />
+            </IconButton>
           </div>
         </div>
-      </Tooltip>
-    );
-    //#endregion
-  }
-);
+      </div>
+    </Tooltip>
+  );
+  //#endregion
+};

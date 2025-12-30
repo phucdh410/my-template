@@ -1,11 +1,9 @@
-import { memo } from "react";
-
 import { TableCell } from "@mui/material";
 import classNames from "classnames";
 
 import { ICCellProps } from "./types";
 
-const Cell = ({
+export const CTableCell = ({
   align = "center",
   className,
   pin,
@@ -48,5 +46,3 @@ const Cell = ({
     </TableCell>
   );
 };
-
-export const CTableCell = memo(Cell);

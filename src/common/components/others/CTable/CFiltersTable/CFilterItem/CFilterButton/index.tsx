@@ -1,4 +1,4 @@
-import { memo, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 
 import { AddCircleOutline, RemoveCircleOutline } from "@mui/icons-material";
 import { Button } from "@mui/material";
@@ -9,7 +9,7 @@ interface ICFilterButtonProps extends PropsWithChildren {
   onClear: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }
 
-const UnHOCComponent: React.FC<ICFilterButtonProps> = ({
+export const CFilterButton: React.FC<ICFilterButtonProps> = ({
   children,
   isExistValue,
   onClick,
@@ -32,5 +32,3 @@ const UnHOCComponent: React.FC<ICFilterButtonProps> = ({
     </Button>
   );
 };
-
-export const CFilterButton = memo(UnHOCComponent);

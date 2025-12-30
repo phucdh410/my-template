@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { Stack } from "@mui/material";
 
 import { CButton } from "@/components/controls";
@@ -14,16 +12,13 @@ export const CFiltersTable = <T extends object>({
   filters,
 }: ICFiltersTableProps<T>) => {
   //#region Event
-  const onReset = useCallback(() => {
+  const onReset = () => {
     filters.onFiltersChange?.(filters.initialValues);
-  }, [filters.initialValues, filters.onFiltersChange]);
+  };
 
-  const handleFilterItemChange = useCallback(
-    (key: keyof T, value: any) => {
-      filters.onFiltersChange({ ...filters.values, [key]: value });
-    },
-    [filters.values, filters.onFiltersChange]
-  );
+  const handleFilterItemChange = (key: keyof T, value: any) => {
+    filters.onFiltersChange({ ...filters.values, [key]: value });
+  };
   //#endregion
 
   //#region Render

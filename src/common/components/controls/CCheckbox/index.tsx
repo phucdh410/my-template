@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from "react";
+import { forwardRef } from "react";
 
 import { Checkbox, FormControlLabel } from "@mui/material";
 import classNames from "classnames";
@@ -8,17 +8,14 @@ import { ICCheckboxProps, ICCheckboxRef } from "./types";
 export const CCheckbox = forwardRef<ICCheckboxRef, ICCheckboxProps>(
   ({ label, value, onChange, className, isIndeterminate }, ref) => {
     //#region Event
-    const onInputChange = useCallback(
-      (
-        event:
-          | React.ChangeEvent<HTMLInputElement>
-          | React.SyntheticEvent<Element, Event>,
-        checked: boolean
-      ) => {
-        onChange?.(checked, event);
-      },
-      [onChange]
-    );
+    const onInputChange = (
+      event:
+        | React.ChangeEvent<HTMLInputElement>
+        | React.SyntheticEvent<Element, Event>,
+      checked: boolean
+    ) => {
+      onChange?.(checked, event);
+    };
     //#endregion
 
     //#region Render

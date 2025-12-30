@@ -1,5 +1,3 @@
-import { memo, useCallback } from "react";
-
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
 
@@ -8,7 +6,7 @@ import { ICPaginationTableProps } from "./types";
 
 import "./styles.scss";
 
-const PaginationTable = ({
+export const CPaginationTable = ({
   page = 1,
   pages = 0,
   limit,
@@ -17,13 +15,13 @@ const PaginationTable = ({
   onLimitChange,
 }: ICPaginationTableProps) => {
   //#region Event
-  const onPrev = useCallback(() => {
+  const onPrev = () => {
     onPageChange?.(page - 1);
-  }, [page, onPageChange]);
+  };
 
-  const onNext = useCallback(() => {
+  const onNext = () => {
     onPageChange?.(page + 1);
-  }, [page, onPageChange]);
+  };
   //#endregion
 
   //#region Render
@@ -72,5 +70,3 @@ const PaginationTable = ({
   );
   //#endregion
 };
-
-export const CPaginationTable = memo(PaginationTable);

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useRef } from "react";
+import { Fragment, useRef } from "react";
 
 import {
   Box,
@@ -65,7 +65,7 @@ export const CTable = <
   //#endregion
 
   //#region Event
-  const renderValue = useCallback((value: any, columnType?: TColumnTypes) => {
+  const renderValue = (value: any, columnType?: TColumnTypes) => {
     if (value === null) return "";
 
     if (columnType) {
@@ -82,17 +82,17 @@ export const CTable = <
     } else {
       return value;
     }
-  }, []);
+  };
 
-  const onTableSroll = useCallback(() => {
+  const onTableSroll = () => {
     const headerEl = headerContainerRef.current;
     const bodyEl = bodyContainerRef.current;
     if (headerEl && bodyEl) {
       headerEl.scrollLeft = bodyEl.scrollLeft;
     }
-  }, []);
+  };
 
-  const renderColGroup = useCallback(() => {
+  const renderColGroup = () => {
     return (
       <colgroup>
         {selectable && (
@@ -111,7 +111,7 @@ export const CTable = <
         ))}
       </colgroup>
     );
-  }, [selectable, columns, widthCols]);
+  };
   //#endregion
 
   //#region Render
