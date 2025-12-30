@@ -3,10 +3,6 @@ import path from "path";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
-const ReactCompilerConfig = {
-  /* ... */
-};
-
 // Uncomment below while using proxy
 // const env = loadEnv(process.env.NODE_ENV as string, process.cwd(), "VITE_");
 
@@ -26,7 +22,7 @@ export default defineConfig({
     svgr(),
     react({
       babel: {
-        plugins: [["babel-plugin-react-compiler", ReactCompilerConfig]],
+        plugins: ["babel-plugin-react-compiler"],
       },
     }),
   ],

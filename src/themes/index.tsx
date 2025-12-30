@@ -393,7 +393,7 @@ theme = createTheme(theme, {
     MuiDateCalendar: {
       defaultProps: {
         slots: {
-          // switchViewIcon: ExpandMore,
+          switchViewIcon: ExpandMore,
         },
       },
     },
