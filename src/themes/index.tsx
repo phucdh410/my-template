@@ -393,7 +393,7 @@ theme = createTheme(theme, {
     MuiDateCalendar: {
       defaultProps: {
         slots: {
-          switchViewIcon: ExpandMore,
+          // switchViewIcon: ExpandMore,
         },
       },
     },
@@ -460,8 +460,8 @@ theme = createTheme(theme, {
       },
     },
     //#endregion
-    //#region PickersPopper
-    MuiPickersPopper: {
+    //#region PickerPopper
+    MuiPickerPopper: {
       styleOverrides: {
         paper: {
           borderRadius: "18px",
