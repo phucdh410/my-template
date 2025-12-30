@@ -10,7 +10,9 @@ export const CONTAINER_PADDING_X = { xs: 2, md: 4, lg: 5, "2xl": 6 };
 export const CONTAINER_PADDING_Y = { xs: 2, lg: 3 };
 
 export const INPUT__BORDER_RADIUS = "8px";
-export const INPUT__PADDING = "10px 14px";
+export const INPUT__PADDING_INLINE = "14px";
+export const INPUT__PADDING_BLOCK = "10px";
+export const INPUT__PADDING = `${INPUT__PADDING_BLOCK} ${INPUT__PADDING_INLINE}`; // shorthand for above block and inline padding
 export const INPUT__LINE_HEIGHT = 1.5;
 export const INPUT__LEGEND_PADDING = "0px 14px";
 export const INPUT__LEGEND_FONT_SIZE = "0.8rem";

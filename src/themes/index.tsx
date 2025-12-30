@@ -8,6 +8,7 @@ import {
   INPUT__LEGEND_FONT_SIZE,
   INPUT__LINE_HEIGHT,
   INPUT__PADDING,
+  INPUT__PADDING_BLOCK,
   INPUT__TRANSFORM_INITIAL,
   INPUT__TRANSFORM_SHRINK,
   SIDEBAR__ACTIVE_COLOR,
@@ -377,8 +378,8 @@ theme = createTheme(theme, {
     MuiPickersSectionList: {
       styleOverrides: {
         root: {
-          paddingBlock: "10px !important",
-          lineHeight: "1.5 !important",
+          paddingBlock: `${INPUT__PADDING_BLOCK} !important`,
+          lineHeight: `${INPUT__LINE_HEIGHT} !important`,
         },
         section: {
           lineHeight: "inherit !important",
